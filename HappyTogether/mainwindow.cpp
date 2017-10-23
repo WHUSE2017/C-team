@@ -2,8 +2,12 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <iostream>
+#include <QFileDialog>
 
 #include "logindialog.h"
+#include "personaldatadialog.h"
+#include "messagedialog.h"
+#include "detaildialog.h"
 
 using namespace std;
 
@@ -39,42 +43,69 @@ MainWindow::MainWindow(QWidget *parent) :
     menu_H->addAction(aboutAction);
 
     // 第一行布局：用户名和注销按钮
+    QPixmap image; //定义一张图片
+    image.load("images/avatar.jpg");//加载
+    avatar->clear();//清空
+    avatar->setPixmap(image);//加载到Label标签
+    avatar->show();//显示
+    avatar->setMaximumHeight(80);
+    avatar->setMaximumWidth(80);
+    mainLayout->addWidget(avatar,0,2,1,1);
     userName->setText("C++Team");
-    userName->setAlignment(Qt::AlignHCenter);
-    mainLayout->addWidget(userName,0,0,1,4);
+    //userName->setAlignment(Qt::AlignCenter);
+    userName->setMinimumHeight(100);
+    mainLayout->addWidget(userName,0,3,1,1);
 
     startLabel->setText("始发地：");
     mainLayout->addWidget(startLabel,1,0,1,1);
-    mainLayout->addWidget(start,1,1,1,1);
+    mainLayout->addWidget(start,1,1,1,2);
     timeLabel->setText("出发时间：");
-    mainLayout->addWidget(timeLabel,1,2,1,1);
-    mainLayout->addWidget(time,1,3,1,1);
+    mainLayout->addWidget(timeLabel,1,3,1,1);
+    mainLayout->addWidget(time,1,4,1,2);
 
     endLabel->setText("目的地：");
     mainLayout->addWidget(endLabel,2,0,1,1);
-    mainLayout->addWidget(end,2,1,1,1);
+    mainLayout->addWidget(end,2,1,1,2);
     typeLabel->setText("玩耍方式：");
-    mainLayout->addWidget(typeLabel,2,2,1,1);
+    mainLayout->addWidget(typeLabel,2,3,1,1);
     type->addItem("电影");
     type->addItem("骑自行车");
     type->addItem("旅游");
-    mainLayout->addWidget(type,2,3,1,1);
+    mainLayout->addWidget(type,2,4,1,2);
 
     searchBtn->setText("搜索");
-    mainLayout->addWidget(searchBtn,3,3,1,1);
+    mainLayout->addWidget(searchBtn,3,5,1,1);
     publishBtn->setText("发布");
-    mainLayout->addWidget(publishBtn,3,2,1,1);
+    mainLayout->addWidget(publishBtn,3,4,1,1);
 
     // 反馈信息
-    mainLayout->addWidget(messageWidget, 4, 0, 1, 4);
+    mainLayout->addWidget(messageWidget, 4, 0, 1, 6);
 
     ui->centralWidget->setLayout(mainLayout);
 
     connect(searchBtn, &QPushButton::clicked, this, &MainWindow::search);
     connect(menu_O,SIGNAL(triggered()),this,SLOT(off()));
-    connect(menu_D,SIGNAL(triggered()),this,SLOT(off()));
-    connect(menu_M,SIGNAL(triggered()),this,SLOT(off()));
+    connect(menu_D,SIGNAL(triggered()),this,SLOT(PersonalData()));
+    connect(menu_M,SIGNAL(triggered()),this,SLOT(on_messageBtn_clicked()));
     connect(menu_I,SIGNAL(triggered()),this,SLOT(off()));
+}
+
+void MainWindow::on_detailBtn_clicked()
+{
+    DetailDialog *detailDlg = new DetailDialog;
+    detailDlg->show();
+}
+
+void MainWindow::on_messageBtn_clicked()
+{
+    MessageDialog *messageDlg = new MessageDialog;
+    messageDlg->show();
+}
+
+void MainWindow::PersonalData()
+{
+    PersonalDataDialog *personalDataDlg = new PersonalDataDialog;
+    personalDataDlg->show();
 }
 
 void MainWindow::personal()
@@ -121,7 +152,7 @@ void MainWindow::search()
         remark->setLayout(layout);
 
         connect(joinBtn, &QPushButton::clicked, this, &MainWindow::join);
-
+        connect(detailBtn, &QPushButton::clicked, this, &MainWindow::on_detailBtn_clicked);
 
         if(item0) {
             item0->setFlags((item0->flags()&(~Qt::ItemIsEditable)));
@@ -161,6 +192,9 @@ void MainWindow::search()
 
 void MainWindow::off()
 {
+    QMessageBox::information(this, tr(""),
+                tr("确定要注销当前用户？"),
+                QMessageBox::tr("确定"));
     LoginDialog *loginDlg = new LoginDialog;
     this->hide();
     loginDlg->show();

@@ -9,6 +9,7 @@
 #include <QTextEdit>
 #include "registerdialog.h"
 #include "mainwindow.h"
+#include <QCheckBox>
 
 namespace Ui {
 class LoginDialog;
@@ -33,6 +34,7 @@ private:
     QLineEdit *verify = new QLineEdit(this);
     QLabel *verifyCode = new QLabel(this);      // 获取的验证码
     int verifyNumber;
+    QCheckBox *rememberPwd = new QCheckBox(this);
     QPushButton *loginBtn = new QPushButton(this);
     QPushButton *registerBtn = new QPushButton(this);
     QGridLayout *loginLayout = new QGridLayout(this);

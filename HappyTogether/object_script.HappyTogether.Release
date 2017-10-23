@@ -1,0 +1,15 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\logindialog.o
+./release\registerdialog.o
+./release\detaildialog.o
+./release\personaldatadialog.o
+./release\messagedialog.o
+./release\moc_mainwindow.o
+./release\moc_logindialog.o
+./release\moc_registerdialog.o
+./release\moc_detaildialog.o
+./release\moc_personaldatadialog.o
+./release\moc_messagedialog.o
+);

@@ -38,6 +38,8 @@ private:
     QPushButton *searchBtn = new QPushButton(this);
     QPushButton *publishBtn = new QPushButton(this);
 
+    //QImage *image = new QImage(this);
+    QLabel *avatar = new QLabel(this);
     QLabel *userName = new QLabel(this);
 
     QTableWidget *messageWidget = new QTableWidget(this);
@@ -47,6 +49,9 @@ private slots:
     void off();
     void personal();
     void join();
+    void PersonalData();
+    void on_messageBtn_clicked();
+    void on_detailBtn_clicked();
 };
 
 #endif // MAINWINDOW_H
