@@ -9,6 +9,7 @@
 #include <QTextEdit>
 #include <QComboBox>
 #include <QTableWidget>
+#include <QDateEdit>
 
 namespace Ui {
 class MainWindow;
@@ -31,7 +32,7 @@ private:
     QLabel *endLabel = new QLabel(this);
     QLineEdit *end = new QLineEdit(this);
     QLabel *timeLabel = new QLabel(this);
-    QLineEdit *time = new QLineEdit(this);
+    QDateEdit *dateTime = new QDateEdit(this);
     QLabel *typeLabel = new QLabel(this);
     QComboBox *type = new QComboBox(this);
 
@@ -52,6 +53,9 @@ private slots:
     void PersonalData();
     void on_messageBtn_clicked();
     void on_detailBtn_clicked();
+    void on_publishBtn_clicked();
+    void on_inviteBtn_clicked();
+    bool judge();
 };
 
 #endif // MAINWINDOW_H

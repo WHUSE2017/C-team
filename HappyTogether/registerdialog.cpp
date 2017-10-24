@@ -47,16 +47,20 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
     registerLayout->addWidget(email,5,1,1,2);
     QQLabel->setText("QQ：");
     registerLayout->addWidget(QQLabel,6,0,1,1);
+    QQ->setPlaceholderText("请输入QQ号");
     registerLayout->addWidget(QQ,6,1,1,2);
 
     studentIdLabel->setText("学号：");
     registerLayout->addWidget(studentIdLabel,7,0,1,1);
+    studentId->setPlaceholderText("请输入有效的学号");
     registerLayout->addWidget(studentId,7,1,1,2);
     universityLabel->setText("学校：");
     registerLayout->addWidget(universityLabel,8,0,1,1);
+    university->setPlaceholderText("请输入学校");
     registerLayout->addWidget(university,8,1,1,2);
     locateAreaLabel->setText("地区：");
     registerLayout->addWidget(locateAreaLabel,9,0,1,1);
+    locateArea->setPlaceholderText("请输入地区");
     registerLayout->addWidget(locateArea,9,1,1,2);
     imageLabel->setText("头像：");
     registerLayout->addWidget(imageLabel,10,0,1,1);

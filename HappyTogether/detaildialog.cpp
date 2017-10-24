@@ -65,13 +65,13 @@ void DetailDialog::search()
 {
     messageWidget->setColumnCount(6);
     messageWidget->setRowCount(12);   // 设置题目占的行数
-    messageWidget->setHorizontalHeaderLabels(QStringList() << tr("发布人") << tr("人数") << tr("始发地")<< tr("目的地") << tr("出发时间") << tr("备注"));    // 设置列名
+    messageWidget->setHorizontalHeaderLabels(QStringList() << tr("用户名") << tr("性别") << tr("学校")<< tr("游玩次数") << tr("电话") << tr("tag"));    // 设置列名
     messageWidget->setColumnWidth(4, 160);
     messageWidget->setColumnWidth(5, 160);
     messageWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
 
-    for(int i = 0; i < 12; i++)
+    for(int i = 0; i < 10; i++)
     {
         messageWidget->setRowHeight(i,50);
         QTableWidgetItem *item0 = messageWidget->item(i,0); // 发布人
@@ -85,10 +85,10 @@ void DetailDialog::search()
         QGridLayout *layout = new QGridLayout(this);
         // 创建QPushButton控件
         QPushButton *joinBtn = new QPushButton(this);
-        joinBtn->setText("加入");
+        joinBtn->setText("活泼");
         layout->addWidget(joinBtn,0,0,1,1);
         QPushButton *detailBtn = new QPushButton(this);
-        detailBtn->setText("详情");
+        detailBtn->setText("爱笑");
         layout->addWidget(detailBtn,0,1,1,1);
         remark->setLayout(layout);
 
@@ -102,22 +102,22 @@ void DetailDialog::search()
             messageWidget->setItem(i, 0, item0);
 
             item1 = new QTableWidgetItem;
-            item1->setText(QString("%1人").arg(i));
+            item1->setText(QString("男"));
             item1->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 1, item1);
 
             item2 = new QTableWidgetItem;
-            item2->setText(QString("武汉%1").arg(i));
+            item2->setText(QString("武汉大学"));
             item2->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 2, item2);
 
             item3 = new QTableWidgetItem;
-            item3->setText(QString("重庆%1").arg(i));
+            item3->setText(QString("%1次").arg(i));
             item3->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 3, item3);
 
             item4 = new QTableWidgetItem;
-            item4->setText(QString("2017/10/1%1").arg(i));
+            item4->setText(QString("1871277%132").arg(i));
             item4->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 4, item4);
 

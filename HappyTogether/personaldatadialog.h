@@ -7,6 +7,7 @@
 #include <QGridLayout>
 #include <QLineEdit>
 #include <QTextEdit>
+#include <QComboBox>
 
 
 namespace Ui {
@@ -32,7 +33,6 @@ private:
     QLabel *sexLabel = new QLabel(this);
     QLabel *emailLabel = new QLabel(this);
     QLabel *phoneLabel = new QLabel(this);
-    QLineEdit *sex = new QLineEdit(this);
     QLineEdit *email = new QLineEdit(this);
     QLineEdit *phone = new QLineEdit(this);
     QLabel *selfTagLabel = new QLabel(this);
@@ -48,6 +48,9 @@ private:
     QLineEdit *university = new QLineEdit(this);
     QLabel *locateAreaLabel = new QLabel(this);
     QLineEdit *locateArea = new QLineEdit(this);
+    QComboBox *sexType = new QComboBox(this);
+    QLabel *playTimeLabel = new QLabel(this);
+    QLabel *playTime = new QLabel(this);
 
     QPushButton *confirmBtn = new QPushButton(this);    //确认
     QPushButton *changeBtn = new QPushButton(this);     //修改资料
