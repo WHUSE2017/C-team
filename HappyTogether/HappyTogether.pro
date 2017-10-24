@@ -26,12 +26,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     logindialog.cpp \
-    registerdialog.cpp
+    registerdialog.cpp \
+    detaildialog.cpp \
+    personaldatadialog.cpp \
+    messagedialog.cpp
 
 HEADERS  += mainwindow.h \
     logindialog.h \
-    registerdialog.h
+    registerdialog.h \
+    detaildialog.h \
+    personaldatadialog.h \
+    messagedialog.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
-    registerdialog.ui
+    registerdialog.ui \
+    detaildialog.ui \
+    personaldatadialog.ui \
+    messagedialog.ui
+
+RC_ICONS = arithmetic.ico
+

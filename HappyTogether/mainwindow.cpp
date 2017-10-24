@@ -2,8 +2,13 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <iostream>
+#include <QFileDialog>
 
 #include "logindialog.h"
+#include "personaldatadialog.h"
+#include "messagedialog.h"
+#include "detaildialog.h"
+#include <QDateEdit>
 
 using namespace std;
 
@@ -18,6 +23,13 @@ MainWindow::MainWindow(QWidget *parent) :
     font.setPointSize(20);
     font.setFamily(("simsun"));
     this->setFont(font);
+
+
+    QFile qssFile("style/base.qss");
+    qssFile.open(QFile::ReadOnly);
+    QString qss;
+    qss = qssFile.readAll();
+    this->setStyleSheet(qss);
 
     // 创建注销菜单
     QAction *menu_O = ui->menuBar->addAction(tr("注销(&O)"));
@@ -39,42 +51,95 @@ MainWindow::MainWindow(QWidget *parent) :
     menu_H->addAction(aboutAction);
 
     // 第一行布局：用户名和注销按钮
-    userName->setText("C++Team");
-    userName->setAlignment(Qt::AlignHCenter);
-    mainLayout->addWidget(userName,0,0,1,4);
+    QPixmap image; //定义一张图片
+    image.load("images/avatar.jpg");//加载
+    avatar->clear();//清空
+    avatar->setPixmap(image);//加载到Label标签
+    avatar->show();//显示
+    avatar->setMaximumHeight(80);
+    avatar->setMaximumWidth(80);
+    mainLayout->addWidget(avatar,0,2,1,1);
+    userName->setText("  西瓜");
+    //userName->setAlignment(Qt::AlignCenter);
+    userName->setMinimumHeight(100);
+    mainLayout->addWidget(userName,0,3,1,1);
 
     startLabel->setText("始发地：");
     mainLayout->addWidget(startLabel,1,0,1,1);
-    mainLayout->addWidget(start,1,1,1,1);
+    mainLayout->addWidget(start,1,1,1,2);
     timeLabel->setText("出发时间：");
-    mainLayout->addWidget(timeLabel,1,2,1,1);
-    mainLayout->addWidget(time,1,3,1,1);
+    dateTime->setCalendarPopup(true);
+    dateTime->setDateTime(QDateTime::currentDateTime());
+    mainLayout->addWidget(timeLabel,1,3,1,1);
+    mainLayout->addWidget(dateTime,1,4,1,2);
 
     endLabel->setText("目的地：");
     mainLayout->addWidget(endLabel,2,0,1,1);
-    mainLayout->addWidget(end,2,1,1,1);
+    mainLayout->addWidget(end,2,1,1,2);
     typeLabel->setText("玩耍方式：");
-    mainLayout->addWidget(typeLabel,2,2,1,1);
+    mainLayout->addWidget(typeLabel,2,3,1,1);
     type->addItem("电影");
     type->addItem("骑自行车");
     type->addItem("旅游");
-    mainLayout->addWidget(type,2,3,1,1);
+    mainLayout->addWidget(type,2,4,1,2);
 
     searchBtn->setText("搜索");
-    mainLayout->addWidget(searchBtn,3,3,1,1);
+    mainLayout->addWidget(searchBtn,3,5,1,1);
     publishBtn->setText("发布");
-    mainLayout->addWidget(publishBtn,3,2,1,1);
+    mainLayout->addWidget(publishBtn,3,4,1,1);
 
     // 反馈信息
-    mainLayout->addWidget(messageWidget, 4, 0, 1, 4);
+    mainLayout->addWidget(messageWidget, 4, 0, 1, 6);
 
     ui->centralWidget->setLayout(mainLayout);
 
     connect(searchBtn, &QPushButton::clicked, this, &MainWindow::search);
     connect(menu_O,SIGNAL(triggered()),this,SLOT(off()));
-    connect(menu_D,SIGNAL(triggered()),this,SLOT(off()));
-    connect(menu_M,SIGNAL(triggered()),this,SLOT(off()));
-    connect(menu_I,SIGNAL(triggered()),this,SLOT(off()));
+    connect(menu_D,SIGNAL(triggered()),this,SLOT(PersonalData()));
+    connect(menu_M,SIGNAL(triggered()),this,SLOT(on_messageBtn_clicked()));
+    connect(menu_I,SIGNAL(triggered()),this,SLOT(on_inviteBtn_clicked()));
+    connect(publishBtn,&QPushButton::clicked,this,&MainWindow::on_publishBtn_clicked);
+}
+
+
+void MainWindow::on_inviteBtn_clicked()
+{
+    QMessageBox::information(this, tr("邀请码"),
+                tr("456452"),
+                QMessageBox::tr("确定"));
+}
+
+void MainWindow::on_publishBtn_clicked()
+{
+    if(judge() == false) return ;
+    QMessageBox mb(QMessageBox::Warning, "","确定要发布当前的组团信息？");
+    mb.setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+    mb.setButtonText (QMessageBox::Ok,QString("确 定"));
+    mb.setButtonText (QMessageBox::Cancel,QString("取 消"));
+    if(mb.exec() == QMessageBox::Ok)
+    {
+        QMessageBox::information(this, tr(""),
+                    tr("发布成功！"),
+                    QMessageBox::tr("确定"));
+    }
+}
+
+void MainWindow::on_detailBtn_clicked()
+{
+    DetailDialog *detailDlg = new DetailDialog;
+    detailDlg->show();
+}
+
+void MainWindow::on_messageBtn_clicked()
+{
+    MessageDialog *messageDlg = new MessageDialog;
+    messageDlg->show();
+}
+
+void MainWindow::PersonalData()
+{
+    PersonalDataDialog *personalDataDlg = new PersonalDataDialog;
+    personalDataDlg->show();
 }
 
 void MainWindow::personal()
@@ -89,8 +154,32 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+bool MainWindow::judge()
+{
+    if(start->text() == NULL) {
+        QMessageBox::information(this, tr(""),
+                    tr("出发地不能为空"),
+                    QMessageBox::tr("确定"));
+        return false;
+    }
+    if(end->text() == NULL) {
+        QMessageBox::information(this, tr(""),
+                    tr("目的地不能为空"),
+                    QMessageBox::tr("确定"));
+        return false;
+    }
+    if(dateTime->text() == NULL) {
+        QMessageBox::information(this, tr(""),
+                    tr("出发时间不能为空"),
+                    QMessageBox::tr("确定"));
+        return false;
+    }
+    return true;
+}
+
 void MainWindow::search()
 {
+    if(judge() == false) return ;
     messageWidget->setColumnCount(6);
     messageWidget->setRowCount(12);   // 设置题目占的行数
     messageWidget->setHorizontalHeaderLabels(QStringList() << tr("发布人") << tr("人数") << tr("始发地")<< tr("目的地") << tr("出发时间") << tr("备注"));    // 设置列名
@@ -121,7 +210,7 @@ void MainWindow::search()
         remark->setLayout(layout);
 
         connect(joinBtn, &QPushButton::clicked, this, &MainWindow::join);
-
+        connect(detailBtn, &QPushButton::clicked, this, &MainWindow::on_detailBtn_clicked);
 
         if(item0) {
             item0->setFlags((item0->flags()&(~Qt::ItemIsEditable)));
@@ -138,17 +227,17 @@ void MainWindow::search()
             messageWidget->setItem(i, 1, item1);
 
             item2 = new QTableWidgetItem;
-            item2->setText(QString("武汉%1").arg(i));
+            item2->setText(start->text());
             item2->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 2, item2);
 
             item3 = new QTableWidgetItem;
-            item3->setText(QString("重庆%1").arg(i));
+            item3->setText(end->text());
             item3->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 3, item3);
 
             item4 = new QTableWidgetItem;
-            item4->setText(QString("2017/10/1%1").arg(i));
+            item4->setText(dateTime->text());
             item4->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 4, item4);
 
@@ -161,9 +250,16 @@ void MainWindow::search()
 
 void MainWindow::off()
 {
-    LoginDialog *loginDlg = new LoginDialog;
-    this->hide();
-    loginDlg->show();
+    QMessageBox mb(QMessageBox::Warning, "","确定要注销当前用户？");
+    mb.setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+    mb.setButtonText (QMessageBox::Ok,QString("确 定"));
+    mb.setButtonText (QMessageBox::Cancel,QString("取 消"));
+    if(mb.exec() == QMessageBox::Ok)
+    {
+        LoginDialog *loginDlg = new LoginDialog;
+        this->hide();
+        loginDlg->show();
+    }
 }
 
 void MainWindow::join()
