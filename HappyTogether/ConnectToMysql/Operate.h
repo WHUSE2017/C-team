@@ -1,12 +1,17 @@
 #pragma once
 #include"SQLStruct.h"
+#include"stdafx.h"
 #include<vector>
+
 
 class Operate {
 public:
 	Operate();
 
-	bool InsertIntoUserTable(userStruct user);
+	string IntToString(int variable);
+	int StringToInt(string variable);
+
+	bool InsertIntoUserTable(userStruct User);
 	bool InsertIntoEventNameTable(EventNameStruct Event);
 	bool InsertIntoEventDetailsTable(EventDetailsStruct Event);
 	bool InsertIntoStationMessageable(StationMessageStruct StationMessage);
@@ -16,4 +21,6 @@ public:
 	vector<EventDetailsStruct> GetEvent(string StartSite, string EndSite, string StartTime);
 	vector<StationMessageStruct> GetMessageBySender(string SenderName);
 	vector<StationMessageStruct> GetMessageByReceiver(string ReceiverName);
+public:
+	MYSQL mydata;
 };

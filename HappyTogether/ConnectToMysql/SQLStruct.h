@@ -4,7 +4,7 @@ using namespace std;
 struct userStruct {
 	string UserName;
 	string PassWord;
-	string StudentId;
+	int StudentId;
 	string Gender;
 	string Image;
 	string UserQQ;
@@ -31,7 +31,6 @@ struct EventDetailsStruct {
 	int PeersNUmber;
 	int Success;
 };
-
 
 struct StationMessageStruct {
 	string SenderName;
