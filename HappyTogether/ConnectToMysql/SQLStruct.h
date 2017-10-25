@@ -32,6 +32,7 @@ struct EventDetailsStruct {
 	int Success;
 };
 
+
 struct StationMessageStruct {
 	string SenderName;
 	string ReceiverName;

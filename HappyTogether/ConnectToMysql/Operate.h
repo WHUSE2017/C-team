@@ -2,7 +2,6 @@
 #include"SQLStruct.h"
 #include<vector>
 
-
 class Operate {
 public:
 	Operate();
