@@ -28,7 +28,7 @@ struct EventDetailsStruct {
 	string StartSite;
 	string EndSite;
 	string StartTime;
-	int PeersNUmber;
+	int PeersNumber;
 	int Success;
 };
 

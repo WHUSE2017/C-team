@@ -46,32 +46,93 @@ bool Operate::InsertIntoUserTable(userStruct User) {
 	}
 }
 
-/*
 bool Operate::InsertIntoEventNameTable(EventNameStruct Event)
 {
-
+	string sqlstr;
+	//向表中插入数据  
+	sqlstr =
+		"INSERT INTO EventName VALUES(null," + Event.EventType + "," + Event.PlaySite + "," + Event.Arrival + ");";
+	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 bool Operate::InsertIntoEventDetailsTable(EventDetailsStruct Event)
 {
-
+	string sqlstr;
+	//向表中插入数据  
+	sqlstr =
+		"INSERT INTO EventDetails VALUES(null," + IntToString (Event.UserId) + "," + Event.Publisher + "," + Event.StartSite + "," + Event.EndSite + "," + Event.StartTime + "," +IntToString( Event.PeersNumber) + ", " +IntToString (Event.Success)+ ");";
+	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 bool Operate::InsertIntoStationMessageable(StationMessageStruct StationMessage)
 {
-
+	string sqlstr;
+	//向表中插入数据  
+	sqlstr =
+		"INSERT INTO StationMessage VALUES(null," + StationMessage.SenderName + "," + StationMessage.ReceiverName + "," + StationMessage.Message + "," + StationMessage.Time + ");";
+	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 string Operate::GetPasswordFromUserTable(string username)
 {
-
+	MYSQL_RES *result;
+	MYSQL_ROW sql_row;
+	string sqlstr; 
+	sqlstr =
+		"select PassWord from user where UserName =" + username + "";
+	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
+		result = mysql_store_result(&mydata);
+		sql_row = mysql_fetch_row(result);
+		return sql_row[0];
+	}
+	else {
+		return NULL;
+	}
 }
 
-vector<userStruct> Operate::GetUserDetails(string username)
+
+userStruct Operate::GetUserDetails(string username)
 {
-
+	userStruct us;
+	MYSQL_RES *result;
+	MYSQL_ROW sql_row;
+	string sqlstr;
+	sqlstr =
+		"select UserName,StudentId,Gender,PassWord,Image,UserQQ,Phone,Email,Univercity,LocateArea,SelfTag,PlayTime from user where UserName =" + username + "";
+	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
+		result = mysql_store_result(&mydata);
+		sql_row = mysql_fetch_row(result);
+		us.UserName = sql_row[0];
+		us.StudentId = StringToInt(sql_row[1]);
+		us.Gender = sql_row[2];
+		us.PassWord = sql_row[3];
+		us.Image = sql_row[4];
+		us.UserQQ = sql_row[5];
+		us.Phone = StringToInt(sql_row[6]);
+		us.Email = sql_row[7];
+		us.University = sql_row[8];
+		us.LocateArea = sql_row[9];
+		us.SelfTag = sql_row[10];
+		us.PlayTime = StringToInt(sql_row[11]);
+	}
+	return us;
 }
-
+/*
 vector<EventDetailsStruct> Operate::GetEvent(string StartSite, string EndSite, string StartTime)
 {
 
