@@ -6,6 +6,7 @@ INPUT(
 ./debug\detaildialog.o
 ./debug\personaldatadialog.o
 ./debug\messagedialog.o
+./debug\globalvariable.o
 ./debug\moc_mainwindow.o
 ./debug\moc_logindialog.o
 ./debug\moc_registerdialog.o

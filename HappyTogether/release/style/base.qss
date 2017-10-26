@@ -1,15 +1,10 @@
-/**********子界面背景**********/
-QWidget{
-        background: rgb(173, 202, 232);
-}
-
 /**********子界面中央背景**********/
 QWidget#centerWidget {
         background: rgb(232, 241, 252);
 }
 
 /**********主界面样式**********/
-QWidget#mainWindow {
+QWidget#MainWindow {
         border: 1px solid rgb(111, 156, 207);
         background: rgb(232, 241, 252);
 }
@@ -105,12 +100,11 @@ QMenu::icon {
         padding-left: 2px;
         padding-right: 2px;
 }
-QLabel {
-    color:#4a4a4a;
-}
 
 QPushButton {
-    background-color:#3dce3d;
+    background-color:blue;
     color:white;
-    border:0px;
+    border:2px groove gray;
+    border-radius:10px;
+    padding:2px 4px;
 }

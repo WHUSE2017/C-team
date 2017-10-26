@@ -10,6 +10,11 @@
 #include "registerdialog.h"
 #include "mainwindow.h"
 #include <QCheckBox>
+#include <string>
+#include <cstring>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 namespace Ui {
 class LoginDialog;
@@ -23,16 +28,21 @@ public:
     explicit LoginDialog(QWidget *parent = 0);
     ~LoginDialog();
 
+signals:
+    void clicked(LoginDialog* clicked);
+protected:
+    void mouseReleaseEvent( QMouseEvent* );
+
 private:
     Ui::LoginDialog *ui;
 
     QLabel *nameLabel = new QLabel(this);
     QLabel *pwdLabel = new QLabel(this);
-    QLineEdit *userName = new QLineEdit(this);
-    QLineEdit *userPwd = new QLineEdit(this);
+    QLineEdit *userName = new QLineEdit(this);  //用户名称
+    QLineEdit *userPwd = new QLineEdit(this);   //登陆密码
     QLabel *verifyLabel = new QLabel(this);
-    QLineEdit *verify = new QLineEdit(this);
-    QLabel *verifyCode = new QLabel(this);      // 获取的验证码
+    QLineEdit *verifyCode = new QLineEdit(this);    //验证码
+    QPushButton *verify = new QPushButton(this);      //系统生成的验证码
     int verifyNumber;
     QCheckBox *rememberPwd = new QCheckBox(this);
     QPushButton *loginBtn = new QPushButton(this);
@@ -45,6 +55,7 @@ private:
 private slots:
     void on_loginBtn_clicked();
     void on_registerBtn_clicked();
+    void on_verifyCodeBtn_clicked();
 };
 #endif // LOGINDIALOG_H
 

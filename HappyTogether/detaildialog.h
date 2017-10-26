@@ -26,13 +26,13 @@ private:
     Ui::DetailDialog *ui;
     QGridLayout *mainLayout = new QGridLayout(this);
     QLabel *startLabel = new QLabel(this);
-    QLineEdit *start = new QLineEdit(this);
+    QLabel *start = new QLabel(this);
     QLabel *endLabel = new QLabel(this);
-    QLineEdit *end = new QLineEdit(this);
+    QLabel *end = new QLabel(this);
     QLabel *timeLabel = new QLabel(this);
-    QLineEdit *time = new QLineEdit(this);
+    QLabel *time = new QLabel(this);
     QLabel *typeLabel = new QLabel(this);
-    QComboBox *type = new QComboBox(this);
+    QLabel *type = new QLabel(this);
 
     //QImage *image = new QImage(this);
     QLabel *avatar = new QLabel(this);

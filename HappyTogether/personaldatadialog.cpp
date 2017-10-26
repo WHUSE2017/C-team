@@ -2,15 +2,14 @@
 #include "ui_personaldatadialog.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include "globalvariable.h"
 
 PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PersonalDataDialog)
 {
     ui->setupUi(this);
-    QFont font;
-    font.setPointSize(20);
-    font.setFamily(("monaco"));
+    QFont font (fontName, fontSize, boldSize);
     this->setFont(font);
     this->setWindowTitle("个人资料");
 
