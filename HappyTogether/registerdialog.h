@@ -25,36 +25,36 @@ private:
     QLabel *nameLabel = new QLabel(this);
     QLabel *pwdLabel = new QLabel(this);
     QLabel *pwdLabel2 = new QLabel(this);
-    QLineEdit *userName = new QLineEdit(this);
-    QLineEdit *userPwd = new QLineEdit(this);
-    QLineEdit *userPwd2 = new QLineEdit(this);
+    QLineEdit *userName = new QLineEdit(this);  //用户名称
+    QLineEdit *userPwd = new QLineEdit(this);   //登录密码
+    QLineEdit *userPwd2 = new QLineEdit(this);  //再次确认输入密码
     QLabel *sexLabel = new QLabel(this);
     QLabel *emailLabel = new QLabel(this);
     QLabel *phoneLabel = new QLabel(this);
-    QLineEdit *sex = new QLineEdit(this);
-    QLineEdit *email = new QLineEdit(this);
-    QLineEdit *phone = new QLineEdit(this);
+    QLineEdit *sex = new QLineEdit(this);   //性别
+    QLineEdit *email = new QLineEdit(this); //邮箱
+    QLineEdit *phone = new QLineEdit(this); //电话
     QLabel *selfTagLabel = new QLabel(this);
-    QWidget *tag = new QWidget(this);
+    QWidget *tag = new QWidget(this);       //自我标签
 
     QLabel *studentIdLabel = new QLabel(this);
-    QLineEdit *studentId = new QLineEdit(this);
+    QLineEdit *studentId = new QLineEdit(this); //学号
     QLabel *QQLabel = new QLabel(this);
-    QLineEdit *QQ = new QLineEdit(this);
+    QLineEdit *QQ = new QLineEdit(this);    //QQ号
     QLabel *imageLabel = new QLabel(this);
-    QPushButton *imageBtn = new QPushButton(this);
+    QPushButton *imageBtn = new QPushButton(this);  //头像上传
     QLabel *universityLabel = new QLabel(this);
-    QLineEdit *university = new QLineEdit(this);
+    QLineEdit *university = new QLineEdit(this);    //学校
     QLabel *locateAreaLabel = new QLabel(this);
-    QLineEdit *locateArea = new QLineEdit(this);
+    QLineEdit *locateArea = new QLineEdit(this);    //地区
 
-    QPushButton *confirmBtn = new QPushButton(this);
-    QPushButton *backBtn = new QPushButton(this);
-    QGridLayout *registerLayout = new QGridLayout(this);
+    QPushButton *confirmBtn = new QPushButton(this);    //确认
+    QPushButton *backBtn = new QPushButton(this);   //返回
+    QGridLayout *registerLayout = new QGridLayout(this);    //布局
 
 private slots:
-    void on_confirmBtn_clicked();
-    void on_backBtn_clicked();
+    void ConfirmBtnClicked();
+    void BackBtnClicked();
     void OpenImage();
 };
 #endif // REGISTERDIALOG_H

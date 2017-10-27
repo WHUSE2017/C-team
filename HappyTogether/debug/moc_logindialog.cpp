@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_LoginDialog_t {
     QByteArrayData data[7];
-    char stringdata0[102];
+    char stringdata0[86];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,14 +35,14 @@ QT_MOC_LITERAL(0, 0, 11), // "LoginDialog"
 QT_MOC_LITERAL(1, 12, 7), // "clicked"
 QT_MOC_LITERAL(2, 20, 0), // ""
 QT_MOC_LITERAL(3, 21, 12), // "LoginDialog*"
-QT_MOC_LITERAL(4, 34, 19), // "on_loginBtn_clicked"
-QT_MOC_LITERAL(5, 54, 22), // "on_registerBtn_clicked"
-QT_MOC_LITERAL(6, 77, 24) // "on_verifyCodeBtn_clicked"
+QT_MOC_LITERAL(4, 34, 15), // "LoginBtnClicked"
+QT_MOC_LITERAL(5, 50, 18), // "RegisterBtnClicked"
+QT_MOC_LITERAL(6, 69, 16) // "VerifyBtnClicked"
 
     },
     "LoginDialog\0clicked\0\0LoginDialog*\0"
-    "on_loginBtn_clicked\0on_registerBtn_clicked\0"
-    "on_verifyCodeBtn_clicked"
+    "LoginBtnClicked\0RegisterBtnClicked\0"
+    "VerifyBtnClicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -85,9 +85,9 @@ void LoginDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->clicked((*reinterpret_cast< LoginDialog*(*)>(_a[1]))); break;
-        case 1: _t->on_loginBtn_clicked(); break;
-        case 2: _t->on_registerBtn_clicked(); break;
-        case 3: _t->on_verifyCodeBtn_clicked(); break;
+        case 1: _t->LoginBtnClicked(); break;
+        case 2: _t->RegisterBtnClicked(); break;
+        case 3: _t->VerifyBtnClicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {

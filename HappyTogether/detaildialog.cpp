@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QGroupBox>
 #include "globalvariable.h"
+#include "mainwindow.h"
 
 DetailDialog::DetailDialog(QWidget *parent) :
     QDialog(parent),
@@ -13,8 +14,11 @@ DetailDialog::DetailDialog(QWidget *parent) :
     ui->setupUi(this);
     this->resize(800,600);
     this->setWindowTitle("详细信息");
-    QFont font (fontName, fontSize, boldSize);
-    this->setFont(font);
+    QFont fontStyle = GetFont();
+    this->setFont(fontStyle);
+    this->setStyleSheet(GetStyle());
+    this->setWindowFlags(Qt::FramelessWindowHint);
+
     // 第一行布局：用户名和注销按钮
     QPixmap image; //定义一张图片
     image.load("images/avatar.png");//加载
@@ -24,28 +28,32 @@ DetailDialog::DetailDialog(QWidget *parent) :
     avatar->setMaximumHeight(80);
     avatar->setMaximumWidth(80);
     avatar->setAlignment(Qt::AlignCenter);
-    mainLayout->addWidget(avatar,0,1,3,2);
+    mainLayout->addWidget(avatar,0,0,3,2);
     userName->setText("发布人：C++Team");
     //userName->setAlignment(Qt::AlignCenter);
-    mainLayout->addWidget(userName,0,2,1,2);
+    mainLayout->addWidget(userName,0,1,1,2);
 
     startLabel->setText("始发地：");
-    mainLayout->addWidget(startLabel,1,2,1,1);
+    mainLayout->addWidget(startLabel,1,1,1,1);
     start->setText(startLocate);
-    mainLayout->addWidget(start,1,3,1,1);
+    mainLayout->addWidget(start,1,2,1,1);
     timeLabel->setText("出发时间：");
-    mainLayout->addWidget(timeLabel,1,4,1,1);
+    mainLayout->addWidget(timeLabel,1,3,1,1);
     time->setText(startDate);
-    mainLayout->addWidget(time,1,5,1,1);
+    mainLayout->addWidget(time,1,4,1,1);
 
     endLabel->setText("目的地：");
-    mainLayout->addWidget(endLabel,2,2,1,1);
+    mainLayout->addWidget(endLabel,2,1,1,1);
     end->setText(endLocate);
-    mainLayout->addWidget(end,2,3,1,1);
+    mainLayout->addWidget(end,2,2,1,1);
     typeLabel->setText("玩耍方式：");
-    mainLayout->addWidget(typeLabel,2,4,1,1);
+    mainLayout->addWidget(typeLabel,2,3,1,1);
     type->setText(hiType);
-    mainLayout->addWidget(type,2,5,1,1);
+    mainLayout->addWidget(type,2,4,1,1);
+
+    backBtn->setText("返回");
+    backBtn->setFocusPolicy(Qt::NoFocus);
+    mainLayout->addWidget(backBtn,3,5,1,1);
 
     // 反馈信息
     QGroupBox *groupBox = new QGroupBox(this);
@@ -59,6 +67,14 @@ DetailDialog::DetailDialog(QWidget *parent) :
 
     this->setLayout(mainLayout);
     search();
+    connect(backBtn, &QPushButton::clicked, this, &DetailDialog::BackBtnClicked);
+}
+
+void DetailDialog::BackBtnClicked()
+{
+    this->hide();
+    MainWindow *mainWindow = new MainWindow;
+    mainWindow->show();
 }
 
 void DetailDialog::search()

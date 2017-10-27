@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_RegisterDialog_t {
     QByteArrayData data[5];
-    char stringdata0[67];
+    char stringdata0[59];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,14 +32,14 @@ struct qt_meta_stringdata_RegisterDialog_t {
 static const qt_meta_stringdata_RegisterDialog_t qt_meta_stringdata_RegisterDialog = {
     {
 QT_MOC_LITERAL(0, 0, 14), // "RegisterDialog"
-QT_MOC_LITERAL(1, 15, 21), // "on_confirmBtn_clicked"
-QT_MOC_LITERAL(2, 37, 0), // ""
-QT_MOC_LITERAL(3, 38, 18), // "on_backBtn_clicked"
-QT_MOC_LITERAL(4, 57, 9) // "OpenImage"
+QT_MOC_LITERAL(1, 15, 17), // "ConfirmBtnClicked"
+QT_MOC_LITERAL(2, 33, 0), // ""
+QT_MOC_LITERAL(3, 34, 14), // "BackBtnClicked"
+QT_MOC_LITERAL(4, 49, 9) // "OpenImage"
 
     },
-    "RegisterDialog\0on_confirmBtn_clicked\0"
-    "\0on_backBtn_clicked\0OpenImage"
+    "RegisterDialog\0ConfirmBtnClicked\0\0"
+    "BackBtnClicked\0OpenImage"
 };
 #undef QT_MOC_LITERAL
 
@@ -75,8 +75,8 @@ void RegisterDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         RegisterDialog *_t = static_cast<RegisterDialog *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_confirmBtn_clicked(); break;
-        case 1: _t->on_backBtn_clicked(); break;
+        case 0: _t->ConfirmBtnClicked(); break;
+        case 1: _t->BackBtnClicked(); break;
         case 2: _t->OpenImage(); break;
         default: ;
         }

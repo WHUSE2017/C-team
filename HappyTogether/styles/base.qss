@@ -1,0 +1,141 @@
+
+/**********子界面中央背景**********/
+QWidget#centerWidget {
+        background: rgb(232, 241, 252);
+}
+
+/**********主界面样式**********/
+QWidget#MainWindow {
+        border: 1px solid rgb(111, 156, 207);
+        background: rgb(232, 241, 252);
+}
+
+QWidget#messageWidget {
+        background: rgba(173, 202, 232, 50%);
+}
+
+QWidget#loadingWidget {
+        border: none;
+        border-radius: 5px;
+        background: rgb(187, 212, 238);
+}
+
+QWidget#remoteWidget {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border: 1px solid rgb(111, 156, 207);
+        border-left: none;
+        background: transparent;
+}
+
+StyledWidget {
+        qproperty-normalColor: rgb(65, 65, 65);
+        qproperty-disableColor: rgb(180, 180, 180);
+        qproperty-highlightColor: rgb(0, 160, 230);
+        qproperty-errorColor: red;
+}
+
+QProgressIndicator {
+        qproperty-color: rgb(2, 65, 132);
+}
+
+/**********提示**********/
+QToolTip{
+        border: 1px solid rgb(111, 156, 207);
+        background: white;
+        color: rgb(51, 51, 51);
+}
+
+/**********菜单栏**********/
+QMenuBar {
+        background: rgb(187, 212, 238);
+        border: 1px solid rgb(111, 156, 207);
+        border-left: none;
+        border-right: none;
+}
+QMenuBar::item {
+        border: 1px solid transparent;
+        padding: 5px 10px 5px 10px;
+        background: transparent;
+}
+QMenuBar::item:enabled {
+        color: rgb(2, 65, 132);
+}
+QMenuBar::item:!enabled {
+        color: rgb(155, 155, 155);
+}
+QMenuBar::item:enabled:selected {
+        border-top-color: rgb(111, 156, 207);
+        border-bottom-color: rgb(111, 156, 207);
+        background: rgb(198, 224, 252);
+}
+
+/**********菜单**********/
+QMenu {
+        border: 1px solid rgb(111, 156, 207);
+        background: rgb(232, 241, 250);
+}
+QMenu::item {
+        height: 22px;
+        padding: 0px 25px 0px 20px;
+}
+QMenu::item:enabled {
+        color: rgb(84, 84, 84);
+}
+QMenu::item:!enabled {
+        color: rgb(155, 155, 155);
+}
+QMenu::item:enabled:selected {
+        color: rgb(2, 65, 132);
+        background: rgba(255, 255, 255, 200);
+}
+QMenu::separator {
+        height: 1px;
+        background: rgb(111, 156, 207);
+}
+QMenu::indicator {
+        width: 13px;
+        height: 13px;
+}
+QMenu::icon {
+        padding-left: 2px;
+        padding-right: 2px;
+}
+
+/*
+QPushButton {
+    background-color:blue;
+    color:white;
+    border:2px groove gray;
+    border-radius:10px;
+    padding:2px 4px;
+}*/
+
+QPushButton {
+     border: 2px solid #8f8f91;
+     border-radius: 6px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     
+ }
+
+QLineEdit {
+     border: 2px solid #8f8f91;
+     border-radius: 6px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #FFFFFF, stop: 1 #FFFFFF);
+ }
+ 
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
+    min-width: 80px;
+ }
+ 
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+ 
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }
