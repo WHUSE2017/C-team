@@ -4,6 +4,10 @@
 #include <QDialog>
 #include <QToolButton>
 #include <QToolBox>
+#include <QLabel>
+#include <QGroupBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 namespace Ui {
 class MessageDialog;
@@ -19,15 +23,13 @@ public:
 
 private:
     Ui::MessageDialog *ui;
-    QToolButton *toolBtn1_1;
-    QToolButton *toolBtn1_2;
-    QToolButton *toolBtn1_3;
-    QToolButton *toolBtn1_4;
-    QToolButton *toolBtn1_5;
-    QToolButton *toolBtn2_1;
-    QToolButton *toolBtn2_2;
-    QToolButton *toolBtn3_1;
-    QToolButton *toolBtn3_2;
+
+    int messageNum;
+    QString sender[3] = {"张三","李四","王五"};
+    QString sendTime;
+    QLabel *content = new QLabel(this);
+    QGroupBox *groupBox = new QGroupBox(this);
+    QVBoxLayout *messageLayout = new QVBoxLayout(this);
 };
 
 #endif // MESSAGEDIALOG_H

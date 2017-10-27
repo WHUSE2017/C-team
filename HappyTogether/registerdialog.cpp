@@ -11,8 +11,9 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QFont font (fontName, fontSize, boldSize);
-    this->setFont(font);
+    QFont fontStyle = GetFont();
+    this->setFont(fontStyle);
+    this->setStyleSheet(GetStyle());
     this->setWindowTitle("注册");
 
     nameLabel->setText("用户名：");
@@ -96,8 +97,8 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
     confirmBtn->setText("确认");
     registerLayout->addWidget(confirmBtn,13,2,1,1);
     this->setLayout(registerLayout);
-    connect(confirmBtn, &QPushButton::clicked, this, &RegisterDialog::on_confirmBtn_clicked);
-    connect(backBtn, &QPushButton::clicked, this, &RegisterDialog::on_backBtn_clicked);
+    connect(confirmBtn, &QPushButton::clicked, this, &RegisterDialog::ConfirmBtnClicked);
+    connect(backBtn, &QPushButton::clicked, this, &RegisterDialog::BackBtnClicked);
     connect(imageBtn, &QPushButton::clicked, this, &RegisterDialog::OpenImage);
 }
 
@@ -106,12 +107,12 @@ RegisterDialog::~RegisterDialog()
     delete ui;
 }
 
-void RegisterDialog::on_confirmBtn_clicked()
+void RegisterDialog::ConfirmBtnClicked()
 {
     QMessageBox::information(this, tr("Welcome"), tr("恭喜注册成功！"), QMessageBox::tr("确定"));
 }
 
-void RegisterDialog::on_backBtn_clicked()
+void RegisterDialog::BackBtnClicked()
 {
     LoginDialog *loginDlg = new LoginDialog;
     this->hide();

@@ -30,8 +30,9 @@ public:
 
 signals:
     void clicked(LoginDialog* clicked);
+
 protected:
-    void mouseReleaseEvent( QMouseEvent* );
+    void mouseReleaseEvent(QMouseEvent* );
 
 private:
     Ui::LoginDialog *ui;
@@ -42,20 +43,20 @@ private:
     QLineEdit *userPwd = new QLineEdit(this);   //登陆密码
     QLabel *verifyLabel = new QLabel(this);
     QLineEdit *verifyCode = new QLineEdit(this);    //验证码
-    QPushButton *verify = new QPushButton(this);      //系统生成的验证码
+    QPushButton *verifyBtn = new QPushButton(this);      //系统生成的验证码
     int verifyNumber;
     QCheckBox *rememberPwd = new QCheckBox(this);
-    QPushButton *loginBtn = new QPushButton(this);
-    QPushButton *registerBtn = new QPushButton(this);
+    QPushButton *loginBtn = new QPushButton(this);  //登录按钮
+    QPushButton *registerBtn = new QPushButton(this);//注册按钮
     QGridLayout *loginLayout = new QGridLayout(this);
 
     RegisterDialog *registerDlg = new RegisterDialog;
     MainWindow *w = new MainWindow;
 
 private slots:
-    void on_loginBtn_clicked();
-    void on_registerBtn_clicked();
-    void on_verifyCodeBtn_clicked();
+    void LoginBtnClicked();
+    void RegisterBtnClicked();
+    void VerifyBtnClicked();
 };
 #endif // LOGINDIALOG_H
 

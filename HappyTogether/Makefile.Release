@@ -976,6 +976,17 @@ release/moc_messagedialog.cpp: D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QDial
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QToolBox \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qtoolbox.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qframe.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QLabel \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QGroupBox \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgroupbox.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QPushButton \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qpushbutton.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QVBoxLayout \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qboxlayout.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlayout.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlayoutitem.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgridlayout.h \
 		messagedialog.h \
 		release/moc_predefs.h \
 		D:/Qt5.8.0/5.8/mingw53_32/bin/moc.exe
@@ -1373,9 +1384,13 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qtoolbutton.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QToolBox \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qtoolbox.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QGroupBox \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgroupbox.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QVBoxLayout \
 		detaildialog.h \
 		globalvariable.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QString
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QString \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/QFont
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o mainwindow.cpp
 
 release/logindialog.o: logindialog.cpp D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMessageBox \
@@ -1551,7 +1566,12 @@ release/logindialog.o: logindialog.cpp D:/Qt5.8.0/5.8/mingw53_32/include/QtWidge
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qheaderview.h \
 		ui_registerdialog.h \
 		globalvariable.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QString
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QString \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/QFont \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/QFontDatabase \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/qfontdatabase.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QTextCodec \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qtextcodec.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\logindialog.o logindialog.cpp
 
 release/registerdialog.o: registerdialog.cpp registerdialog.h \
@@ -1730,7 +1750,8 @@ release/registerdialog.o: registerdialog.cpp registerdialog.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qdir.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qfileinfo.h \
 		globalvariable.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QString
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QString \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/QFont
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\registerdialog.o registerdialog.cpp
 
 release/detaildialog.o: detaildialog.cpp detaildialog.h \
@@ -1902,7 +1923,14 @@ release/detaildialog.o: detaildialog.cpp detaildialog.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QGroupBox \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgroupbox.h \
 		globalvariable.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QString
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QString \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/QFont \
+		mainwindow.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMainWindow \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qmainwindow.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QDateEdit \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qdatetimeedit.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\detaildialog.o detaildialog.cpp
 
 release/personaldatadialog.o: personaldatadialog.cpp personaldatadialog.h \
@@ -2069,7 +2097,8 @@ release/personaldatadialog.o: personaldatadialog.cpp personaldatadialog.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMessageBox \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qmessagebox.h \
 		globalvariable.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QString
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QString \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/QFont
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\personaldatadialog.o personaldatadialog.cpp
 
 release/messagedialog.o: messagedialog.cpp messagedialog.h \
@@ -2182,6 +2211,17 @@ release/messagedialog.o: messagedialog.cpp messagedialog.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QToolBox \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qtoolbox.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qframe.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QLabel \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QGroupBox \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgroupbox.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QPushButton \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qpushbutton.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QVBoxLayout \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qboxlayout.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlayout.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlayoutitem.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgridlayout.h \
 		ui_messagedialog.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QVariant \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QAction \
@@ -2213,19 +2253,9 @@ release/messagedialog.o: messagedialog.cpp messagedialog.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qtabbar.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qtabwidget.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qrubberband.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QPushButton \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qpushbutton.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QGroupBox \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgroupbox.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QVBoxLayout \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qboxlayout.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlayout.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlayoutitem.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgridlayout.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QLabel \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlabel.h \
 		globalvariable.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QString
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QString \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/QFont
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\messagedialog.o messagedialog.cpp
 
 release/globalvariable.o: globalvariable.cpp globalvariable.h \
@@ -2258,7 +2288,43 @@ release/globalvariable.o: globalvariable.cpp globalvariable.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qrefcount.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qnamespace.h \
 		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qarraydata.h \
-		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qstringbuilder.h
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qstringbuilder.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/QFont \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/qfont.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtguiglobal.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtgui-config.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/qwindowdefs.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobjectdefs.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobjectdefs_impl.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/qwindowdefs_win.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qsharedpointer.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qshareddata.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qhash.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qiterator.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qlist.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qalgorithms.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qhashfunctions.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qpair.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qbytearraylist.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qstringlist.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qregexp.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qstringmatcher.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qsharedpointer_impl.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobject.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qcoreevent.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qscopedpointer.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qmetatype.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qvarlengtharray.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qcontainerfwd.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobject_impl.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/QFontDatabase \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtGui/qfontdatabase.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QTextCodec \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qtextcodec.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/QFile \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qfile.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qfiledevice.h \
+		D:/Qt5.8.0/5.8/mingw53_32/include/QtCore/qiodevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\globalvariable.o globalvariable.cpp
 
 release/moc_mainwindow.o: release/moc_mainwindow.cpp 

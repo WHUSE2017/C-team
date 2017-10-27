@@ -9,8 +9,9 @@ PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
     ui(new Ui::PersonalDataDialog)
 {
     ui->setupUi(this);
-    QFont font (fontName, fontSize, boldSize);
-    this->setFont(font);
+    QFont fontStyle = GetFont();
+    this->setFont(fontStyle);
+    this->setStyleSheet(GetStyle());
     this->setWindowTitle("个人资料");
 
     nameLabel->setText("用户名：");

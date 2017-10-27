@@ -37,11 +37,13 @@ private:
     //QImage *image = new QImage(this);
     QLabel *avatar = new QLabel(this);
     QLabel *userName = new QLabel(this);
+    QPushButton *backBtn = new QPushButton(this);
 
     QTableWidget *messageWidget = new QTableWidget(this);
 
 private slots:
     void search();
+    void BackBtnClicked();
 };
 
 #endif // DETAILDIALOG_H
