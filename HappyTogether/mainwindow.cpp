@@ -9,6 +9,7 @@
 #include "messagedialog.h"
 #include "detaildialog.h"
 #include <QDateEdit>
+#include "globalvariable.h"
 
 using namespace std;
 
@@ -18,10 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->resize(800,600);
-    this->setWindowTitle("一起Happy");
-    QFont font;
-    font.setPointSize(20);
-    font.setFamily(("simsun"));
+    this->setWindowTitle("一起High");
+    QFont font (fontName, fontSize, boldSize);
     this->setFont(font);
 
 
@@ -52,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // 第一行布局：用户名和注销按钮
     QPixmap image; //定义一张图片
-    image.load("images/avatar.jpg");//加载
+    image.load("images/avatar.png");//加载
     avatar->clear();//清空
     avatar->setPixmap(image);//加载到Label标签
     avatar->show();//显示
@@ -76,7 +75,7 @@ MainWindow::MainWindow(QWidget *parent) :
     endLabel->setText("目的地：");
     mainLayout->addWidget(endLabel,2,0,1,1);
     mainLayout->addWidget(end,2,1,1,2);
-    typeLabel->setText("玩耍方式：");
+    typeLabel->setText("活动性质：");
     mainLayout->addWidget(typeLabel,2,3,1,1);
     type->addItem("电影");
     type->addItem("骑自行车");
@@ -179,6 +178,10 @@ bool MainWindow::judge()
 
 void MainWindow::search()
 {
+    startLocate = start->text();
+    endLocate = end->text();
+    startDate = dateTime->text();
+    hiType = type->currentText();
     if(judge() == false) return ;
     messageWidget->setColumnCount(6);
     messageWidget->setRowCount(12);   // 设置题目占的行数
@@ -202,7 +205,7 @@ void MainWindow::search()
         QGridLayout *layout = new QGridLayout(this);
         // 创建QPushButton控件
         QPushButton *joinBtn = new QPushButton(this);
-        joinBtn->setText("加入");
+        joinBtn->setText("一起嗨");
         layout->addWidget(joinBtn,0,0,1,1);
         QPushButton *detailBtn = new QPushButton(this);
         detailBtn->setText("详情");
@@ -217,7 +220,7 @@ void MainWindow::search()
         }
         else {
             item0 = new QTableWidgetItem;
-            item0->setText(QString("张三%1").arg(i));
+            item0->setText(userName->text());
             item0->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 0, item0);
 

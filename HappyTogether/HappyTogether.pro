@@ -29,14 +29,16 @@ SOURCES += main.cpp\
     registerdialog.cpp \
     detaildialog.cpp \
     personaldatadialog.cpp \
-    messagedialog.cpp
+    messagedialog.cpp \
+    globalvariable.cpp
 
 HEADERS  += mainwindow.h \
     logindialog.h \
     registerdialog.h \
     detaildialog.h \
     personaldatadialog.h \
-    messagedialog.h
+    messagedialog.h \
+    globalvariable.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -45,5 +47,5 @@ FORMS    += mainwindow.ui \
     personaldatadialog.ui \
     messagedialog.ui
 
-RC_ICONS = arithmetic.ico
+RC_ICONS = images/HappyTogether.ico
 

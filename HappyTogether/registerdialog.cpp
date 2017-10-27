@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include "logindialog.h"
 #include <QFileDialog>
+#include "globalvariable.h"
 
 RegisterDialog::RegisterDialog(QWidget *parent) :
     QDialog(parent),
@@ -10,9 +11,7 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QFont font;
-    font.setPointSize(20);
-    font.setFamily(("monaco"));
+    QFont font (fontName, fontSize, boldSize);
     this->setFont(font);
     this->setWindowTitle("注册");
 

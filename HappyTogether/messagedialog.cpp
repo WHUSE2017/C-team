@@ -4,15 +4,14 @@
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <globalvariable.h>
 
 MessageDialog::MessageDialog(QWidget *parent)
     :QToolBox(parent)
 {
     this->resize(400,500);
     this->setWindowTitle("消息/通知");
-    QFont font;
-    font.setPointSize(20);
-    font.setFamily(("simsun"));
+    QFont font (fontName, fontSize, boldSize);
     this->setFont(font);
 
     int messageNum = 3;

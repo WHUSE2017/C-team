@@ -4,6 +4,7 @@
 #include <iostream>
 #include <QFileDialog>
 #include <QGroupBox>
+#include "globalvariable.h"
 
 DetailDialog::DetailDialog(QWidget *parent) :
     QDialog(parent),
@@ -12,39 +13,38 @@ DetailDialog::DetailDialog(QWidget *parent) :
     ui->setupUi(this);
     this->resize(800,600);
     this->setWindowTitle("详细信息");
-    QFont font;
-    font.setPointSize(20);
-    font.setFamily(("simsun"));
+    QFont font (fontName, fontSize, boldSize);
     this->setFont(font);
     // 第一行布局：用户名和注销按钮
     QPixmap image; //定义一张图片
-    image.load("images/avatar.jpg");//加载
+    image.load("images/avatar.png");//加载
     avatar->clear();//清空
     avatar->setPixmap(image);//加载到Label标签
     avatar->show();//显示
     avatar->setMaximumHeight(80);
     avatar->setMaximumWidth(80);
     avatar->setAlignment(Qt::AlignCenter);
-    mainLayout->addWidget(avatar,0,0,3,2);
+    mainLayout->addWidget(avatar,0,1,3,2);
     userName->setText("发布人：C++Team");
     //userName->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(userName,0,2,1,2);
 
     startLabel->setText("始发地：");
     mainLayout->addWidget(startLabel,1,2,1,1);
+    start->setText(startLocate);
     mainLayout->addWidget(start,1,3,1,1);
     timeLabel->setText("出发时间：");
     mainLayout->addWidget(timeLabel,1,4,1,1);
+    time->setText(startDate);
     mainLayout->addWidget(time,1,5,1,1);
 
     endLabel->setText("目的地：");
     mainLayout->addWidget(endLabel,2,2,1,1);
+    end->setText(endLocate);
     mainLayout->addWidget(end,2,3,1,1);
     typeLabel->setText("玩耍方式：");
     mainLayout->addWidget(typeLabel,2,4,1,1);
-    type->addItem("电影");
-    type->addItem("骑自行车");
-    type->addItem("旅游");
+    type->setText(hiType);
     mainLayout->addWidget(type,2,5,1,1);
 
     // 反馈信息
@@ -66,6 +66,8 @@ void DetailDialog::search()
     messageWidget->setColumnCount(6);
     messageWidget->setRowCount(12);   // 设置题目占的行数
     messageWidget->setHorizontalHeaderLabels(QStringList() << tr("用户名") << tr("性别") << tr("学校")<< tr("游玩次数") << tr("电话") << tr("tag"));    // 设置列名
+    messageWidget->setColumnWidth(1, 80);
+    messageWidget->setColumnWidth(2, 120);
     messageWidget->setColumnWidth(4, 160);
     messageWidget->setColumnWidth(5, 160);
     messageWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
