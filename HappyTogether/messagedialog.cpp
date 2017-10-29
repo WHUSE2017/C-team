@@ -12,20 +12,25 @@ MessageDialog::MessageDialog(QWidget *parent)
     this->setFont(fontStyle);
 
     messageNum = 3;
-
-    for(int i = 0; i < messageNum; i++) {
+    /*查询发给自己的消息*/
+    vector<StationMessageStruct> messages=client.getStationMessage();
+    vector<StationMessageStruct>::iterator iter = messages.begin();
+    for (;iter != messages.end() ;++iter)
+    {
+          StationMessageStruct mes = *iter;  // *iter就是vector的每个元素
+         // cout<<mes.SenderName<<" "<<mes.ReceiverName<<" "<<mes.Message<<" "<<mes.Time<<endl;
         content = new QLabel(this);
         messageLayout = new QVBoxLayout(this);
         content->setMaximumWidth(350);
         content->setWordWrap(true);
         groupBox = new QGroupBox(this);
-        content->setText("既然不是网络侧问题，就是PC侧出了问题，怀疑是浏览器的配置原因，如兼容模式等，所以解决办法是尝试下载一个第三方浏览器或者重装一下浏览，更改兼容模式，发现也是徒劳的");
+        content->setText(QString::fromStdString(mes.Message));
         messageLayout->addWidget(content);
         messageLayout->setMargin(10);
         messageLayout->setAlignment(Qt::AlignHCenter);
         messageLayout->addStretch();
         groupBox->setLayout(messageLayout);
-        this->addItem((QWidget*)groupBox,QString("发送人:%1\n时间:2017102%2").arg(sender[i]).arg(i));
+        this->addItem((QWidget*)groupBox,QString("发送人:%1\n时间:%2").arg(QString::fromStdString(mes.SenderName)).arg(QString::fromStdString(mes.Time)));
     }
 }
 

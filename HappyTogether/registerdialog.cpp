@@ -109,7 +109,72 @@ RegisterDialog::~RegisterDialog()
 
 void RegisterDialog::ConfirmBtnClicked()
 {
-    QMessageBox::information(this, tr("Welcome"), tr("恭喜注册成功！"), QMessageBox::tr("确定"));
+    if(JudgeEmpty()) {
+        /*注册*/
+        struct userStruct user;
+        user.Email =email->text().toStdString();
+        user.Gender=sex->text().toStdString();
+        user.Image=imageBtn->text().toStdString();
+        user.LocateArea = locateArea->text().toStdString();
+        user.PassWord=userPwd->text().toStdString();
+        user.Phone=std::stoi(phone->text().toStdString());
+        user.PlayTime=1212;
+        user.SelfTag = "abc";
+        user.StudentId=std::stoi(studentId->text().toStdString());
+        user.University =university->text().toStdString();
+        user.UserName = userName->text().toStdString();
+        user.UserQQ=QQ->text().toStdString();
+
+        if (client.Register(user))
+            QMessageBox::information(this, tr("Welcome"), tr("恭喜注册成功！"), QMessageBox::tr("确定"));
+        else {
+            QMessageBox::information(this, tr("Welcome"), tr("注册失败！不支持中文"), QMessageBox::tr("确定"));
+
+        }
+        return ;
+    }
+    return ;
+}
+
+bool RegisterDialog::JudgeEmpty()
+{
+    if(userName->text() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("用户名不能为空！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(userPwd->text() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("密码不能为空！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(userPwd2->text() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("请再次输入密码！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(userPwd2->text() != userPwd->text()) {
+        QMessageBox::warning(this, tr("提示"), tr("前后密码不一致！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(phone->text().length() > 8) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入8位以下有效的电话！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(email->text() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入邮箱！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(studentId->text() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("学号不能为空！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(university->text() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("学号不能为空！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(locateArea->text() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("学号不能为空！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    return true;
 }
 
 void RegisterDialog::BackBtnClicked()

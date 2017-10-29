@@ -56,5 +56,6 @@ private slots:
     void ConfirmBtnClicked();
     void BackBtnClicked();
     void OpenImage();
+    bool JudgeEmpty();
 };
 #endif // REGISTERDIALOG_H

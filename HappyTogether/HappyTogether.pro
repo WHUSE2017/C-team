@@ -30,7 +30,12 @@ SOURCES += main.cpp\
     detaildialog.cpp \
     personaldatadialog.cpp \
     messagedialog.cpp \
-    globalvariable.cpp
+    globalvariable.cpp \
+    client/session_c.cpp \
+    client/socket_packet.cpp \
+    client/socket_stream.cpp \
+    client/UserClient.cpp \
+    client/utils.cpp
 
 HEADERS  += mainwindow.h \
     logindialog.h \
@@ -38,7 +43,15 @@ HEADERS  += mainwindow.h \
     detaildialog.h \
     personaldatadialog.h \
     messagedialog.h \
-    globalvariable.h
+    globalvariable.h \
+    client/p_debug.h \
+    client/request_reply.h \
+    client/session_c.h \
+    client/socket_packet.h \
+    client/socket_stream.h \
+    client/UserClient.h \
+    client/utils.h \
+    client/ConnectToMysql/SQLStruct.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -48,4 +61,5 @@ FORMS    += mainwindow.ui \
     messagedialog.ui
 
 RC_ICONS = images/HappyTogether.ico
-
+QT += core gui
+LIBS += -lpthread libwsock32 libws2_32

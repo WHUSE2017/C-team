@@ -11,7 +11,7 @@ extern QString startLocate = "";
 extern QString endLocate="";
 extern QString startDate="";
 extern QString hiType="";
-
+extern QString userNameGlobal = "";
 
 extern QFont GetFont()
 {
@@ -40,3 +40,5 @@ extern QString GetStyle()
     qssFile.close();
     return qss;
 }
+
+UserClient client("127.0.0.1",9988);

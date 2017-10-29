@@ -51,6 +51,14 @@ DetailDialog::DetailDialog(QWidget *parent) :
     type->setText(hiType);
     mainLayout->addWidget(type,2,4,1,1);
 
+    peopleNumLabel->setText("人数：");
+    mainLayout->addWidget(peopleNumLabel,3,1,1,1);
+    peopleNum->setText("hiType");
+    mainLayout->addWidget(peopleNum,3,2,1,1);
+    phoneLabel->setText("联系方式：");
+    mainLayout->addWidget(phoneLabel,3,3,1,1);
+    phone->setText(hiType);
+    mainLayout->addWidget(phone,3,4,1,1);
     backBtn->setText("返回");
     backBtn->setFocusPolicy(Qt::NoFocus);
     mainLayout->addWidget(backBtn,3,5,1,1);

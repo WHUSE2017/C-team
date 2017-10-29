@@ -7,6 +7,11 @@ INPUT(
 ./release\personaldatadialog.o
 ./release\messagedialog.o
 ./release\globalvariable.o
+./release\session_c.o
+./release\socket_packet.o
+./release\socket_stream.o
+./release\UserClient.o
+./release\utils.o
 ./release\moc_mainwindow.o
 ./release\moc_logindialog.o
 ./release\moc_registerdialog.o

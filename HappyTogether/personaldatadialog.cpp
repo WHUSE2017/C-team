@@ -14,92 +14,98 @@ PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
     this->setStyleSheet(GetStyle());
     this->setWindowTitle("个人资料");
 
-    nameLabel->setText("用户名：");
-    personalDataLayout->addWidget(nameLabel,0,0,1,1);
-    userName->setText("西瓜");
-    personalDataLayout->addWidget(userName,0,1,1,2);
+    /*获取某个人的信息*/
+     struct userStruct uinfo = client.getUserInfo((char*)userNameGlobal.toStdString().data());//如果用户存在
+     if(uinfo.UserName!="") {
+         //cout<<uinfo.UserName<<" "<<uinfo.Email<<" "<<uinfo.Phone<<" "<<uinfo.UserQQ<<endl;
 
-    pwdLabel->setText("密码：");
-    personalDataLayout->addWidget(pwdLabel,1,0,1,1);
-    userPwd->setText("123");
-    personalDataLayout->addWidget(userPwd,1,1,1,2);
+        nameLabel->setText("用户名：");
+        personalDataLayout->addWidget(nameLabel,0,0,1,1);
+        userName->setText(QString::fromStdString(uinfo.UserName));
+        personalDataLayout->addWidget(userName,0,1,1,2);
 
-    pwdLabel2->setText("再次密码：");
-    personalDataLayout->addWidget(pwdLabel2,2,0,1,1);
-    userPwd2->setPlaceholderText("请再次输入密码");
-    personalDataLayout->addWidget(userPwd2,2,1,1,2);
+        pwdLabel->setText("密码：");
+        personalDataLayout->addWidget(pwdLabel,1,0,1,1);
+        userPwd->setText(QString::fromStdString(uinfo.PassWord));
+        personalDataLayout->addWidget(userPwd,1,1,1,2);
 
-    sexLabel->setText("性别：");
-    personalDataLayout->addWidget(sexLabel,3,0,1,1);
-    sexType->addItem("男");
-    sexType->addItem("女");
-    personalDataLayout->addWidget(sexType,3,1,1,2);
+        pwdLabel2->setText("再次密码：");
+        personalDataLayout->addWidget(pwdLabel2,2,0,1,1);
+        userPwd2->setPlaceholderText("请再次输入密码");
+        personalDataLayout->addWidget(userPwd2,2,1,1,2);
 
-    phoneLabel->setText("电话：");
-    personalDataLayout->addWidget(phoneLabel,4,0,1,1);
-    phone->setText("1827376474");
-    personalDataLayout->addWidget(phone,4,1,1,2);
+        sexLabel->setText("性别：");
+        personalDataLayout->addWidget(sexLabel,3,0,1,1);
+        sexType->addItem("男");
+        sexType->addItem("女");
+        personalDataLayout->addWidget(sexType,3,1,1,2);
 
-    emailLabel->setText("邮箱：");
-    personalDataLayout->addWidget(emailLabel,5,0,1,1);
-    email->setText("3243433@qq.com");
-    personalDataLayout->addWidget(email,5,1,1,2);
-    QQLabel->setText("QQ：");
-    personalDataLayout->addWidget(QQLabel,6,0,1,1);
-    QQ->setText("2341234234");
-    personalDataLayout->addWidget(QQ,6,1,1,2);
+        phoneLabel->setText("电话：");
+        personalDataLayout->addWidget(phoneLabel,4,0,1,1);
+        phone->setText("4334");
+        personalDataLayout->addWidget(phone,4,1,1,2);
 
-    studentIdLabel->setText("学号：");
-    personalDataLayout->addWidget(studentIdLabel,7,0,1,1);
-    studentId->setText("20173283123");
-    personalDataLayout->addWidget(studentId,7,1,1,2);
-    universityLabel->setText("学校：");
-    personalDataLayout->addWidget(universityLabel,8,0,1,1);
-    university->setText("武汉大学");
-    personalDataLayout->addWidget(university,8,1,1,2);
-    locateAreaLabel->setText("地区：");
-    personalDataLayout->addWidget(locateAreaLabel,9,0,1,1);
-    locateArea->setText("武昌区");
-    personalDataLayout->addWidget(locateArea,9,1,1,2);
-    imageLabel->setText("头像：");
-    personalDataLayout->addWidget(imageLabel,10,0,1,1);
-    imageBtn->setText("上传");
-    personalDataLayout->addWidget(imageBtn,10,1,1,2);
+        emailLabel->setText("邮箱：");
+        personalDataLayout->addWidget(emailLabel,5,0,1,1);
+        email->setText("3243433@qq.com");
+        personalDataLayout->addWidget(email,5,1,1,2);
+        QQLabel->setText("QQ：");
+        personalDataLayout->addWidget(QQLabel,6,0,1,1);
+        QQ->setText(QString::fromStdString(uinfo.UserQQ));
+        personalDataLayout->addWidget(QQ,6,1,1,2);
 
-    playTimeLabel->setText("成功游玩次数:");
-    playTime->setText("12次");
-    playTime->setAlignment(Qt::AlignCenter);
-    personalDataLayout->addWidget(playTimeLabel,11,0,1,1);
-    personalDataLayout->addWidget(playTime,11,1,1,2);
+        studentIdLabel->setText("学号：");
+        personalDataLayout->addWidget(studentIdLabel,7,0,1,1);
+        studentId->setText(QString::number(uinfo.StudentId,10));
+        personalDataLayout->addWidget(studentId,7,1,1,2);
+        universityLabel->setText("学校：");
+        personalDataLayout->addWidget(universityLabel,8,0,1,1);
+        university->setText(QString::fromStdString(uinfo.University));
+        personalDataLayout->addWidget(university,8,1,1,2);
+        locateAreaLabel->setText("地区：");
+        personalDataLayout->addWidget(locateAreaLabel,9,0,1,1);
+        locateArea->setText(QString::fromStdString(uinfo.LocateArea));
+        personalDataLayout->addWidget(locateArea,9,1,1,2);
+        imageLabel->setText("头像：");
+        personalDataLayout->addWidget(imageLabel,10,0,1,1);
+        imageBtn->setText("上传");
+        personalDataLayout->addWidget(imageBtn,10,1,1,2);
 
-    selfTagLabel->setText("Tag：");
-    personalDataLayout->addWidget(selfTagLabel,12,0,1,1);
+        playTimeLabel->setText("成功游玩次数:");
+        playTime->setText("12次");
+        playTime->setAlignment(Qt::AlignCenter);
+        personalDataLayout->addWidget(playTimeLabel,11,0,1,1);
+        personalDataLayout->addWidget(playTime,11,1,1,2);
 
-    QGridLayout *tagLayout = new QGridLayout(this);
-    // 创建QPushButton控件
-    QPushButton *btn1 = new QPushButton(this);
-    btn1->setText("开朗");
-    tagLayout->addWidget(btn1,0,0,1,1);
+        selfTagLabel->setText("Tag：");
+        personalDataLayout->addWidget(selfTagLabel,12,0,1,1);
 
-    QPushButton *btn2 = new QPushButton(this);
-    btn2->setText("内向");
-    tagLayout->addWidget(btn2,0,1,1,1);
+        QGridLayout *tagLayout = new QGridLayout(this);
+        // 创建QPushButton控件
+        QPushButton *btn1 = new QPushButton(this);
+        btn1->setText("开朗");
+        tagLayout->addWidget(btn1,0,0,1,1);
 
-    QPushButton *btn3 = new QPushButton(this);
-    btn3->setText("爱笑");
-    tagLayout->addWidget(btn3,1,0,1,1);
-    QPushButton *btn4 = new QPushButton(this);
-    btn4->setText("漂亮");
-    tagLayout->addWidget(btn4,1,1,1,1);
+        QPushButton *btn2 = new QPushButton(this);
+        btn2->setText("内向");
+        tagLayout->addWidget(btn2,0,1,1,1);
 
-    tag->setLayout(tagLayout);
-    personalDataLayout->addWidget(tag,12,1,2,2);
+        QPushButton *btn3 = new QPushButton(this);
+        btn3->setText("爱笑");
+        tagLayout->addWidget(btn3,1,0,1,1);
+        QPushButton *btn4 = new QPushButton(this);
+        btn4->setText("漂亮");
+        tagLayout->addWidget(btn4,1,1,1,1);
 
-    changeBtn->setText("修改");
-    personalDataLayout->addWidget(changeBtn,14,0,1,1);
-    confirmBtn->setText("确认");
-    personalDataLayout->addWidget(confirmBtn,14,2,1,1);
-    this->setLayout(personalDataLayout);
+        tag->setLayout(tagLayout);
+        personalDataLayout->addWidget(tag,12,1,2,2);
+
+        changeBtn->setText("修改");
+        personalDataLayout->addWidget(changeBtn,14,0,1,1);
+        confirmBtn->setText("确认");
+        personalDataLayout->addWidget(confirmBtn,14,2,1,1);
+        this->setLayout(personalDataLayout);
+    }
     connect(confirmBtn, &QPushButton::clicked, this, &PersonalDataDialog::on_confirmBtn_clicked);
     connect(changeBtn, &QPushButton::clicked, this, &PersonalDataDialog::on_changeBtn_clicked);
     connect(imageBtn, &QPushButton::clicked, this, &PersonalDataDialog::OpenImage);

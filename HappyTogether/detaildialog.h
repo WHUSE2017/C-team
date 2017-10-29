@@ -33,6 +33,10 @@ private:
     QLabel *time = new QLabel(this);
     QLabel *typeLabel = new QLabel(this);
     QLabel *type = new QLabel(this);
+    QLabel *peopleNumLabel = new QLabel(this);
+    QLabel *peopleNum = new QLabel(this);
+    QLabel *phoneLabel = new QLabel(this);
+    QLabel *phone = new QLabel(this);
 
     //QImage *image = new QImage(this);
     QLabel *avatar = new QLabel(this);

@@ -39,7 +39,7 @@ private:
     QAction *offAction; //注销
     QAction *dataAction;//个人资料
     QAction *messageAction;//站内消息
-    QAction *inviteAction;//邀请用户
+    //QAction *inviteAction;//邀请用户
     QMenu *helpMenu;    //帮助菜单
     QAction *documentAction;//软件操作帮助文档
     QAction *aboutAction;   //关于软件
@@ -70,7 +70,7 @@ private slots:
     void OffActionClicked();
     void DataActionClicked();
     void MessageActionClicked();
-    void InviteActionClicked();
+    //void InviteActionClicked();
     void DocumentActionClicked();
     void AboutActionClicked();
     void BlackActionClicked();

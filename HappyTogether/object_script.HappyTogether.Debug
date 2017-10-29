@@ -7,6 +7,11 @@ INPUT(
 ./debug\personaldatadialog.o
 ./debug\messagedialog.o
 ./debug\globalvariable.o
+./debug\session_c.o
+./debug\socket_packet.o
+./debug\socket_stream.o
+./debug\UserClient.o
+./debug\utils.o
 ./debug\moc_mainwindow.o
 ./debug\moc_logindialog.o
 ./debug\moc_registerdialog.o
