@@ -18,7 +18,7 @@ Operate::Operate() {
 	char username[128];
 	char password[128];
 	char database[128];
-	FILE *fp=fopen("./server/x64/Debug/config.txt","r");
+	FILE *fp=fopen("config.txt","r");
 	if (fp==NULL)
 	{
 		cout<<"config.txt not exist!"<<endl;
@@ -425,7 +425,7 @@ vector<EventStruct> Operate::GetEvent(string StartSite, string EndSite, string S
 		MYSQL_ROW sql_row;
 		string sqlstr;
 		sqlstr =
-			"select * from Event where UserId";
+			"select * from Event ;";
 		if (0 == mysql_query(&mydata, sqlstr.c_str()))
 		{
 			result = mysql_store_result(&mydata);
