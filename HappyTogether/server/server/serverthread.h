@@ -60,7 +60,6 @@ void service_login(session_s *ses,request_t *req)
 		reply.data="failed";
 		reply.datalen=strlen("failed")+1;
 	}
-	p_debug("data set!\n");
 	ses->send_reply(&reply);
 	ses->login_success(name);
 }
@@ -86,13 +85,13 @@ void service_register(session_s * ses,request_t *req)
 			else if (strcmp(key,"PassWord") == 0)
 				user.PassWord = value;
 			else if (strcmp(key,"Phone") == 0)
-				user.Phone = Cs2Int(value);
+				user.Phone = value;
 			else if (strcmp(key,"PassWord") == 0)
 				user.PlayTime = Cs2Int(value);
 			else if (strcmp(key,"SelfTag") == 0)
 				user.SelfTag = value;
 			else if (strcmp(key,"StudentId") == 0)
-				user.StudentId = Cs2Int(value);
+				user.StudentId = value;
 			else if (strcmp(key,"University") == 0)
 				user.University = value;
 			else if (strcmp(key,"UserName") == 0)
@@ -151,11 +150,11 @@ void service_getuserinfo(session_s * ses,request_t *req)
 		reply.flag = 1;	
 		params_strcat(buffer,"UserName",(char*)userInfo.UserName.data(),bufferlen);
 		//params_strcat(buffer,"PassWord",(char*)userInfo.PassWord.data(),bufferlen);
-		params_strcat(buffer,"StudentId",Int2Cs(userInfo.StudentId),bufferlen);
+		params_strcat(buffer,"StudentId",(char*)userInfo.StudentId.data(),bufferlen);
 		params_strcat(buffer,"Gender",(char*)userInfo.Gender.data(),bufferlen);
 		params_strcat(buffer,"Image",(char*)userInfo.Image.data(),bufferlen);
 		params_strcat(buffer,"UserQQ",(char*)userInfo.UserQQ.data(),bufferlen);
-		params_strcat(buffer,"Phone",Int2Cs(userInfo.Phone),bufferlen);
+		params_strcat(buffer,"Phone",(char*)userInfo.Phone.data(),bufferlen);
 		params_strcat(buffer,"Email",(char*)userInfo.Email.data(),bufferlen);
 		params_strcat(buffer,"University",(char*)userInfo.University.data(),bufferlen);
 		params_strcat(buffer,"LocateArea",(char*)userInfo.LocateArea.data(),bufferlen);
@@ -365,6 +364,80 @@ void service_getevent(session_s * ses,request_t *req)
 	reply.datalen =strlen(buffer)+1;
 	ses->send_reply(&reply);
 }
+void service_joinevent(session_s * ses,request_t *req)
+{
+	if (req->type != TYPE_JOINEVENT )
+		return ;
+	char *data = req->data;
+	char *key,*value;
+	int EventID;
+	string str_name;
+	int UserId=0;
+	while ( (data=get_key_values(data,&key,&value)) !=NULL )
+	{
+		if (strcmp(key,"EventID") ==0)
+			EventID = Cs2Int(value);
+		else if (strcmp(key,"username") ==0)
+			str_name = value;
+		if (strlen(data)==0)
+				break;
+	}
+	str_name= ses->getusername();
+	reply_t reply;
+	reply.type=TYPE_JOINEVENT;
+	reply.flag =1;
+	if (ses->op!=NULL && ses->op->joinEvent(EventID,str_name))
+	{
+			reply.data="success";
+			reply.datalen =strlen("success")+1;
+	}
+	else
+	{
+			reply.data="failed";
+			reply.datalen=strlen("failed")+1;
+	}
+	ses->send_reply(&reply);
+}
+
+
+
+void service_getparticipants(session_s * ses,request_t *req)
+{
+	if (req->type != TYPE_GETPARTICIPANTS )
+		return ;
+	char *data = req->data;
+	char *key,*value;
+
+	int EventID=0;
+	while ( (data=get_key_values(data,&key,&value)) !=NULL )
+	{
+		if (strcmp(key,"EventID") ==0)
+		{
+			EventID = Cs2Int(value);
+			break;
+		}
+		if (strlen(data)==0)
+				break;
+	}
+	vector<string> ps=ses->op->GetParticipants(EventID);
+	vector<string>::iterator iter = ps.begin();
+	char buffer[2048];
+	int bufferlen =2048;
+	memset(buffer,0,bufferlen);
+	for (;iter != ps.end() ;++iter)
+	 {
+	      string str = *iter;  // *iter就是vector的每个元素
+		  params_strcat(buffer,"name",(char*)str.data(),bufferlen);
+	 }
+	params_strcat(buffer,"NULL","NULL",bufferlen);
+	p_debug("\n\n\n%s\n\n\n",buffer);
+	reply_t reply;
+	reply.type=TYPE_GETPARTICIPANTS;
+	reply.flag =1;
+	reply.data=buffer;
+	reply.datalen =strlen(buffer)+1;
+	ses->send_reply(&reply);
+}
 
 DWORD WINAPI myServerThread(LPVOID lpParam)
 {
@@ -416,6 +489,16 @@ DWORD WINAPI myServerThread(LPVOID lpParam)
 				service_getevent(s,req);
 				break;
 			}
+		case(TYPE_JOINEVENT):
+		{
+			service_joinevent(s,req);
+			break;
+		}
+		case(TYPE_GETPARTICIPANTS):
+		{
+			service_getparticipants(s,req);
+			break;
+		}
 		default:
 			break;
 		}

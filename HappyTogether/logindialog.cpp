@@ -11,6 +11,8 @@
 #include <QTextCodec>
 #include "client/UserClient.h"
 #include <QDesktopWidget>
+#include "iniparser.h"
+
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LoginDialog)
@@ -26,6 +28,8 @@ LoginDialog::LoginDialog(QWidget *parent) :
     this->setFont(fontStyle);
     this->setWindowTitle("登录");
     this->setStyleSheet(GetStyle());
+
+
 
     nameLabel->setText("用户名:");
     loginLayout->addWidget(nameLabel,0,0,1,1);
@@ -91,6 +95,7 @@ void LoginDialog::LoginBtnClicked()
 {
     // 判断用户名和密码是否正确，
     // 如果错误则弹出警告对话框
+    userNameGlobal = userName->text();
     if(userName->text() == NULL) {
         QMessageBox::warning(this, tr("警告！"),
                     tr("用户名不能为空"),
@@ -104,33 +109,34 @@ void LoginDialog::LoginBtnClicked()
                     QMessageBox::tr("确定"));
         return ;
     }
-
-   if (client.Login((char*)userName->text().trimmed().toStdString().data(),
-                    (char*) userPwd->text().toStdString().data()))
+    if(verifyCode->text().trimmed() == QString::number(verifyNumber,10))
     {
-       if(verifyCode->text().trimmed() == QString::number(verifyNumber,10))
-       {
-           userNameGlobal = userName->text();
+
+        if (client.Login((char*)QStringToStdString(userName->text().trimmed()).data(),
+                    (char*)QStringToStdString(userPwd->text().trimmed()).data()))
+        {
            this->hide();
            w->show();
            w->move((this->geometry().center() - this->rect().center())/2);
            //w->move((this->geometry().width() - this->rect().width())/2,(this->geometry().height() - this->rect().height())/2);
            //w->move(QApplication::desktop()->width() - w.width())/2,(QApplication::desktop()->height() - w.height())/2;
-       }
-       else
-       {
-           QMessageBox::warning(this, tr("警告！"),
-                       tr("验证码错误！"),
-                       QMessageBox::tr("确定"));
-       }
-    } else {
-       QMessageBox::warning(this, tr("警告！"),
-                   tr("用户名或密码错误！"),
-                   QMessageBox::tr("确定"));
-       // 清空内容并定位光标
-       userName->clear();
-       userPwd->clear();
-       userName->setFocus();
+        }
+        else
+        {
+            QMessageBox::warning(this, tr("警告！"),
+                        tr("用户名或密码错误！"),
+                        QMessageBox::tr("确定"));
+            // 清空内容并定位光标
+            userName->clear();
+            userPwd->clear();
+            userName->setFocus();
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("警告！"),
+                    tr("验证码错误！"),
+                    QMessageBox::tr("确定"));
     }
 }
 

@@ -12,6 +12,8 @@ INPUT(
 ./debug\socket_stream.o
 ./debug\UserClient.o
 ./debug\utils.o
+./debug\base64.o
+./debug\iniparser.o
 ./debug\moc_mainwindow.o
 ./debug\moc_logindialog.o
 ./debug\moc_registerdialog.o

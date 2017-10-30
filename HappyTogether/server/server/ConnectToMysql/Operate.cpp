@@ -18,7 +18,7 @@ Operate::Operate() {
 	char username[128];
 	char password[128];
 	char database[128];
-	FILE *fp=fopen("./server/x64/Debug/config.txt","r");
+	FILE *fp=fopen("config.txt","r");
 	if (fp==NULL)
 	{
 		cout<<"config.txt not exist!"<<endl;
@@ -57,7 +57,7 @@ bool Operate::InsertIntoUserTable(userStruct User) {
 	string sqlstr;
 	//向表中插入数据  
 	sqlstr =
-		"INSERT INTO User VALUES(null,'"+User.UserName+"','"+IntToString(User.StudentId)+"','"+User.Gender+"','"+User.PassWord+"','"+User.Image+"','"+User.UserQQ+"', '"+IntToString(User.Phone)+"','"+User.Email+"','"+User.University+"','"+User.LocateArea+"','"+User.SelfTag+"','"+IntToString(User.PlayTime)+"');";
+		"INSERT INTO User VALUES(null,'"+User.UserName+"','"+User.StudentId+"','"+User.Gender+"','"+User.PassWord+"','"+User.Image+"','"+User.UserQQ+"', '"+User.Phone+"','"+User.Email+"','"+User.University+"','"+User.LocateArea+"','"+User.SelfTag+"','"+IntToString(User.PlayTime)+"');";
 	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
 		return true;
 	}
@@ -425,7 +425,7 @@ vector<EventStruct> Operate::GetEvent(string StartSite, string EndSite, string S
 		MYSQL_ROW sql_row;
 		string sqlstr;
 		sqlstr =
-			"select * from Event where UserId";
+			"select * from Event ;";
 		if (0 == mysql_query(&mydata, sqlstr.c_str()))
 		{
 			result = mysql_store_result(&mydata);
@@ -552,3 +552,42 @@ bool Operate::setEventState(int Eventid,int State)
 		return false;
 	}
 }
+
+vector<string> Operate::GetParticipants(int EventID)
+{
+	vector<string> ps;
+	MYSQL_RES *result;
+	MYSQL_ROW sql_row;
+	string sqlstr;
+	sqlstr =
+		"select * from Participants where EventID   =" +IntToString(EventID) + ";";
+	cout<<sqlstr<<endl;
+	if (0 == mysql_query(&mydata, sqlstr.c_str()))
+		{
+			result = mysql_store_result(&mydata);
+			sql_row = mysql_fetch_row(result);
+			while (sql_row != NULL)
+			{
+				ps.push_back(sql_row[1]);
+				sql_row = mysql_fetch_row(result);
+			}
+		}
+			return ps;
+}
+
+bool Operate::joinEvent(int EventID,string username)
+{
+	string sqlstr;
+	//向表中插入数据  
+	sqlstr =
+		"INSERT INTO Participants VALUES('"+IntToString(EventID)+"','"+username+"');";
+	//cout<<sqlstr<<endl;
+	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+

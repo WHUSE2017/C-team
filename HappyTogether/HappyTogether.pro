@@ -35,7 +35,9 @@ SOURCES += main.cpp\
     client/socket_packet.cpp \
     client/socket_stream.cpp \
     client/UserClient.cpp \
-    client/utils.cpp
+    client/utils.cpp \
+    base64.cpp \
+    iniparser.cpp
 
 HEADERS  += mainwindow.h \
     logindialog.h \
@@ -51,7 +53,9 @@ HEADERS  += mainwindow.h \
     client/socket_stream.h \
     client/UserClient.h \
     client/utils.h \
-    client/ConnectToMysql/SQLStruct.h
+    client/ConnectToMysql/SQLStruct.h \
+    base64.h \
+    iniparser.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \

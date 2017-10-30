@@ -15,18 +15,20 @@ PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
     this->setWindowTitle("个人资料");
 
     /*获取某个人的信息*/
-     struct userStruct uinfo = client.getUserInfo((char*)userNameGlobal.toStdString().data());//如果用户存在
+     struct userStruct uinfo = client.getUserInfo((char*)QStringToStdString(userNameGlobal).data());//如果用户存在
      if(uinfo.UserName!="") {
          //cout<<uinfo.UserName<<" "<<uinfo.Email<<" "<<uinfo.Phone<<" "<<uinfo.UserQQ<<endl;
 
         nameLabel->setText("用户名：");
         personalDataLayout->addWidget(nameLabel,0,0,1,1);
-        userName->setText(QString::fromStdString(uinfo.UserName));
+        userName->setText(StdStringToQStdString(uinfo.UserName));
+        //userName->setEnabled(false);
         personalDataLayout->addWidget(userName,0,1,1,2);
 
         pwdLabel->setText("密码：");
         personalDataLayout->addWidget(pwdLabel,1,0,1,1);
-        userPwd->setText(QString::fromStdString(uinfo.PassWord));
+        //userPwd->setText(QString::fromStdString(uinfo.PassWord));
+        userPwd->setPlaceholderText("修改资料请输入密码");
         personalDataLayout->addWidget(userPwd,1,1,1,2);
 
         pwdLabel2->setText("再次密码：");
@@ -42,29 +44,29 @@ PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
 
         phoneLabel->setText("电话：");
         personalDataLayout->addWidget(phoneLabel,4,0,1,1);
-        phone->setText("4334");
+        phone->setText(StdStringToQStdString(uinfo.Phone));
         personalDataLayout->addWidget(phone,4,1,1,2);
 
         emailLabel->setText("邮箱：");
         personalDataLayout->addWidget(emailLabel,5,0,1,1);
-        email->setText("3243433@qq.com");
+        email->setText(StdStringToQStdString(uinfo.Email));
         personalDataLayout->addWidget(email,5,1,1,2);
         QQLabel->setText("QQ：");
         personalDataLayout->addWidget(QQLabel,6,0,1,1);
-        QQ->setText(QString::fromStdString(uinfo.UserQQ));
+        QQ->setText(StdStringToQStdString(uinfo.UserQQ));
         personalDataLayout->addWidget(QQ,6,1,1,2);
 
         studentIdLabel->setText("学号：");
         personalDataLayout->addWidget(studentIdLabel,7,0,1,1);
-        studentId->setText(QString::number(uinfo.StudentId,10));
+        studentId->setText(StdStringToQStdString(uinfo.StudentId));
         personalDataLayout->addWidget(studentId,7,1,1,2);
         universityLabel->setText("学校：");
         personalDataLayout->addWidget(universityLabel,8,0,1,1);
-        university->setText(QString::fromStdString(uinfo.University));
+        university->setText(StdStringToQStdString(uinfo.University));
         personalDataLayout->addWidget(university,8,1,1,2);
         locateAreaLabel->setText("地区：");
         personalDataLayout->addWidget(locateAreaLabel,9,0,1,1);
-        locateArea->setText(QString::fromStdString(uinfo.LocateArea));
+        locateArea->setText(StdStringToQStdString(uinfo.LocateArea));
         personalDataLayout->addWidget(locateArea,9,1,1,2);
         imageLabel->setText("头像：");
         personalDataLayout->addWidget(imageLabel,10,0,1,1);

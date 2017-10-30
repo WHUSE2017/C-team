@@ -12,6 +12,8 @@ INPUT(
 ./release\socket_stream.o
 ./release\UserClient.o
 ./release\utils.o
+./release\base64.o
+./release\iniparser.o
 ./release\moc_mainwindow.o
 ./release\moc_logindialog.o
 ./release\moc_registerdialog.o

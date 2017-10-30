@@ -4,6 +4,7 @@
 #include "logindialog.h"
 #include <QFileDialog>
 #include "globalvariable.h"
+#include "base64.h"
 
 RegisterDialog::RegisterDialog(QWidget *parent) :
     QDialog(parent),
@@ -66,9 +67,7 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
     registerLayout->addWidget(imageLabel,10,0,1,1);
     imageBtn->setText("上传");
     registerLayout->addWidget(imageBtn,10,1,1,2);
-
-
-
+/*
     selfTagLabel->setText("Tag：");
     registerLayout->addWidget(selfTagLabel,11,0,1,1);
 
@@ -90,7 +89,11 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
     tagLayout->addWidget(btn4,1,1,1,1);
 
     tag->setLayout(tagLayout);
-    registerLayout->addWidget(tag,11,1,2,2);
+*/
+    signatureLabel->setText("个性签名:");
+    registerLayout->addWidget(signatureLabel,11,0,1,1);
+    signature->setPlaceholderText("请输入你的个性签名");
+    registerLayout->addWidget(signature,11,1,2,2);
 
     backBtn->setText("返回");
     registerLayout->addWidget(backBtn,13,0,1,1);
@@ -109,26 +112,40 @@ RegisterDialog::~RegisterDialog()
 
 void RegisterDialog::ConfirmBtnClicked()
 {
+
+    //std::string encoded = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+    //std::string decoded = base64_decode(encoded);
     if(JudgeEmpty()) {
         /*注册*/
         struct userStruct user;
-        user.Email =email->text().toStdString();
-        user.Gender=sex->text().toStdString();
-        user.Image=imageBtn->text().toStdString();
-        user.LocateArea = locateArea->text().toStdString();
-        user.PassWord=userPwd->text().toStdString();
-        user.Phone=std::stoi(phone->text().toStdString());
-        user.PlayTime=1212;
-        user.SelfTag = "abc";
-        user.StudentId=std::stoi(studentId->text().toStdString());
-        user.University =university->text().toStdString();
-        user.UserName = userName->text().toStdString();
-        user.UserQQ=QQ->text().toStdString();
+        std::string s = email->text().toStdString();
+        user.Email = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+        s = sex->text().toStdString();
+        user.Gender= base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+        s = imageBtn->text().toStdString();
+        user.Image= base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+        s = locateArea->text().toStdString();
+        user.LocateArea = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+        s = userPwd->text().toStdString();
+        user.PassWord= base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+        s = phone->text().toStdString();
+        user.Phone= base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+        user.PlayTime= 0;
+        s = signature->toPlainText().toStdString();
+        user.SelfTag = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+        s = studentId->text().toStdString();
+        user.StudentId = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+        s = university->text().toStdString();
+        user.University = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+        s = userName->text().toStdString();
+        user.UserName = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+        s = QQ->text().toStdString();
+        user.UserQQ = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
 
         if (client.Register(user))
             QMessageBox::information(this, tr("Welcome"), tr("恭喜注册成功！"), QMessageBox::tr("确定"));
         else {
-            QMessageBox::information(this, tr("Welcome"), tr("注册失败！不支持中文"), QMessageBox::tr("确定"));
+            QMessageBox::information(this, tr("Welcome"), tr("注册失败！"), QMessageBox::tr("确定"));
 
         }
         return ;
@@ -154,8 +171,8 @@ bool RegisterDialog::JudgeEmpty()
         QMessageBox::warning(this, tr("提示"), tr("前后密码不一致！"), QMessageBox::tr("确定"));
         return false;
     }
-    if(phone->text().length() > 8) {
-        QMessageBox::warning(this, tr("提示"), tr("请输入8位以下有效的电话！"), QMessageBox::tr("确定"));
+    if(phone->text().length() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入有效的电话！"), QMessageBox::tr("确定"));
         return false;
     }
     if(email->text() == NULL) {
@@ -179,8 +196,8 @@ bool RegisterDialog::JudgeEmpty()
 
 void RegisterDialog::BackBtnClicked()
 {
-    LoginDialog *loginDlg = new LoginDialog;
     this->hide();
+    LoginDialog *loginDlg = new LoginDialog;
     loginDlg->show();
 }
 

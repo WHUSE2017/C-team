@@ -81,8 +81,8 @@ DetailDialog::DetailDialog(QWidget *parent) :
 void DetailDialog::BackBtnClicked()
 {
     this->hide();
-    MainWindow *mainWindow = new MainWindow;
-    mainWindow->show();
+//    MainWindow *mainWindow = new MainWindow;
+//    mainWindow->show();
 }
 
 void DetailDialog::search()

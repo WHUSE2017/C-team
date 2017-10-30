@@ -27,7 +27,7 @@ private:
     QLabel *nameLabel = new QLabel(this);
     QLabel *pwdLabel = new QLabel(this);
     QLabel *pwdLabel2 = new QLabel(this);
-    QLineEdit *userName = new QLineEdit(this);
+    QLabel *userName = new QLabel(this);
     QLineEdit *userPwd = new QLineEdit(this);
     QLineEdit *userPwd2 = new QLineEdit(this);
     QLabel *sexLabel = new QLabel(this);

@@ -15,4 +15,7 @@ extern QString userNameGlobal;
 extern QFont GetFont();
 extern QString GetStyle();
 extern UserClient client;
+extern string QStringToStdString(QString str);
+extern QString StdStringToQStdString(string str);
+
 #endif // GLOBALVARIABLE_H

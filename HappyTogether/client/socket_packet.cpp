@@ -23,8 +23,6 @@ int socket_packet::send_packet(packet_t *packet,int length)
 int socket_packet::recv_packet()
 {
 	int ret;
-    packet_t *packet;
-    int m;
 	int size = sizeof(packet_t) - sizeof(char);
 	packet_t temp;
 	ret = this->mStream->recvData((char*)&temp,size);
@@ -35,9 +33,9 @@ int socket_packet::recv_packet()
 		p_debug("stream check err!\n");
 		return this->err_stream_check;
 	}
-    packet = (packet_t*)this->buffer;
+	packet_t *packet = (packet_t*)this->buffer;
 	memcpy(packet,&temp,sizeof(packet_t));
-    m = this->mStream->recvData(&(packet->data[0]),packet->length - size);
+	int m = this->mStream->recvData(&(packet->data[0]),packet->length - size); 
 	if (m<=0)
 		goto stream_err;
 	ret += m;

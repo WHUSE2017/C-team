@@ -197,27 +197,31 @@ void MainWindow::PublishBtnClicked()
     mb.setButtonText (QMessageBox::Cancel,QString("取 消"));
     if(mb.exec() == QMessageBox::Ok)
     {
+        /*添加event*/
         EventStruct ev;
-        ev.Arrival=end->text().toStdString();
-        ev.EndSite=end->text().toStdString();
-        ev.EventType=type->currentText().toStdString();
+        ev.Arrival=QStringToStdString(end->text());
+        ev.EndSite=QStringToStdString(end->text());
+        ev.EventType=QStringToStdString(type->currentText());
         ev.PeersNumber=1;
-        ev.PlaySite=QString("xxx").toStdString();
-        ev.Publisher="ccc";
-        ev.StartSite=start->text().toStdString();
-        ev.StartTime=dateTime->text().toStdString();
+        ev.PlaySite=QStringToStdString(type->currentText());
+        ev.Publisher=QStringToStdString(userNameGlobal);
+        ev.StartSite=QStringToStdString(start->text());
+        ev.StartTime=QStringToStdString(dateTime->text());
         ev.State=1;
         ev.UserId=1;
+
         if (client.addEvent(ev))
-        QMessageBox::information(this, tr(""),
+        {
+            QMessageBox::information(this, tr(""),
                     tr("发布成功！"),
                     QMessageBox::tr("确定"));
+        }
     }
 }
 
 void MainWindow::DetailBtnClicked()
 {
-    this->hide();
+//    this->hide();
     DetailDialog *detailDlg = new DetailDialog;
     detailDlg->show();
 }
@@ -287,8 +291,11 @@ void MainWindow::SearchBtnClicked()
     //if(JudgeEmpty() == false) return ;
     messageWidget->setColumnCount(7);
     messageWidget->setHorizontalHeaderLabels(QStringList() << tr("发布人") << tr("人数") << tr("始发地")<< tr("目的地") << tr("出发日期") << tr("活动项目") << tr("备注"));    // 设置列名
-    messageWidget->setColumnWidth(4, 160);
-    messageWidget->setColumnWidth(6, 160);
+//    for(int i = 0; i < 7; i++)
+//        messageWidget->setColumnWidth(i, 200);
+    messageWidget->setColumnWidth(4, 250);
+    messageWidget->setColumnWidth(5, 200);
+    messageWidget->setColumnWidth(6, 200);
     //获得水平方向表头的item对象
     QTableWidgetItem *columnHeaderItem = messageWidget->horizontalHeaderItem(1);
     //columnHeaderItem->setFont(QFont("Helvetica"));  //设置字体
@@ -298,9 +305,9 @@ void MainWindow::SearchBtnClicked()
     messageWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     string startString = "NULL";
-    if(start->text() != NULL) startString = start->text().toStdString();
+    if(start->text() != NULL) startString = QStringToStdString(start->text());
     string endString = "NULL";
-    if(end->text() != NULL) endString = end->text().toStdString();
+    if(end->text() != NULL) endString = QStringToStdString(end->text());
     vector<EventStruct>  es = client.getEvent(startString,endString,"NULL",0);
     vector<EventStruct>::iterator iter2 = es.begin();
 
@@ -320,7 +327,7 @@ void MainWindow::SearchBtnClicked()
         QTableWidgetItem *item3 = messageWidget->item(i,3); // 目的地
         QTableWidgetItem *item4 = messageWidget->item(i,4); // 出发日期
         QTableWidgetItem *item5 = messageWidget->item(i,5); // 活动项目
-        QTableWidgetItem *item6 = messageWidget->item(i,6); // 备注
+        //QTableWidgetItem *item6 = messageWidget->item(i,6); // 备注
 
         QWidget *remark = new QWidget(this);
         QGridLayout *layout = new QGridLayout(this);
@@ -341,7 +348,7 @@ void MainWindow::SearchBtnClicked()
         }
         else {
             item0 = new QTableWidgetItem;
-            item0->setText( QString::fromStdString(ee.Publisher));
+            item0->setText(StdStringToQStdString(ee.Publisher));
             item0->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 0, item0);
 
@@ -351,26 +358,26 @@ void MainWindow::SearchBtnClicked()
             messageWidget->setItem(i, 1, item1);
 
             item2 = new QTableWidgetItem;
-            item2->setText(QString::fromStdString(ee.StartSite));
+            item2->setText(StdStringToQStdString(ee.StartSite));
             item2->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 2, item2);
 
             item3 = new QTableWidgetItem;
-            item3->setText(QString::fromStdString(ee.EndSite));
+            item3->setText(StdStringToQStdString(ee.EndSite));
             item3->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 3, item3);
 
             item4 = new QTableWidgetItem;
-            item4->setText(QString::fromStdString(ee.StartTime));
+            item4->setText(StdStringToQStdString(ee.StartTime));
             item4->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 4, item4);
 
             item5 = new QTableWidgetItem;
-            item5->setText(QString::fromStdString(ee.EventType));
+            item5->setText(StdStringToQStdString(ee.EventType));
             item5->setTextAlignment(Qt::AlignCenter);
             messageWidget->setItem(i, 5, item5);
 
-            item6 = new QTableWidgetItem;
+            //item6 = new QTableWidgetItem;
             messageWidget->setCellWidget(i,6,remark);
         }
     }
@@ -394,7 +401,14 @@ void MainWindow::OffActionClicked()
 
 void MainWindow::JoinBtnClicked()
 {
-    QMessageBox::information(this, tr(""),
-                tr("恭喜加入成功！"),
-                QMessageBox::tr("确定"));
+    QMessageBox mb(QMessageBox::Warning, "","确定要一起嗨？");
+    mb.setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+    mb.setButtonText (QMessageBox::Ok,QString("确 定"));
+    mb.setButtonText (QMessageBox::Cancel,QString("取 消"));
+    if(mb.exec() == QMessageBox::Ok)
+    {
+        QMessageBox::information(this, tr(""),
+                    tr("恭喜加入成功！"),
+                    QMessageBox::tr("确定"));
+    }
 }

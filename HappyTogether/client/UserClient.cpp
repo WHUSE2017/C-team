@@ -35,11 +35,11 @@ bool UserClient::Register(struct userStruct userInfo)
 	memset(buffer,0,this->bufferlen);
 	params_strcat(buffer,"UserName",(char*)userInfo.UserName.data(),bufferlen);
 	params_strcat(buffer,"PassWord",(char*)userInfo.PassWord.data(),bufferlen);
-	params_strcat(buffer,"StudentId",Int2Cs(userInfo.StudentId),bufferlen);
+    params_strcat(buffer,"StudentId",(char*)userInfo.StudentId.data(),bufferlen);
 	params_strcat(buffer,"Gender",(char*)userInfo.Gender.data(),bufferlen);
 	params_strcat(buffer,"Image",(char*)userInfo.Image.data(),bufferlen);
 	params_strcat(buffer,"UserQQ",(char*)userInfo.UserQQ.data(),bufferlen);
-	params_strcat(buffer,"Phone",Int2Cs(userInfo.Phone),bufferlen);
+    params_strcat(buffer,"Phone",(char*)userInfo.Phone.data(),bufferlen);
 	params_strcat(buffer,"Email",(char*)userInfo.Email.data(),bufferlen);
 	params_strcat(buffer,"University",(char*)userInfo.University.data(),bufferlen);
 	params_strcat(buffer,"LocateArea",(char*)userInfo.LocateArea.data(),bufferlen);

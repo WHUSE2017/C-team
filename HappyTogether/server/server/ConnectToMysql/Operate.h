@@ -19,6 +19,8 @@ public:
 	userStruct GetUserDetails(string username);
 	vector<EventStruct> GetEvent(string StartSite, string EndSite, string StartTime, int UserId);
 	vector<EventStruct> GetEventByState(int State);
+	vector<string> GetParticipants(int EventId);
+	bool joinEvent(int EventID,string username);
 	bool setEventState(int Eventid, int State);
 	vector<StationMessageStruct> GetMessageBySender(string SenderName);
 	vector<StationMessageStruct> GetMessageByReceiver(string ReceiverName);
