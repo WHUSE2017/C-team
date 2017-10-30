@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿生成启动时间为 2017/10/30 11:06:25。
+=======
+﻿生成启动时间为 2017/10/29 23:20:33。
+>>>>>>> 5fd8c35102a0a2d7816a2c865c7450f30210fd1f
      1>项目“G:\qt\C-team\HappyTogether\server\server\server.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
          正在创建“x64\Debug\server.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
@@ -28,4 +32,8 @@
 
 生成成功。
 
+<<<<<<< HEAD
 已用时间 00:00:01.66
+=======
+已用时间 00:00:01.58
+>>>>>>> 5fd8c35102a0a2d7816a2c865c7450f30210fd1f
