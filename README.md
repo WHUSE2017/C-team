@@ -44,5 +44,5 @@
 - 运行环境：windows系统
 - 软件格式：.exe文件
 
-下载[一起嗨软件安装包.rar](https://github.com/HanKin2015/arithmetic/raw/master/%E6%89%93%E5%8C%85%E7%9A%84%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F.rar)压缩包文件，解压后在文件夹中双击`HappyTogether.exe`即可运行。  
+下载[一起嗨软件安装包.rar](https://github.com/WHUSE2017/C-team/raw/master/HappyTogether/%E4%B8%80%E8%B5%B7%E5%97%A8%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%8C%85.rar)压缩包文件，解压后在文件夹中双击`HappyTogether.exe`即可运行。  
 
