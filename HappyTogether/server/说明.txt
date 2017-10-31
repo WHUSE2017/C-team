@@ -1,5 +1,0 @@
-config.txt中配置数据库的host，账户，密码，database名称
-第1行为host，即ip或localhost
-第2行为账户
-第3行为密码
-第4行为database

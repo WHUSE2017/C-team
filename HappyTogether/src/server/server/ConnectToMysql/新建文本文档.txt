@@ -1,0 +1,78 @@
+mysql
+localhost:3306
+username:root
+password:root
+
+database: root
+
+user:
+create table User(
+	
+UserID  int not null auto_increment,
+    
+UserName varchar(40) not null unique,
+StudentId int(20) not null,
+Gender 
+varchar(4) not null,   
+PassWord varchar(40) not null,
+ 
+Image varchar(40) not null,   
+UserQQ varchar(12) not null,
+    
+Phone int(13) not null,
+    
+Email varchar(40) not null,
+    
+Univercity varchar(100) not null,
+    
+LocateArea varchar(100) not null,
+    
+SelfTag varchar(100),
+    
+PlayTime int(10) not null,
+    
+primary key (UserID)
+
+);
+
+Event
+create table Event(
+	
+EventID  int not null auto_increment,
+  
+UserId int(40) not null,  
+EventType varchar(40) not null,
+    
+PlaySite varchar(40) not null,
+    
+Arrival varchar(40) not null,
+        
+Publisher varchar(20) not null,    
+StartSite varchar(40) not null,
+    
+EndSite varchar(40) not null,
+    
+StartTime varchar(40)not null,
+    
+PeersNumber int(10) not null,
+    
+State int(1) not null,
+    
+primary key (EventID)   
+);
+
+StationMessage:
+create table StationMessage(
+	
+MessageID  int not null auto_increment,
+    
+SenderName varchar(40) not null,
+    
+ReceiverName varchar(40) not null,
+    
+Message  varchar(100) not null,
+ 
+Time varchar(40) not null,   
+primary key (MessageID)
+
+);
