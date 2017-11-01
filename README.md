@@ -27,7 +27,7 @@
 - 下载地址：[QT 5.8 for Desktop](https://download.qt.io/official_releases/qt/5.8/5.8.0/qt-opensource-windows-x86-mingw530-5.8.0.exe)
 
 ### 逻辑层
-- 操作系统：windows 10系统
+- 操作系统：windows 10  64位系统
 - 编程语言：C++
 - 编程接口：socket
 - 集成开发环境：Microsoft Visual Studio
@@ -41,7 +41,7 @@
 首先需要下载安装Qt 5.8.0 for Desktop，然后下载整个项目文件，最后删掉主目录下的.pro.user文件后用Qt Creater打开.pro项目文件，即可编译运行。
 
 ## 软件安装运行
-- 运行环境：windows系统
+- 运行环境：windows 64位系统
 - 软件格式：.exe文件
 
 下载[一起嗨软件安装包.rar](https://github.com/WHUSE2017/C-team/raw/master/HappyTogether/%E4%B8%80%E8%B5%B7%E5%97%A8%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%8C%85.rar)压缩包文件，解压后在文件夹中双击`HappyTogether.exe`即可运行。  
