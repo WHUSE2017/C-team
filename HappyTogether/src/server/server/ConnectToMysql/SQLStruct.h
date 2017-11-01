@@ -38,3 +38,8 @@ struct StationMessageStruct {
 	string Message;
 	string Time;
 };
+
+struct SecretSecurityStruct {
+	string UserName;
+	string Security;
+};

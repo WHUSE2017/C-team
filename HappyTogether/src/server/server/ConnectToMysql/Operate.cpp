@@ -95,6 +95,73 @@ bool Operate::InsertIntoStationMessageable(StationMessageStruct StationMessage)
 	}
 }
 
+
+bool Operate::UpdateUserTable(userStruct User)
+{
+	string sqlstr;
+	sqlstr =
+		"UPDATE User SET StudentId = '" + IntToString(User.StudentId) + "',Gender ='" + User.Gender + "',Image ='" + User.Image + "',UserQQ ='" + User.UserQQ + "',Phone ='" + IntToString(User.Phone) + "',Email ='" + User.Email + "',Univercity ='" + User.University + "',LocateArea ='" + User.LocateArea + "',SelfTag ='" + User.SelfTag + "' where UserName ='" + User.UserName + "';";
+	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool Operate::UpdatePassword(string UserName, string PassWord)
+{
+	string sqlstr;
+	sqlstr =
+		"UPDATE User SET PassWord ='" + PassWord + "' where UserName ='" + UserName + "';";
+	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool Operate::InsertIntoSecretSecurity(SecretSecurityStruct Security)
+{
+	string sqlstr;
+	//向表中插入数据  
+	sqlstr =
+		"INSERT INTO SecretSecurity VALUES(null,'" + Security.UserName + "','" + Security.Security + "');";
+	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+string Operate::GetSecretSecurity(string UserName)
+{
+	MYSQL_RES *result;
+	MYSQL_ROW sql_row;
+	string sqlstr;
+	sqlstr =
+		"select Security from SecretSecurity where UserName ='" + UserName + "';";
+	if (0 == mysql_query(&mydata, sqlstr.c_str()))
+	{
+		result = mysql_store_result(&mydata);
+		sql_row = mysql_fetch_row(result);
+		if (sql_row != NULL)
+		{
+			return sql_row[0];
+		}
+		else
+		{
+			return 0;
+		}
+
+	}
+	else {
+		return "NULL";
+	}
+}
+
 string Operate::GetPasswordFromUserTable(string username)
 {
 	MYSQL_RES *result;
