@@ -18,7 +18,7 @@ Service::Service(unsigned short port)
      sockaddr_in sin;
      sin.sin_family = AF_INET;
      sin.sin_port = htons(port);
-     sin.sin_addr.S_un.S_addr =  inet_addr("0.0.0.0");//0.0.0.0=INADDR_ANY; 
+     sin.sin_addr.S_un.S_addr =  inet_addr("127.0.0.1");//0.0.0.0=INADDR_ANY; 
      if(bind( slisten, (LPSOCKADDR)&sin, sizeof(sin)) == SOCKET_ERROR)
      {
          p_debug("bind error !");

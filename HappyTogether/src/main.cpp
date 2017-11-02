@@ -7,8 +7,9 @@
 #include <QProcess>
 using namespace std;
 
-void CreateServerProcess()
+HANDLE CreateServerProcess()
 {
+    HANDLE ret=NULL;
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
 
@@ -32,7 +33,7 @@ void CreateServerProcess()
         ))
     {
         cout << "create process success" << endl;
-
+        ret = pi.hProcess;
         //下面两行关闭句柄，解除本进程和新进程的关系，不然有可能不小心调用TerminateProcess函数关掉子进程
 //      CloseHandle(pi.hProcess);
 //      CloseHandle(pi.hThread);
@@ -41,6 +42,7 @@ void CreateServerProcess()
         cout << "failed to create process" << endl;
     }
     Sleep(50);
+    return ret;
 }
 
 int main(int argc, char *argv[])
@@ -48,7 +50,13 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 //    MainWindow w;
 //    w.show();
-    CreateServerProcess();
+    HANDLE hProcess = CreateServerProcess();
+
+/**在程序退出的地方调用如下函数关闭server, hProcess设为全局变量***/
+    //TerminateProcess(hProcess,0);
+
+
+
     //2.通过QProcess,阻塞调用
 //    QProcess::execute("server.exe");
     //3.通过QProcess,非阻塞调用
