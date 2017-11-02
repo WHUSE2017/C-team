@@ -12,12 +12,14 @@
 #include "client/UserClient.h"
 #include <QDesktopWidget>
 #include "iniparser.h"
+#include "retrievepwddialog.h"
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::ForeignWindow);
 //    QFont font;
 //    font.setPointSize(20);
 //    font.setFamily(("SentyTEA 新蒂下午茶体"));
@@ -79,8 +81,11 @@ LoginDialog::LoginDialog(QWidget *parent) :
     verifyBtn->setFocusPolicy(Qt::NoFocus);
     loginLayout->addWidget(verifyBtn,2,2,1,1);
 
+    retrievePwd->setText("找回密码");
+    retrievePwd->setStyleSheet("background-color:transparent;font-size: 20px;color: rgb(0, 0, 0);font-family:'./fonts/方正宋刻本秀楷简体.TTF';");
+    loginLayout->addWidget(retrievePwd,3,0,1,1);
     rememberPwd->setText("记住密码");
-    loginLayout->addWidget(rememberPwd,3,0,1,1);
+    loginLayout->addWidget(rememberPwd,3,2,1,1);
 
     registerBtn->setText("注册");
     loginLayout->addWidget(registerBtn,4,0,1,1);
@@ -91,11 +96,18 @@ LoginDialog::LoginDialog(QWidget *parent) :
     connect(registerBtn, &QPushButton::clicked, this, &LoginDialog::RegisterBtnClicked);
     //connect(verifyCode, SIGNAL(clicked()), this, SLOT(on_verifyCodeBtn_clicked()));
     connect(verifyBtn, &QPushButton::clicked, this, &LoginDialog::VerifyBtnClicked);
+    connect(retrievePwd, &QPushButton::clicked, this, &LoginDialog::RetrievePwdClicked);
 }
 
 LoginDialog::~LoginDialog()
 {
     delete ui;
+}
+
+void LoginDialog::RetrievePwdClicked()
+{
+    RetrievePwdDialog *dlg = new RetrievePwdDialog;
+    dlg->show();
 }
 
 void LoginDialog::VerifyBtnClicked()

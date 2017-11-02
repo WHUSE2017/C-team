@@ -10,6 +10,7 @@
 #include <QComboBox>
 #include <QTableWidget>
 #include <QDateEdit>
+#include <QCloseEvent>
 
 namespace Ui {
 class MainWindow;
@@ -33,6 +34,7 @@ protected:
     void MouseMoveEvent(QMouseEvent* );
     void MouseReleaseEvent(QMouseEvent* );
     void iSlot();
+    void closeEvent(QCloseEvent* );
 
 private:
     Ui::MainWindow *ui;
@@ -44,6 +46,10 @@ private:
     QAction *receiveMessageAction;//收消息
     QAction *sendMessageAction;//发送消息
     //QAction *inviteAction;//邀请用户
+    QMenu *activityMenu; //活动菜单
+    QAction *publishAction;
+    QAction *joinAction;
+    QAction *recordAction;
     QMenu *helpMenu;    //帮助菜单
     QAction *documentAction;//软件操作帮助文档
     QAction *aboutAction;   //关于软件

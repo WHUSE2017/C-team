@@ -41,6 +41,12 @@ MainWindow::MainWindow(QWidget *parent) :
     receiveMessageAction = messageMenu->addAction("短消息");
     sendMessageAction = messageMenu->addAction("发消息");
 
+    // 创建活动菜单
+    activityMenu = ui->menuBar->addMenu(tr("活动(&A)"));
+    publishAction = activityMenu->addAction("已发布的活动");
+    joinAction = activityMenu->addAction("已参加的活动");
+    recordAction = activityMenu->addAction("活动记录");
+
     // 创建邀请菜单
     //inviteAction = ui->menuBar->addAction(tr("邀请(&I)"));
 
@@ -120,6 +126,24 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(defaultAction,SIGNAL(triggered()),this,SLOT(DefaultActionClicked()));
     connect(publishBtn,&QPushButton::clicked,this,&MainWindow::PublishBtnClicked);
     connect(userName, SIGNAL(clicked()), this, SLOT(UserNameClicked()));
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    QMessageBox mb(QMessageBox::Warning, "","确定要退出？");
+    mb.setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+    mb.setButtonText (QMessageBox::Ok,QString("确 定"));
+    mb.setButtonText (QMessageBox::Cancel,QString("取 消"));
+    if(mb.exec() == QMessageBox::Ok)
+    {
+        TerminateProcess(hProcess, 0);
+        event->accept();
+    }
+    else
+    {
+        event->ignore();
+    }
+    return ;
 }
 
 void MainWindow::BlackActionClicked()
@@ -331,7 +355,9 @@ void MainWindow::SearchBtnClicked()
     if(start->text() != NULL) startString = QStringToStdString(start->text());
     string endString = "NULL";
     if(end->text() != NULL) endString = QStringToStdString(end->text());
-    vector<EventStruct>  es = client.getEvent(startString,endString,"NULL",0);
+    string typeString = "NULL";
+    //if(type->currentText() != NULL) typeString = QStringToStdString(end->text());
+    vector<EventStruct>  es = client.getEvent(startString,endString,typeString,0);
     vector<EventStruct>::iterator iter2 = es.begin();
 
     messageWidget->setRowCount(es.size());   // 设置题目占的行数

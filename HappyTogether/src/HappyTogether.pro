@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     iniparser.cpp \
     receivemessagedialog.cpp \
     sendmessagedialog.cpp \
-    spacedialog.cpp
+    spacedialog.cpp \
+    retrievepwddialog.cpp
 
 HEADERS  += mainwindow.h \
     logindialog.h \
@@ -59,7 +60,8 @@ HEADERS  += mainwindow.h \
     iniparser.h \
     receivemessagedialog.h \
     sendmessagedialog.h \
-    spacedialog.h
+    spacedialog.h \
+    retrievepwddialog.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -68,7 +70,8 @@ FORMS    += mainwindow.ui \
     personaldatadialog.ui \
     messagedialog.ui \
     sendmessagedialog.ui \
-    spacedialog.ui
+    spacedialog.ui \
+    retrievepwddialog.ui
 
 RC_ICONS = images/HappyTogether.ico
 QT += core gui

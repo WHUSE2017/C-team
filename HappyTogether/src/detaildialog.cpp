@@ -12,10 +12,9 @@ DetailDialog::DetailDialog(QWidget *parent) :
     ui(new Ui::DetailDialog)
 {
     ui->setupUi(this);
-    this->resize(800,600);
+    this->resize(1000,700);
     this->setWindowTitle("详细信息");
-    QFont fontStyle = GetFont();
-    this->setFont(fontStyle);
+    this->setFont(GetFont());  //这个必须写在样式前面
     this->setStyleSheet(GetStyle());
     this->setWindowFlags(Qt::FramelessWindowHint);
 

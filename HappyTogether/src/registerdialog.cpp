@@ -66,10 +66,18 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
     registerLayout->addWidget(locateAreaLabel,9,0,1,1);
     locateArea->setPlaceholderText("请输入地区");
     registerLayout->addWidget(locateArea,9,1,1,2);
+    security->setText("密保问题");
+    registerLayout->addWidget(security,10,0,1,1);
+    securityQuestion->addItem("你的爸爸叫什么？");
+    securityQuestion->addItem("你的妈妈叫什么？");
+    securityQuestion->addItem("你的姐姐叫什么？");
+    securityQuestion->addItem("你的哥哥叫什么？");
+    registerLayout->addWidget(securityQuestion,10,1,1,2);
+    registerLayout->addWidget(securityAnswer,11,1,1,2);
     imageLabel->setText("头像：");
-    registerLayout->addWidget(imageLabel,10,0,1,1);
+    registerLayout->addWidget(imageLabel,12,0,1,1);
     imageBtn->setText("上传");
-    registerLayout->addWidget(imageBtn,10,1,1,2);
+    registerLayout->addWidget(imageBtn,12,1,1,2);
 /*
     selfTagLabel->setText("Tag：");
     registerLayout->addWidget(selfTagLabel,11,0,1,1);
@@ -94,14 +102,14 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
     tag->setLayout(tagLayout);
 */
     signatureLabel->setText("个性签名:");
-    registerLayout->addWidget(signatureLabel,11,0,1,1);
+    registerLayout->addWidget(signatureLabel,13,0,1,1);
     signature->setPlaceholderText("请输入你的个性签名");
-    registerLayout->addWidget(signature,11,1,2,2);
+    registerLayout->addWidget(signature,13,1,2,2);
 
     backBtn->setText("返回");
-    registerLayout->addWidget(backBtn,13,0,1,1);
+    registerLayout->addWidget(backBtn,15,0,1,1);
     confirmBtn->setText("确认");
-    registerLayout->addWidget(confirmBtn,13,2,1,1);
+    registerLayout->addWidget(confirmBtn,15,2,1,1);
     this->setLayout(registerLayout);
     connect(confirmBtn, &QPushButton::clicked, this, &RegisterDialog::ConfirmBtnClicked);
     connect(backBtn, &QPushButton::clicked, this, &RegisterDialog::BackBtnClicked);
@@ -145,8 +153,12 @@ void RegisterDialog::ConfirmBtnClicked()
         s = QQ->text().toStdString();
         user.UserQQ = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
 
-        if (client.Register(user))
+        if (client.Register(user)) {
             QMessageBox::information(this, tr("Welcome"), tr("恭喜注册成功！"), QMessageBox::tr("确定"));
+            this->hide();
+            LoginDialog *loginDlg = new LoginDialog;
+            loginDlg->show();
+        }
         else {
             QMessageBox::information(this, tr("Welcome"), tr("注册失败！"), QMessageBox::tr("确定"));
 

@@ -46,6 +46,7 @@ private:
     QLineEdit *verifyCode = new QLineEdit(this);    //验证码
     QPushButton *verifyBtn = new QPushButton(this);      //系统生成的验证码
     QString verifyNumber;
+    QPushButton *retrievePwd = new QPushButton(this); //找回密码
     QCheckBox *rememberPwd = new QCheckBox(this);   //记住密码
     QPushButton *loginBtn = new QPushButton(this);  //登录按钮
     QPushButton *registerBtn = new QPushButton(this);//注册按钮
@@ -57,6 +58,7 @@ private slots:
     void LoginBtnClicked();
     void RegisterBtnClicked();
     void VerifyBtnClicked();
+    void RetrievePwdClicked();
 };
 #endif // LOGINDIALOG_H
 

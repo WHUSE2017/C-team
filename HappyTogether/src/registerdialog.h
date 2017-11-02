@@ -44,6 +44,9 @@ private:
     QLineEdit *university = new QLineEdit(this);    //学校
     QLabel *locateAreaLabel = new QLabel(this);
     QLineEdit *locateArea = new QLineEdit(this);    //地区
+    QLabel *security = new QLabel(this);
+    QComboBox *securityQuestion = new QComboBox(this);    //密保问题
+    QLineEdit *securityAnswer = new QLineEdit(this);
     QLabel *imageLabel = new QLabel(this);
     QPushButton *imageBtn = new QPushButton(this);  //头像上传
 //    QLabel *selfTagLabel = new QLabel(this);

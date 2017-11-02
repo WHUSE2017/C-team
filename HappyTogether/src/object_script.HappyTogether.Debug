@@ -16,6 +16,7 @@ INPUT(
 ./debug\receivemessagedialog.o
 ./debug\sendmessagedialog.o
 ./debug\spacedialog.o
+./debug\retrievepwddialog.o
 ./debug\moc_mainwindow.o
 ./debug\moc_logindialog.o
 ./debug\moc_registerdialog.o
@@ -24,4 +25,5 @@ INPUT(
 ./debug\moc_receivemessagedialog.o
 ./debug\moc_sendmessagedialog.o
 ./debug\moc_spacedialog.o
+./debug\moc_retrievepwddialog.o
 );
