@@ -21,5 +21,5 @@ extern QString GetStyle();
 extern UserClient client;
 extern string QStringToStdString(QString str);
 extern QString StdStringToQString(string str);
-
+extern HANDLE hProcess;
 #endif // GLOBALVARIABLE_H

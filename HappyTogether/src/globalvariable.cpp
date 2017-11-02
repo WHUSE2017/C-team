@@ -16,6 +16,7 @@ extern QString userNameGlobal = "";
 extern int eventIDGlobal = 0;
 extern QString startGlobal="";
 extern QString endGlobal="";
+extern HANDLE hProcess=NULL;
 
 extern QFont GetFont()
 {

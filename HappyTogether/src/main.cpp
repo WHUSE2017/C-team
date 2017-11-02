@@ -41,7 +41,7 @@ HANDLE CreateServerProcess()
     else{
         cout << "failed to create process" << endl;
     }
-    Sleep(50);
+    Sleep(500);
     return ret;
 }
 
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 //    MainWindow w;
 //    w.show();
-    HANDLE hProcess = CreateServerProcess();
+    hProcess = CreateServerProcess();
 
 /**在程序退出的地方调用如下函数关闭server, hProcess设为全局变量***/
     //TerminateProcess(hProcess,0);
