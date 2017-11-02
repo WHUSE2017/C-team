@@ -22,6 +22,7 @@ public:
 	vector<string> getParticipants(int EventID);
 	EventStruct getEventById(int EventID);
 	void Logout();
+	bool UpdateUserInfo(struct userStruct userInfo);
 private:
 	int state;
 	session_c* sc;

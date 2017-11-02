@@ -100,7 +100,7 @@ bool Operate::UpdateUserTable(userStruct User)
 {
 	string sqlstr;
 	sqlstr =
-		"UPDATE User SET StudentId = '" + IntToString(User.StudentId) + "',Gender ='" + User.Gender + "',Image ='" + User.Image + "',UserQQ ='" + User.UserQQ + "',Phone ='" + IntToString(User.Phone) + "',Email ='" + User.Email + "',Univercity ='" + User.University + "',LocateArea ='" + User.LocateArea + "',SelfTag ='" + User.SelfTag + "' where UserName ='" + User.UserName + "';";
+		"UPDATE User SET StudentId = '" + User.StudentId + "',Gender ='" + User.Gender + "',Image ='" + User.Image + "',UserQQ ='" + User.UserQQ + "',Phone ='" + User.Phone + "',Email ='" + User.Email + "',Univercity ='" + User.University + "',LocateArea ='" + User.LocateArea + "',SelfTag ='" + User.SelfTag + "' where UserName ='" + User.UserName + "';";
 	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
 		return true;
 	}

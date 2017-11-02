@@ -202,7 +202,7 @@ void service_addevent(session_s * ses,request_t *req)
 		if (strlen(data)==0)
 				break;
 	}
-
+	ev.PeersNumber = 0;
 	reply_t reply;
 	reply.type=TYPE_ADDEVENT;
 	reply.flag =1;
@@ -284,7 +284,7 @@ void service_addmessage(session_s * ses,request_t *req)
 		if (strlen(data)==0)
 				break;
 	}
-	cout<<" a message :"<<mes.ReceiverName<<" "<<mes.SenderName<<" "<<mes.Message<<" "<<mes.Time<<endl;
+	
 	reply_t reply;
 	reply.type=TYPE_GETMESSAGE;
 	reply.flag =1;
@@ -470,6 +470,60 @@ void service_geteventdetail(session_s * ses,request_t *req)
 	ses->send_reply(&reply);
 }
 
+void service_updateuserinfo(session_s * ses,request_t *req)
+{
+		if (req->type != TYPE_UPDATEUSERINFO )
+			return ;
+		char *data = req->data;
+		char *key,*value;
+		char *name ,*passwd;
+		struct userStruct user;
+		while ( (data=get_key_values(data,&key,&value)) !=NULL )
+		{
+			if (strcmp(key,"Email") ==0)
+				user.Email = value;
+			else if (strcmp(key,"Gender") == 0)
+				user.Gender = value;
+			else if (strcmp(key,"LocateArea") == 0)
+				user.LocateArea = value;
+			else if (strcmp(key,"Image") == 0)
+				user.Image = value;
+			else if (strcmp(key,"PassWord") == 0)
+				user.PassWord = value;
+			else if (strcmp(key,"Phone") == 0)
+				user.Phone = value;
+			else if (strcmp(key,"PassWord") == 0)
+				user.PlayTime = Cs2Int(value);
+			else if (strcmp(key,"SelfTag") == 0)
+				user.SelfTag = value;
+			else if (strcmp(key,"StudentId") == 0)
+				user.StudentId = value;
+			else if (strcmp(key,"University") == 0)
+				user.University = value;
+			else if (strcmp(key,"UserName") == 0)
+				user.UserName = value;
+			else if (strcmp(key,"UserQQ") == 0)
+				user.UserQQ = value;
+			if (strlen(data)==0)
+					break;
+		}
+		//pr_userStruct(user);
+		reply_t reply;
+		reply.type=TYPE_UPDATEUSERINFO;
+		reply.flag =1;
+		if (ses->op!=NULL && ses->op->UpdateUserTable(user))
+		{
+			reply.data="success";
+			reply.datalen =strlen("success")+1;
+		}
+		else
+		{
+			reply.data="failed";
+			reply.datalen=strlen("failed")+1;
+		}
+		ses->send_reply(&reply);
+}
+
 
 DWORD WINAPI myServerThread(LPVOID lpParam)
 {
@@ -534,6 +588,11 @@ DWORD WINAPI myServerThread(LPVOID lpParam)
 		case(TYPE_GETEVENTDETAILBYID):
 			{
 				service_geteventdetail(s,req);
+				break;
+			}
+		case(TYPE_UPDATEUSERINFO):
+			{
+				service_updateuserinfo(s,req);
 				break;
 			}
 		default:

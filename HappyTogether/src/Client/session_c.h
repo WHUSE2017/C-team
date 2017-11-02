@@ -30,6 +30,7 @@ public:
 	bool joinEvent(char * params);
 	vector<string> getParticipants(char* params);
 	EventStruct getEventByID(char* params);
+	bool updatauserinfo(char* params);
 private:
 	int send_request(request_t *req);
 	int state;

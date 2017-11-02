@@ -111,6 +111,24 @@ bool session_c::_register(char* params)
 
 }
 
+bool session_c::updatauserinfo(char* params)
+{
+	request_t req;
+	req.type = TYPE_UPDATEUSERINFO;
+	req.flag =0;
+	req.data = params;
+	req.datalen = strlen(params)+1;
+	if (!SendAndCheck(&req))
+		return false;
+	reply_t *reply = this->get_reply();
+	if (strcmp(reply->data,"success")==0)
+	{
+		return true;
+	}
+	return false;
+
+}
+
 struct userStruct session_c::getUserInfo(char* params)
 {
 	struct userStruct user; 
