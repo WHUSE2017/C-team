@@ -62,6 +62,9 @@ private slots:
     void on_confirmBtn_clicked();
     void on_changeBtn_clicked();
     void OpenImage();
+    bool JudgeEmpty();
+    bool isNotDigitStr(QString src);
+    bool isDigitStr(QString src);
 };
 
 #endif // PERSONALDATADIALOG_H

@@ -34,6 +34,7 @@ signals:
 
 protected:
     void mouseReleaseEvent(QMouseEvent* );
+    void closeEvent(QCloseEvent* );
 
 private:
     Ui::LoginDialog *ui;

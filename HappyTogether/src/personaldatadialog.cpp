@@ -25,16 +25,16 @@ PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
         //userName->setEnabled(false);
         personalDataLayout->addWidget(userName,0,1,1,2);
 
-        pwdLabel->setText("密码：");
+        pwdLabel->setText("原密码(*)：");
         personalDataLayout->addWidget(pwdLabel,1,0,1,1);
         //userPwd->setText(QString::fromStdString(uinfo.PassWord));
-        userPwd->setPlaceholderText("修改资料请输入密码");
+        userPwd->setPlaceholderText("修改资料请输入原密码");
         userPwd->setEchoMode(QLineEdit::Password);
         personalDataLayout->addWidget(userPwd,1,1,1,2);
 
-        pwdLabel2->setText("再次密码：");
+        pwdLabel2->setText("修改密码(可选):");
         personalDataLayout->addWidget(pwdLabel2,2,0,1,1);
-        userPwd2->setPlaceholderText("请再次输入密码");
+        userPwd2->setPlaceholderText("请输入新密码");
         userPwd2->setEchoMode(QLineEdit::Password);
         personalDataLayout->addWidget(userPwd2,2,1,1,2);
 
@@ -126,6 +126,101 @@ PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
     connect(imageBtn, &QPushButton::clicked, this, &PersonalDataDialog::OpenImage);
 }
 
+/***
+  *判断一个字符串是否为纯数字
+  */
+bool PersonalDataDialog::isNotDigitStr(QString src)
+{
+    QByteArray ba = src.toLatin1();//QString 转换为 char*
+     const char *s = ba.data();
+
+    while(*s && (*s<'0' || *s>'9')) s++;
+
+    if (*s)
+    { //含有数字
+        return false;
+    }
+    else
+    { //不含数字
+        return true;
+    }
+}
+
+bool PersonalDataDialog::isDigitStr(QString src)
+{
+    QByteArray ba = src.toLatin1();//QString 转换为 char*
+     const char *s = ba.data();
+
+    while(*s && *s>='0' && *s<='9') s++;
+
+    if (*s)
+    { //不是纯数字
+        return false;
+    }
+    else
+    { //纯数字
+        return true;
+    }
+}
+
+bool PersonalDataDialog::JudgeEmpty()
+{
+    if(userName->text() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("用户名不能为空！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(userPwd->text() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("密码不能为空！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(userPwd2->text() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("请再次输入密码！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(userPwd2->text() != userPwd->text()) {
+        QMessageBox::warning(this, tr("提示"), tr("前后密码不一致！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(phone->text().length() == NULL || phone->text().size() != 11) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入有效的电话！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(email->text() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入邮箱！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(email->text() != NULL) {
+        QString str = email->text().right(4);
+
+        if(str != ".com") {
+            QMessageBox::warning(this, tr("提示"), tr("请输入有效的邮箱！"), QMessageBox::tr("确定"));
+            return false;
+        }
+        if(email->text().indexOf("@") == -1) {
+            QMessageBox::warning(this, tr("提示"), tr("请输入有效的邮箱！"), QMessageBox::tr("确定"));
+            return false;
+        }
+    }
+    if(QQ->text() == NULL || !isDigitStr(QQ->text())) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入有效的QQ号！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(studentId->text() == NULL || !isDigitStr(studentId->text())) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入有效的学号！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(university->text() == NULL || !isNotDigitStr(university->text())) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入有效的学校！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(locateArea->text() == NULL || !isNotDigitStr(locateArea->text())) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入有效的地区！"), QMessageBox::tr("确定"));
+        return false;
+    }
+
+    return true;
+}
+
 PersonalDataDialog::~PersonalDataDialog()
 {
     delete ui;
@@ -133,7 +228,9 @@ PersonalDataDialog::~PersonalDataDialog()
 
 void PersonalDataDialog::on_confirmBtn_clicked()
 {
-    this->hide();
+    if(JudgeEmpty()) {
+        this->hide();
+    }
 }
 
 void PersonalDataDialog::on_changeBtn_clicked()

@@ -19,7 +19,6 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
-    this->setWindowFlags(Qt::ForeignWindow);
 //    QFont font;
 //    font.setPointSize(20);
 //    font.setFamily(("SentyTEA 新蒂下午茶体"));
@@ -97,6 +96,24 @@ LoginDialog::LoginDialog(QWidget *parent) :
     //connect(verifyCode, SIGNAL(clicked()), this, SLOT(on_verifyCodeBtn_clicked()));
     connect(verifyBtn, &QPushButton::clicked, this, &LoginDialog::VerifyBtnClicked);
     connect(retrievePwd, &QPushButton::clicked, this, &LoginDialog::RetrievePwdClicked);
+}
+
+void LoginDialog::closeEvent(QCloseEvent *event)
+{
+    QMessageBox mb(QMessageBox::Warning, "","确定要退出？");
+    mb.setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+    mb.setButtonText (QMessageBox::Ok,QString("确 定"));
+    mb.setButtonText (QMessageBox::Cancel,QString("取 消"));
+    if(mb.exec() == QMessageBox::Ok)
+    {
+        TerminateProcess(hProcess, 0);
+        event->accept();
+    }
+    else
+    {
+        event->ignore();
+    }
+    return ;
 }
 
 LoginDialog::~LoginDialog()

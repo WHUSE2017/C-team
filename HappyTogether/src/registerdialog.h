@@ -63,5 +63,7 @@ private slots:
     void BackBtnClicked();
     void OpenImage();
     bool JudgeEmpty();
+    bool isNotDigitStr(QString src);
+    bool isDigitStr(QString src);
 };
 #endif // REGISTERDIALOG_H

@@ -17,6 +17,7 @@ INPUT(
 ./release\sendmessagedialog.o
 ./release\spacedialog.o
 ./release\retrievepwddialog.o
+./release\activitydialog.o
 ./release\moc_mainwindow.o
 ./release\moc_logindialog.o
 ./release\moc_registerdialog.o
@@ -26,4 +27,5 @@ INPUT(
 ./release\moc_sendmessagedialog.o
 ./release\moc_spacedialog.o
 ./release\moc_retrievepwddialog.o
+./release\moc_activitydialog.o
 );

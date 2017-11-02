@@ -87,6 +87,9 @@ private slots:
     void BlackActionClicked();
     void WhiteActionClicked();
     void DefaultActionClicked();
+    void PublishActionClicked();
+    void JoinActionClicked();
+    void RecordActionClicked();
 
     void SearchBtnClicked();
     void PublishBtnClicked();

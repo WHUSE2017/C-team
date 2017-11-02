@@ -73,6 +73,7 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
     securityQuestion->addItem("你的姐姐叫什么？");
     securityQuestion->addItem("你的哥哥叫什么？");
     registerLayout->addWidget(securityQuestion,10,1,1,2);
+    securityAnswer->setPlaceholderText("密保问题可以找回密码");
     registerLayout->addWidget(securityAnswer,11,1,1,2);
     imageLabel->setText("头像：");
     registerLayout->addWidget(imageLabel,12,0,1,1);
@@ -160,12 +161,49 @@ void RegisterDialog::ConfirmBtnClicked()
             loginDlg->show();
         }
         else {
-            QMessageBox::information(this, tr("Welcome"), tr("注册失败！"), QMessageBox::tr("确定"));
+            QMessageBox::information(this, tr("提示"), tr("此用户名已注册！请使用另外的用户名。"), QMessageBox::tr("确定"));
 
         }
         return ;
     }
     return ;
+}
+
+/***
+  *判断一个字符串是否为纯数字
+  */
+bool RegisterDialog::isNotDigitStr(QString src)
+{
+    QByteArray ba = src.toLatin1();//QString 转换为 char*
+     const char *s = ba.data();
+
+    while(*s && (*s<'0' || *s>'9')) s++;
+
+    if (*s)
+    { //含有数字
+        return false;
+    }
+    else
+    { //不含数字
+        return true;
+    }
+}
+
+bool RegisterDialog::isDigitStr(QString src)
+{
+    QByteArray ba = src.toLatin1();//QString 转换为 char*
+     const char *s = ba.data();
+
+    while(*s && *s>='0' && *s<='9') s++;
+
+    if (*s)
+    { //不是纯数字
+        return false;
+    }
+    else
+    { //纯数字
+        return true;
+    }
 }
 
 bool RegisterDialog::JudgeEmpty()
@@ -186,24 +224,12 @@ bool RegisterDialog::JudgeEmpty()
         QMessageBox::warning(this, tr("提示"), tr("前后密码不一致！"), QMessageBox::tr("确定"));
         return false;
     }
-    if(phone->text().length() == NULL) {
+    if(phone->text().length() == NULL || phone->text().size() != 11) {
         QMessageBox::warning(this, tr("提示"), tr("请输入有效的电话！"), QMessageBox::tr("确定"));
         return false;
     }
     if(email->text() == NULL) {
         QMessageBox::warning(this, tr("提示"), tr("请输入邮箱！"), QMessageBox::tr("确定"));
-        return false;
-    }
-    if(studentId->text() == NULL) {
-        QMessageBox::warning(this, tr("提示"), tr("学号不能为空！"), QMessageBox::tr("确定"));
-        return false;
-    }
-    if(university->text() == NULL) {
-        QMessageBox::warning(this, tr("提示"), tr("学校不能为空！"), QMessageBox::tr("确定"));
-        return false;
-    }
-    if(locateArea->text() == NULL) {
-        QMessageBox::warning(this, tr("提示"), tr("地区不能为空！"), QMessageBox::tr("确定"));
         return false;
     }
     if(email->text() != NULL) {
@@ -218,6 +244,23 @@ bool RegisterDialog::JudgeEmpty()
             return false;
         }
     }
+    if(QQ->text() == NULL || !isDigitStr(QQ->text())) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入有效的QQ号！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(studentId->text() == NULL || !isDigitStr(studentId->text())) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入有效的学号！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(university->text() == NULL || !isNotDigitStr(university->text())) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入有效的学校！"), QMessageBox::tr("确定"));
+        return false;
+    }
+    if(locateArea->text() == NULL || !isNotDigitStr(locateArea->text())) {
+        QMessageBox::warning(this, tr("提示"), tr("请输入有效的地区！"), QMessageBox::tr("确定"));
+        return false;
+    }
+
     return true;
 }
 

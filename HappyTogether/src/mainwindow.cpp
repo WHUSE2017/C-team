@@ -14,6 +14,7 @@
 #include <QSignalMapper>
 #include "sendmessagedialog.h"
 #include "iniparser.h"
+#include "activitydialog.h"
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -126,6 +127,28 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(defaultAction,SIGNAL(triggered()),this,SLOT(DefaultActionClicked()));
     connect(publishBtn,&QPushButton::clicked,this,&MainWindow::PublishBtnClicked);
     connect(userName, SIGNAL(clicked()), this, SLOT(UserNameClicked()));
+
+    connect(publishAction,SIGNAL(triggered()),this,SLOT(PublishActionClicked()));
+    connect(joinAction,SIGNAL(triggered()),this,SLOT(JoinActionClicked()));
+    connect(recordAction,SIGNAL(triggered()),this,SLOT(RecordActionClicked()));
+}
+
+void MainWindow::PublishActionClicked()
+{
+    ActivityDialog *dlg = new ActivityDialog;
+    dlg->show();
+}
+
+void MainWindow::JoinActionClicked()
+{
+    ActivityDialog *dlg = new ActivityDialog;
+    dlg->show();
+}
+
+void MainWindow::RecordActionClicked()
+{
+    ActivityDialog *dlg = new ActivityDialog;
+    dlg->show();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -273,14 +296,22 @@ void MainWindow::DataActionClicked()
 void MainWindow::DocumentActionClicked()
 {
     QMessageBox::information(this, tr("文档"),
-                tr("该PC端APP，是一个同行者的信息搜索平台，旨在为喜欢游玩，但是身边同学朋友时间冲突，想找人结伴的年轻人提供一个检索平台，让他们尽量能够快速便捷的寻找合适同行者。该APP有登录、注册、主页面（发布行程、搜索）、群组详情、个人资料修改等功能。"),
+                tr("用户可以输入始发地、目的地、选择出发类型与活动性质，点击搜索即可查看当前"
+                   "行程的群组信息。选择有意愿的群组，点击“一起high”，即可加入。也可点击详情按钮，查看当前群组的人员信息。"
+                   "如果当前没有该活动的群组，系统会提示您，是否发布行程。在没有具体地点或者其他打算时，用户也可以选择输入几"
+                   "个条件中的一种或者几种，来查找相同行程的群组。\n关于此页面其他按钮说明：\n注销：点击后返回登录界面，用户"
+                   "登录状态转换为非登录状态；\n资料：点击后显示用户当前个人资料，并且可以对资料进行修改；\n消息：点击后查看"
+                   "站内消息；\n活动：可以查看已发布的活动和参加的活动，还可以看活动记录；\n换肤：根据自己风格，选择界面颜色；"
+                   "\n帮助：包含软件使用文档及相关说明。"),
                 QMessageBox::tr("确定"));
 }
 
 void MainWindow::AboutActionClicked()
 {
     QMessageBox::information(this, tr("关于软件"),
-                tr("版本1.0"),
+                tr("该PC端APP，是一个同行者的信息搜索平台，旨在为喜欢游玩，但是身边同学朋友时间冲突，想找人结伴的年轻人提供"
+                   "一个检索平台，让他们尽量能够快速便捷的寻找合适同行者。该APP有登录、注册、主页面（发布行程、搜索）、群组详"
+                   "情、个人资料修改等功能。\n版本1.0"),
                 QMessageBox::tr("确定"));
 }
 
@@ -359,8 +390,14 @@ void MainWindow::SearchBtnClicked()
     //if(type->currentText() != NULL) typeString = QStringToStdString(end->text());
     vector<EventStruct>  es = client.getEvent(startString,endString,typeString,0);
     vector<EventStruct>::iterator iter2 = es.begin();
-
-    messageWidget->setRowCount(es.size());   // 设置题目占的行数
+    if(es.size() == 0) {
+        QMessageBox::information(this, tr(""),
+                tr("未搜索到结果！"),
+                QMessageBox::tr("确定"));
+        messageWidget->clearContents();
+        return ;
+    }
+    messageWidget->setRowCount(es.size());   // 设置结果占的行数
 //    if(es.size() <= resultNum) {
         messageWidget->clearContents();
 //    }
