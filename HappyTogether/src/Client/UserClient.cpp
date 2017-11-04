@@ -128,7 +128,7 @@ bool UserClient::sendMessage(StationMessageStruct message)
 	return this->sc->addMessage(buffer);
 }
 
-vector<EventStruct> UserClient::getEvent(string StartSite, string EndSite, string StartTime,int UserId)
+vector<EventStruct> UserClient::getEvent(string StartSite, string EndSite, string StartTime,string EventType)
 {
 	this->reConnect();
 	vector<EventStruct> es;
@@ -137,7 +137,7 @@ vector<EventStruct> UserClient::getEvent(string StartSite, string EndSite, strin
 	params_strcat(buffer,"StartSite",(char*)StartSite.data(),bufferlen);
 	params_strcat(buffer,"EndSite",(char*)EndSite.data(),bufferlen);
 	params_strcat(buffer,"StartTime",(char*)StartTime.data(),bufferlen);
-	params_strcat(buffer,"UserId",Int2Cs(UserId),bufferlen);
+        params_strcat(buffer,"EventType",(char*)EventType.data(),bufferlen);
 	return this->sc->getEvent(buffer);
 }
 

@@ -331,6 +331,7 @@ void service_getevent(session_s * ses,request_t *req)
 	string StartSite="NULL";
 	string EndSite="NULL";
 	string StartTime="NULL";
+	string EventType="NULL";
 	int UserId=0;
 	while ( (data=get_key_values(data,&key,&value)) !=NULL )
 	{
@@ -340,12 +341,12 @@ void service_getevent(session_s * ses,request_t *req)
 			EndSite = value;
 		else if (strcmp(key,"StartTime") ==0)
 			StartTime = value;
-		else if (strcmp(key,"UserId") ==0)
-			UserId = Cs2Int(value);
+		else if (strcmp(key,"EventType") ==0)
+			EventType = value;
 		if (strlen(data)==0)
 				break;
 	}
-	vector<EventStruct> es=ses->op->GetEvent(StartSite, EndSite, StartTime,UserId);
+	vector<EventStruct> es=ses->op->GetEvent(StartSite, EndSite, StartTime,EventType);
 	vector<EventStruct>::iterator iter = es.begin();
 	char buffer[2048];
 	int bufferlen =2048;

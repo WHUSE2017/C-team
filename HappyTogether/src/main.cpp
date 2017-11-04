@@ -41,7 +41,7 @@ HANDLE CreateServerProcess()
     else{
         cout << "failed to create process" << endl;
     }
-    Sleep(500);
+    Sleep(1000);
     return ret;
 }
 
