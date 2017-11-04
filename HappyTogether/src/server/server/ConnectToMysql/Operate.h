@@ -22,7 +22,7 @@ public:
 
 	string GetPasswordFromUserTable(string username);
 	userStruct GetUserDetails(string username);
-	vector<EventStruct> GetEvent(string StartSite, string EndSite, string StartTime, int UserId);
+	vector<EventStruct> GetEvent(string StartSite, string EndSite, string StartTime, string EventType);
 	vector<EventStruct> GetEventByState(int State);
 	vector<string> GetParticipants(int EventId);
 	bool joinEvent(int EventID,string username);
