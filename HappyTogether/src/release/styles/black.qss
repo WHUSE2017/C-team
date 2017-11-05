@@ -608,7 +608,7 @@ QLabel#redLabel {
 
 QLabel#grayYaHeiLabel {
         color: rgb(175, 175, 175);
-        font-size: 16px;
+        font-size: 20px;
 }
 
 QLabel#blueLabel {
@@ -634,7 +634,7 @@ QLabel#seperateLabel {
 QLabel#radiusBlueLabel {
         border-radius: 15px;
         color: white;
-        font-size: 16px;
+        font-size: 20px;
         background: rgb(0, 160, 230);
 }
 
@@ -668,7 +668,7 @@ QLabel#warningLabel {
 QLabel#groupLabel {
         color: rgb(0, 160, 230);
         border: 1px solid rgb(0, 160, 230);
-        font-size: 15px;
+        font-size: 20px;
         border-top-color: transparent;
         border-right-color: transparent;
         border-left-color: transparent;
