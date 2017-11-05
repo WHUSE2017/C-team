@@ -44,5 +44,5 @@
 - 运行环境：windows 64位系统
 - 软件格式：.exe文件
 
-下载[一起嗨软件安装包.rar](https://github.com/WHUSE2017/C-team/raw/master/HappyTogether/%E4%B8%80%E8%B5%B7%E5%97%A8%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%8C%85.rar)压缩包文件，解压后在文件夹中双击`HappyTogether.exe`即可运行。  
+下载[一起嗨软件安装包.rar](https://github.com/WHUSE2017/C-team/raw/master/HappyTogether/%E4%B8%80%E8%B5%B7%E5%97%A8%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%8C%85%20.rar)压缩包文件，解压后在文件夹中双击`HappyTogether.exe`即可运行。  
 
