@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_PersonalDataDialog_t {
     QByteArrayData data[9];
-    char stringdata0[113];
+    char stringdata0[105];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,19 +32,19 @@ struct qt_meta_stringdata_PersonalDataDialog_t {
 static const qt_meta_stringdata_PersonalDataDialog_t qt_meta_stringdata_PersonalDataDialog = {
     {
 QT_MOC_LITERAL(0, 0, 18), // "PersonalDataDialog"
-QT_MOC_LITERAL(1, 19, 21), // "on_confirmBtn_clicked"
-QT_MOC_LITERAL(2, 41, 0), // ""
-QT_MOC_LITERAL(3, 42, 20), // "on_changeBtn_clicked"
-QT_MOC_LITERAL(4, 63, 9), // "OpenImage"
-QT_MOC_LITERAL(5, 73, 10), // "JudgeEmpty"
-QT_MOC_LITERAL(6, 84, 13), // "isNotDigitStr"
-QT_MOC_LITERAL(7, 98, 3), // "src"
-QT_MOC_LITERAL(8, 102, 10) // "isDigitStr"
+QT_MOC_LITERAL(1, 19, 17), // "ConfirmBtnClicked"
+QT_MOC_LITERAL(2, 37, 0), // ""
+QT_MOC_LITERAL(3, 38, 16), // "ChangeBtnClicked"
+QT_MOC_LITERAL(4, 55, 9), // "OpenImage"
+QT_MOC_LITERAL(5, 65, 10), // "JudgeEmpty"
+QT_MOC_LITERAL(6, 76, 13), // "isNotDigitStr"
+QT_MOC_LITERAL(7, 90, 3), // "src"
+QT_MOC_LITERAL(8, 94, 10) // "isDigitStr"
 
     },
-    "PersonalDataDialog\0on_confirmBtn_clicked\0"
-    "\0on_changeBtn_clicked\0OpenImage\0"
-    "JudgeEmpty\0isNotDigitStr\0src\0isDigitStr"
+    "PersonalDataDialog\0ConfirmBtnClicked\0"
+    "\0ChangeBtnClicked\0OpenImage\0JudgeEmpty\0"
+    "isNotDigitStr\0src\0isDigitStr"
 };
 #undef QT_MOC_LITERAL
 
@@ -86,8 +86,8 @@ void PersonalDataDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         PersonalDataDialog *_t = static_cast<PersonalDataDialog *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_confirmBtn_clicked(); break;
-        case 1: _t->on_changeBtn_clicked(); break;
+        case 0: _t->ConfirmBtnClicked(); break;
+        case 1: _t->ChangeBtnClicked(); break;
         case 2: _t->OpenImage(); break;
         case 3: { bool _r = _t->JudgeEmpty();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;

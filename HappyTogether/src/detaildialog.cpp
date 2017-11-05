@@ -12,7 +12,7 @@ DetailDialog::DetailDialog(QWidget *parent) :
     ui(new Ui::DetailDialog)
 {
     ui->setupUi(this);
-    this->resize(1000,700);
+    this->resize(1050,700);
     this->setWindowTitle("详细信息");
     this->setFont(GetFont());  //这个必须写在样式前面
     this->setStyleSheet(GetStyle());
@@ -95,10 +95,11 @@ void DetailDialog::search()
     messageWidget->setColumnCount(6);
 
     messageWidget->setHorizontalHeaderLabels(QStringList() << tr("用户名") << tr("性别") << tr("学校")<< tr("游玩次数") << tr("电话") << tr("tag"));    // 设置列名
-    messageWidget->setColumnWidth(1, 80);
-    messageWidget->setColumnWidth(2, 120);
-    messageWidget->setColumnWidth(4, 160);
-    messageWidget->setColumnWidth(5, 160);
+    messageWidget->setColumnWidth(0, 150);
+    messageWidget->setColumnWidth(2, 180);
+    messageWidget->setColumnWidth(4, 250);
+    messageWidget->setColumnWidth(5, 180);
+
     messageWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     vector<string> ps =client.getParticipants(eventIDGlobal);

@@ -3,6 +3,7 @@
 #include "globalvariable.h"
 #include <QMessageBox>
 #include <QDateTime>
+#include "Client/UserClient.h"
 
 SendMessageDialog::SendMessageDialog(QWidget *parent) :
     QDialog(parent),
@@ -28,9 +29,17 @@ SendMessageDialog::SendMessageDialog(QWidget *parent) :
 
 void SendMessageDialog::CheckBtnClicked()
 {
-    QMessageBox::warning(this, tr(""),
-                tr("用户不存在"),
+    userStruct user = client.getUserInfo((char*) QStringToStdString(receiver->text()).data());
+    if(user.UserName == (char*) QStringToStdString(receiver->text()).data()) {
+        QMessageBox::warning(this, tr(""),
+                tr("用户存在，可以发送消息。"),
                 QMessageBox::tr("确定"));
+    }
+    else {
+        QMessageBox::warning(this, tr(""),
+                tr("用户不存在，请输入有效的用户名！"),
+                QMessageBox::tr("确定"));
+    }
 }
 
 void SendMessageDialog::SendBtnClicked()

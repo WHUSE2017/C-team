@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include "globalvariable.h"
+#include "Client/UserClient.h"
 
 PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
     QDialog(parent),
@@ -117,12 +118,12 @@ PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
 
         changeBtn->setText("修改");
         personalDataLayout->addWidget(changeBtn,14,0,1,1);
-        confirmBtn->setText("确认");
+        confirmBtn->setText("关闭");
         personalDataLayout->addWidget(confirmBtn,14,2,1,1);
         this->setLayout(personalDataLayout);
     }
-    connect(confirmBtn, &QPushButton::clicked, this, &PersonalDataDialog::on_confirmBtn_clicked);
-    connect(changeBtn, &QPushButton::clicked, this, &PersonalDataDialog::on_changeBtn_clicked);
+    connect(confirmBtn, &QPushButton::clicked, this, &PersonalDataDialog::ConfirmBtnClicked);
+    connect(changeBtn, &QPushButton::clicked, this, &PersonalDataDialog::ChangeBtnClicked);
     connect(imageBtn, &QPushButton::clicked, this, &PersonalDataDialog::OpenImage);
 }
 
@@ -226,15 +227,43 @@ PersonalDataDialog::~PersonalDataDialog()
     delete ui;
 }
 
-void PersonalDataDialog::on_confirmBtn_clicked()
+void PersonalDataDialog::ConfirmBtnClicked()
 {
-    if(JudgeEmpty()) {
-        this->hide();
-    }
+    this->hide();
 }
 
-void PersonalDataDialog::on_changeBtn_clicked()
+void PersonalDataDialog::ChangeBtnClicked()
 {
+    if(userPwd->text() == NULL) {
+        QMessageBox::warning(this, tr("警告！"),
+                    tr("请输入原密码"),
+                    QMessageBox::tr("确定"));
+        return ;
+    }
+    if (client.Login((char*)QStringToStdString(userName->text().trimmed()).data(),
+                    (char*)QStringToStdString(userPwd->text().trimmed()).data()))
+    {
+        QMessageBox::information(this, tr(""), tr("修改资料成功！"), QMessageBox::tr("确定"));
+        this->hide();
+    }
+    else {
+        QMessageBox::information(this, tr(""), tr("原密码输入错误！"), QMessageBox::tr("确定"));
+        return ;
+    }
+    userStruct userInfo;
+    userInfo.UserName = QStringToStdString(userName->text());
+    userInfo.Email = QStringToStdString((email->text()));
+    userInfo.Gender = QStringToStdString(sexType->currentText());
+    userInfo.Image = QStringToStdString(imageBtn->text());
+    userInfo.LocateArea = QStringToStdString(locateArea->text());
+    userInfo.University = QStringToStdString((university->text()));
+    if(userPwd2->text() != NULL)
+        userInfo.PassWord = QStringToStdString(userPwd2->text());
+    userInfo.Phone = QStringToStdString((phone->text()));
+    userInfo.SelfTag = QStringToStdString(signature->toPlainText());
+    userInfo.StudentId = QStringToStdString((studentId->text()));
+    userInfo.UserQQ = QStringToStdString(QQ->text());
+    client.UpdateUserInfo(userInfo);
     this->hide();
 }
 

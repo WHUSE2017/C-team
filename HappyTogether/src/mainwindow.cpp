@@ -88,6 +88,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mainLayout->addWidget(start,1,1,1,3);
     timeLabel->setText("出发日期:");
     dateTime->setCalendarPopup(true);
+    //QDateTime current_date_time = QDateTime::currentDateTime();
+    //QString current_date = current_date_time.toString("yyyy-MM-dd");
     dateTime->setDateTime(QDateTime::currentDateTime());
     mainLayout->addWidget(timeLabel,1,4,1,1);
     mainLayout->addWidget(dateTime,1,5,1,3);
@@ -272,8 +274,14 @@ void MainWindow::PublishBtnClicked()
 
         if (client.addEvent(ev))
         {
+            SearchBtnClicked();
             QMessageBox::information(this, tr(""),
                     tr("发布成功！"),
+                    QMessageBox::tr("确定"));
+        }
+        else {
+            QMessageBox::information(this, tr(""),
+                    tr("请修改出发日期，同一天只能发布一种活动项目！"),
                     QMessageBox::tr("确定"));
         }
     }
@@ -338,12 +346,12 @@ bool MainWindow::JudgeEmpty()
                     QMessageBox::tr("确定"));
         return false;
     }
-    if(dateTime->text() == NULL) {
-        QMessageBox::information(this, tr(""),
-                    tr("出发时间不能为空"),
-                    QMessageBox::tr("确定"));
-        return false;
-    }
+//    if(dateTime->text().toStdString() < QDateTime::currentDateTime().toString().toStdString()) {
+//        QMessageBox::information(this, tr(""),
+//                    tr("出发日期无效，请修改！"),
+//                    QMessageBox::tr("确定"));
+//        return false;
+//    }
     return true;
 }
 
@@ -398,10 +406,11 @@ void MainWindow::SearchBtnClicked()
     vector<EventStruct>  es = client.getEvent(startString,endString,timeString,typeString);
     vector<EventStruct>::iterator iter2 = es.begin();
     if(es.size() == 0) {
+        messageWidget->clearContents();
+        messageWidget->show();
         QMessageBox::information(this, tr(""),
                 tr("未搜索到结果！"),
                 QMessageBox::tr("确定"));
-        messageWidget->clearContents();
         return ;
     }
     messageWidget->setRowCount(es.size());   // 设置结果占的行数
@@ -541,10 +550,12 @@ void MainWindow::JoinBtnClicked(int eventID)
     if(mb.exec() == QMessageBox::Ok)
     {
 
-        if (client.joinEvent(eventID,QStringToStdString(userNameGlobal)))
+        if (client.joinEvent(eventID,QStringToStdString(userNameGlobal))) {
+            SearchBtnClicked();
             QMessageBox::information(this, tr(""),
                     tr("恭喜加入成功！"),
                     QMessageBox::tr("确定"));
+        }
         else
         {
             QMessageBox::information(this, tr(""),

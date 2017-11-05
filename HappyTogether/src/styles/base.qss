@@ -384,12 +384,14 @@ QTableView {
         border: 1px solid rgb(111, 156, 207);
         background: rgb(224, 238, 255);
         gridline-color: rgb(111, 156, 207);
+        font-size:25px;
 }
 QTableView::item {
         padding-left: 5px;
         padding-right: 5px;
         border: none;
         background: white;
+        font-size:25px;
         border-right: 1px solid rgb(111, 156, 207);
         border-bottom: 1px solid rgb(111, 156, 207);
 }

@@ -59,8 +59,8 @@ private:
     QGridLayout *personalDataLayout = new QGridLayout(this);
 
 private slots:
-    void on_confirmBtn_clicked();
-    void on_changeBtn_clicked();
+    void ConfirmBtnClicked();
+    void ChangeBtnClicked();//修改资料
     void OpenImage();
     bool JudgeEmpty();
     bool isNotDigitStr(QString src);

@@ -153,6 +153,7 @@ void RegisterDialog::ConfirmBtnClicked()
         user.UserName = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
         s = QQ->text().toStdString();
         user.UserQQ = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+        user.PlayTime = 0;
 
         if (client.Register(user)) {
             QMessageBox::information(this, tr("Welcome"), tr("恭喜注册成功！"), QMessageBox::tr("确定"));

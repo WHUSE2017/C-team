@@ -97,6 +97,7 @@ private slots:
     void JoinBtnClicked(int eventID);
     void DetailBtnClicked(int eventID);
     bool JudgeEmpty();
+
     //void UserNameClicked();
 };
 
