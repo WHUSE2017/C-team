@@ -38,7 +38,11 @@ MainWindow::MainWindow(QWidget *parent) :
     dataAction = ui->menuBar->addAction(tr("资料(&D)"));
 
     // 创建消息菜单
-    messageMenu = ui->menuBar->addMenu(tr("消息(&M)"));
+    if(0)
+        messageMenu = ui->menuBar->addMenu(tr("消息(23)"));
+    else
+        messageMenu = ui->menuBar->addMenu(tr("消息(&M)"));
+//    messageMenu->setStyleSheet("background-color: rgb(0, 0, 0);");
     receiveMessageAction = messageMenu->addAction("短消息");
     sendMessageAction = messageMenu->addAction("发消息");
 
@@ -70,29 +74,29 @@ MainWindow::MainWindow(QWidget *parent) :
     avatar->show();//显示
     avatar->setMaximumHeight(80);
     avatar->setMaximumWidth(80);
-    mainLayout->addWidget(avatar,0,2,1,1);
+    mainLayout->addWidget(avatar,0,3,1,1);
 //    userName->setText(userNameGlobal);
     userName->setAlignment(Qt::AlignCenter);
     CMyINI *p = new CMyINI();
     p->ReadINI("conf.ini");
     userName->setText(StdStringToQString(p->GetValue("User","userName")));
     userName->setMinimumHeight(100);
-    mainLayout->addWidget(userName,0,3,1,1);
+    mainLayout->addWidget(userName,0,4,1,1);
 
     startLabel->setText("始发地:");
     mainLayout->addWidget(startLabel,1,0,1,1);
-    mainLayout->addWidget(start,1,1,1,2);
+    mainLayout->addWidget(start,1,1,1,3);
     timeLabel->setText("出发日期:");
     dateTime->setCalendarPopup(true);
     dateTime->setDateTime(QDateTime::currentDateTime());
-    mainLayout->addWidget(timeLabel,1,3,1,1);
-    mainLayout->addWidget(dateTime,1,4,1,2);
+    mainLayout->addWidget(timeLabel,1,4,1,1);
+    mainLayout->addWidget(dateTime,1,5,1,3);
 
     endLabel->setText("目的地:");
     mainLayout->addWidget(endLabel,2,0,1,1);
-    mainLayout->addWidget(end,2,1,1,2);
+    mainLayout->addWidget(end,2,1,1,3);
     typeLabel->setText("活动项目:");
-    mainLayout->addWidget(typeLabel,2,3,1,1);
+    mainLayout->addWidget(typeLabel,2,4,1,1);
     type->addItem("电影");
     type->addItem("骑自行车");
     type->addItem("旅游");
@@ -100,17 +104,17 @@ MainWindow::MainWindow(QWidget *parent) :
     type->addItem("下棋");
     type->addItem("打牌");
     type->addItem("露营");
-    mainLayout->addWidget(type,2,4,1,2);
+    mainLayout->addWidget(type,2,5,1,3);
 
     searchBtn->setText("搜索");
-    mainLayout->addWidget(searchBtn,3,5,1,1);
+    mainLayout->addWidget(searchBtn,3,7,1,1);
     publishBtn->setText("发布");
-    mainLayout->addWidget(publishBtn,3,4,1,1);
+    mainLayout->addWidget(publishBtn,3,6,1,1);
 
     // 反馈信息
     messageWidget->setFont(GetFont());
 
-    mainLayout->addWidget(messageWidget, 4, 0, 1, 6);
+    mainLayout->addWidget(messageWidget, 4, 0, 1, 8);
 
     ui->centralWidget->setLayout(mainLayout);
 
@@ -196,7 +200,7 @@ void MainWindow::DefaultActionClicked()
     //this->setStyleSheet(GetStyle());
 
     //this->setFont(GetFont());
-    QFile qss("styles/default.qss");
+    QFile qss("styles/base.qss");
     qss.open(QFile::ReadOnly);
     this->setStyleSheet(qss.readAll());
     qss.close();
@@ -382,13 +386,16 @@ void MainWindow::SearchBtnClicked()
 
     messageWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    //按条件进行搜索：始发地，目的地，出发日期，活动项目
     string startString = "NULL";
-    if(start->text() != NULL) startString = QStringToStdString(start->text());
+    if(start->text() != NULL && startLabel->isChecked()) startString = QStringToStdString(start->text());
     string endString = "NULL";
-    if(end->text() != NULL) endString = QStringToStdString(end->text());
+    if(end->text() != NULL && endLabel->isChecked()) endString = QStringToStdString(end->text());
+    string timeString = "NULL";
+    if(dateTime->text() != NULL && timeLabel->isChecked()) timeString = QStringToStdString(dateTime->text());
     string typeString = "NULL";
-    //if(type->currentText() != NULL) typeString = QStringToStdString(end->text());
-    vector<EventStruct>  es = client.getEvent(startString,endString,typeString,0);
+    if(type->currentText() != NULL && typeLabel->isChecked()) typeString = QStringToStdString(type->currentText());
+    vector<EventStruct>  es = client.getEvent(startString,endString,timeString,typeString);
     vector<EventStruct>::iterator iter2 = es.begin();
     if(es.size() == 0) {
         QMessageBox::information(this, tr(""),

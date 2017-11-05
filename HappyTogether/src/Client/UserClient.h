@@ -17,7 +17,7 @@ public:
 	bool addEvent(EventStruct Event);
 	bool sendMessage(StationMessageStruct message);
 	vector<StationMessageStruct> getStationMessage();
-	vector<EventStruct> getEvent(string StartSite, string EndSite, string StartTime,int UserId);
+        vector<EventStruct> getEvent(string StartSite, string EndSite, string StartTime,string EventType);
 	bool joinEvent(int EventID, string username);
 	vector<string> getParticipants(int EventID);
 	EventStruct getEventById(int EventID);

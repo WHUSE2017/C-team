@@ -27,6 +27,10 @@ private:
     QTableWidget *messageWidget = new QTableWidget(this);
     QGridLayout *mainLayout = new QGridLayout(this);
     void search();
+
+
+private slots:
+    void ExitBtnClicked(int eventID);
 };
 
 #endif // ACTIVITYDIALOG_H

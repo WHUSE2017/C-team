@@ -16,11 +16,21 @@ SendMessageDialog::SendMessageDialog(QWidget *parent) :
     //receiverLabel->setText("发送给:");
     receiver->setPlaceholderText("请输入收消息的用户名称");
     sendBtn->setText("发送");
+    checkBtn->setText("检测");
     sendMessageLayout->addWidget(receiver,0,0,1,3);
-    sendMessageLayout->addWidget(sendBtn,0,3,1,1);
-    sendMessageLayout->addWidget(content,1,0,4,4);
+    sendMessageLayout->addWidget(checkBtn,0,3,1,1);
+    sendMessageLayout->addWidget(sendBtn,0,4,1,1);
+    sendMessageLayout->addWidget(content,1,0,4,5);
     this->setLayout(sendMessageLayout);
+    connect(checkBtn, &QPushButton::clicked, this, &SendMessageDialog::CheckBtnClicked);
     connect(sendBtn, &QPushButton::clicked, this, &SendMessageDialog::SendBtnClicked);
+}
+
+void SendMessageDialog::CheckBtnClicked()
+{
+    QMessageBox::warning(this, tr(""),
+                tr("用户不存在"),
+                QMessageBox::tr("确定"));
 }
 
 void SendMessageDialog::SendBtnClicked()
