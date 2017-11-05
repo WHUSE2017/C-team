@@ -1,6 +1,7 @@
 #include "activitydialog.h"
 #include "ui_activitydialog.h"
 #include "globalvariable.h"
+#include <QSignalMapper>
 
 ActivityDialog::ActivityDialog(QWidget *parent) :
     QDialog(parent),
@@ -18,8 +19,8 @@ ActivityDialog::ActivityDialog(QWidget *parent) :
 void ActivityDialog::search()
 {
     messageWidget->setColumnCount(6);
-    messageWidget->setRowCount(12);   // 设置题目占的行数
-    messageWidget->setHorizontalHeaderLabels(QStringList() << tr("用户名") << tr("性别") << tr("学校")<< tr("游玩次数") << tr("电话") << tr("tag"));    // 设置列名
+
+    messageWidget->setHorizontalHeaderLabels(QStringList() << tr("发布人") << tr("人数") << tr("始发地")<< tr("目的地") << tr("出发日期") << tr("操作"));    // 设置列名
     messageWidget->setColumnWidth(1, 80);
     messageWidget->setColumnWidth(2, 120);
     messageWidget->setColumnWidth(4, 160);
@@ -27,6 +28,7 @@ void ActivityDialog::search()
     messageWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     vector<string> ps =client.getParticipants(eventIDGlobal);
+    messageWidget->setRowCount(ps.size());   // 设置题目占的行数
     vector<string>::iterator iter3 = ps.begin();
     for (int i = 0;iter3 != ps.end() ;++iter3,i++)
     {
@@ -45,9 +47,15 @@ void ActivityDialog::search()
         QPushButton *joinBtn = new QPushButton(this);
         joinBtn->setText("已加入");
         layout->addWidget(joinBtn,0,0,1,1);
-        QPushButton *detailBtn = new QPushButton(this);
-        detailBtn->setText("退出");
-        layout->addWidget(detailBtn,0,1,1,1);
+        QPushButton *exitBtn = new QPushButton(this);
+        exitBtn->setText("退出");
+        layout->addWidget(exitBtn,0,1,1,1);
+
+        QSignalMapper *signalmapper1 = new QSignalMapper(this);
+        connect(exitBtn, SIGNAL(clicked()), signalmapper1,SLOT(map()));
+        signalmapper1->setMapping(exitBtn,23);
+        connect(signalmapper1,SIGNAL(mapped(int)),this,SLOT(ExitBtnClicked(int)));
+
         remark->setLayout(layout);
 
         if(item0) {
@@ -91,6 +99,11 @@ void ActivityDialog::search()
         }
     }
     messageWidget->show();
+}
+
+void ActivityDialog::ExitBtnClicked(int eventID)
+{
+
 }
 
 ActivityDialog::~ActivityDialog()

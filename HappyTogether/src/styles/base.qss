@@ -122,6 +122,7 @@ QPushButton {
 QLineEdit {
      border: 2px solid #8f8f91;
      border-radius: 6px;
+     height: 35px;
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                        stop: 0 #FFFFFF, stop: 1 #FFFFFF);
  }
@@ -514,7 +515,8 @@ QScrollBar#verticalScrollBar:vertical {
 
 /**********下拉列表**********/
 QComboBox {
-        height: 25px;
+        height: 35px;
+        font-size: 25px;
         border-radius: 4px;
         border: 1px solid rgb(111, 156, 207);
         background: white;
@@ -583,8 +585,9 @@ QProgressBar#progressBar::chunk {
 }
 
 /**********复选框**********/
-/*QCheckBox{
+QCheckBox{
         spacing: 5px;
+        font-size: 25px;
 }
 QCheckBox:enabled:checked{
         color: rgb(2, 65, 132);
@@ -602,33 +605,10 @@ QCheckBox::indicator {
         width: 20px;
         height: 20px;
 }
-QCheckBox::indicator:unchecked {
-        image: url(:/White/checkBox);
+QDateEdit {
+        height: 35px;
+        font-size: 25px;
 }
-QCheckBox::indicator:unchecked:hover {
-        image: url(:/White/checkBoxHover);
-}
-QCheckBox::indicator:unchecked:pressed {
-        image: url(:/White/checkBoxPressed);
-}
-QCheckBox::indicator:checked {
-        image: url(:/White/checkBoxChecked);
-}
-QCheckBox::indicator:checked:hover {
-        image: url(:/White/checkBoxCheckedHover);
-}
-QCheckBox::indicator:checked:pressed {
-        image: url(:/White/checkBoxCheckedPressed);
-}
-QCheckBox::indicator:indeterminate {
-        image: url(:/White/checkBoxIndeterminate);
-}
-QCheckBox::indicator:indeterminate:hover {
-        image: url(:/White/checkBoxIndeterminateHover);
-}
-QCheckBox::indicator:indeterminate:pressed {
-        image: url(:/White/checkBoxIndeterminatePressed);
-}*/
 
 
 /**********单选框**********/
@@ -673,7 +653,8 @@ QRadioButton::indicator:checked:pressed {
 /**********输入框**********/
 QLineEdit {
         border-radius: 4px;
-        height: 25px;
+        height: 35px;
+        font-size: 25px;
         border: 1px solid rgb(111, 156, 207);
         background: white;
 }
@@ -751,6 +732,10 @@ QSpinBox::down-button:hover {
 }
 
 /**********标签**********/
+QLabel  {
+        color: rgb(0, 0, 0);
+        font-size: 25px;
+}
 QLabel#grayLabel {
         color: rgb(70, 71, 73);
 }
@@ -863,7 +848,8 @@ QPushButton{
         border-radius: 4px;
         border: none;
         width: 75px;
-        height: 25px;
+        height: 35px;
+        font-size: 25px;
 }
 QPushButton:enabled {
         background: rgb(120, 170, 220);

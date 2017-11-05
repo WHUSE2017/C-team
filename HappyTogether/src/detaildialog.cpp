@@ -93,7 +93,7 @@ void DetailDialog::BackBtnClicked()
 void DetailDialog::search()
 {
     messageWidget->setColumnCount(6);
-    messageWidget->setRowCount(12);   // 设置题目占的行数
+
     messageWidget->setHorizontalHeaderLabels(QStringList() << tr("用户名") << tr("性别") << tr("学校")<< tr("游玩次数") << tr("电话") << tr("tag"));    // 设置列名
     messageWidget->setColumnWidth(1, 80);
     messageWidget->setColumnWidth(2, 120);
@@ -102,6 +102,7 @@ void DetailDialog::search()
     messageWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     vector<string> ps =client.getParticipants(eventIDGlobal);
+    messageWidget->setRowCount(ps.size());   // 设置题目占的行数
     vector<string>::iterator iter3 = ps.begin();
     for (int i = 0;iter3 != ps.end() ;++iter3,i++)
     {

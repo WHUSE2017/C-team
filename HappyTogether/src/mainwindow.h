@@ -11,6 +11,7 @@
 #include <QTableWidget>
 #include <QDateEdit>
 #include <QCloseEvent>
+#include <QCheckBox>
 
 namespace Ui {
 class MainWindow;
@@ -62,14 +63,14 @@ private:
     QLabel *avatar = new QLabel(this);  //头像
     QLabel *userName = new QLabel(this);//用户名称
     QGridLayout *mainLayout = new QGridLayout(this);
-    QLabel *startLabel = new QLabel(this);
+    QCheckBox *startLabel = new QCheckBox(this);
     QLineEdit *start = new QLineEdit(this); //始发地
-    QLabel *endLabel = new QLabel(this);
+    QCheckBox *endLabel = new QCheckBox(this);
     QLineEdit *end = new QLineEdit(this);   //目的地
-    QLabel *timeLabel = new QLabel(this);
+    QCheckBox *timeLabel = new QCheckBox(this);
     QDateEdit *dateTime = new QDateEdit(this);//出发日期
-    QLabel *typeLabel = new QLabel(this);
-    QComboBox *type = new QComboBox(this);  //活动性质
+    QCheckBox *typeLabel = new QCheckBox(this);
+    QComboBox *type = new QComboBox(this);  //活动项目
 
     QPushButton *searchBtn = new QPushButton(this); //搜索按钮
     QPushButton *publishBtn = new QPushButton(this);  //发布按钮

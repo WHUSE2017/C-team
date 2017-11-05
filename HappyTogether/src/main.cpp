@@ -41,15 +41,15 @@ HANDLE CreateServerProcess()
     else{
         cout << "failed to create process" << endl;
     }
-    Sleep(500);
+    Sleep(1000);
     return ret;
 }
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
+    MainWindow w;
+    w.show();
     hProcess = CreateServerProcess();
 
 /**在程序退出的地方调用如下函数关闭server, hProcess设为全局变量***/
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 //    QProcess *pro = new QProcess;
 //    pro->start("server.exe");
     client.fisrtConnect();
-    LoginDialog loginDlg;
-    loginDlg.show();
+//    LoginDialog loginDlg;
+//    loginDlg.show();
     return a.exec();
 }

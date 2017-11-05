@@ -25,12 +25,14 @@ private:
 
     QLabel *receiverLabel = new QLabel(this);
     QLineEdit *receiver = new QLineEdit(this);  //收消息的用户名称
+    QPushButton *checkBtn = new QPushButton(this); //检测用户是否存在按钮
     QPushButton *sendBtn = new QPushButton(this);//发送按钮
     QGridLayout *sendMessageLayout = new QGridLayout(this);
     QTextEdit *content = new QTextEdit(this);
 
 private slots:
     void SendBtnClicked();
+    void CheckBtnClicked();
 };
 
 #endif // SENDMESSAGEDIALOG_H
