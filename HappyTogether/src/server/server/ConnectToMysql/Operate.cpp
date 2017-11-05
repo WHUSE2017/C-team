@@ -190,6 +190,44 @@ string Operate::GetPasswordFromUserTable(string username)
 	}
 }
 
+vector<userStruct> Operate::LikeUserName(string username)//模糊查找用户名
+{
+	if (username != "NULL")
+	{
+		vector<userStruct> User;
+		MYSQL_RES *result;
+		MYSQL_ROW sql_row;
+		string sqlstr;
+		sqlstr =
+			"select * from Event where UserName  like '" + username + "'; ";
+		if (0 == mysql_query(&mydata, sqlstr.c_str()))
+		{
+			result = mysql_store_result(&mydata);
+			sql_row = mysql_fetch_row(result);
+			while (sql_row != NULL)
+			{
+				userStruct us;
+				us.UserID = StringToInt(sql_row[0]);
+				us.UserName = sql_row[1];
+				us.StudentId = (sql_row[2]);
+				us.Gender = sql_row[3];
+				us.PassWord = sql_row[4];
+				us.Image = sql_row[5];
+				us.UserQQ = sql_row[6];
+				us.Phone = (sql_row[7]);
+				us.Email = sql_row[8];
+				us.University = sql_row[9];
+				us.LocateArea = sql_row[10];
+				us.SelfTag = sql_row[11];
+				us.PlayTime = StringToInt(sql_row[12]);
+				Event.push_back(us);
+				sql_row = mysql_fetch_row(result);
+			}
+			return User;
+		}
+	}
+
+}
 
 userStruct Operate::GetUserDetails(string username)
 {
@@ -803,6 +841,107 @@ vector<StationMessageStruct> Operate::GetMessageByReceiver(string ReceiverName)
 	}
 }
 
+vector<EventStruct> Operate::GetEventByLike(string StartSite, string EndSite)
+{
+	if (StartSite != "NULL" && EndSite != "NULL")
+	{
+		vector<EventStruct> Event;
+		MYSQL_RES *result;
+		MYSQL_ROW sql_row;
+		string sqlstr;
+		sqlstr =
+			"select * from Event where StartSite like '" + StartSite + "' and EndSite like '" + EndSite + "'; ";
+		if (0 == mysql_query(&mydata, sqlstr.c_str()))
+		{
+			result = mysql_store_result(&mydata);
+			sql_row = mysql_fetch_row(result);
+			while (sql_row != NULL)
+			{
+				EventStruct es;
+				es.EventID = StringToInt(sql_row[0]);
+				es.UserId = StringToInt(sql_row[1]);
+				es.EventType = sql_row[2];
+				es.PlaySite = sql_row[3];
+				es.Arrival = sql_row[4];
+				es.Publisher = sql_row[5];
+				es.StartSite = sql_row[6];
+				es.EndSite = sql_row[7];
+				es.StartTime = sql_row[8];
+				es.PeersNumber = StringToInt(sql_row[9]);
+				es.State = StringToInt(sql_row[10]);
+				Event.push_back(es);
+				sql_row = mysql_fetch_row(result);
+			}
+			return Event;
+		}
+	}
+
+	if (StartSite != "NULL" && EndSite == "NULL")
+	{
+		vector<EventStruct> Event;
+		MYSQL_RES *result;
+		MYSQL_ROW sql_row;
+		string sqlstr;
+		sqlstr =
+			"select * from Event where StartSite like '" + StartSite + "'; ";
+		if (0 == mysql_query(&mydata, sqlstr.c_str()))
+		{
+			result = mysql_store_result(&mydata);
+			sql_row = mysql_fetch_row(result);
+			while (sql_row != NULL)
+			{
+				EventStruct es;
+				es.EventID = StringToInt(sql_row[0]);
+				es.UserId = StringToInt(sql_row[1]);
+				es.EventType = sql_row[2];
+				es.PlaySite = sql_row[3];
+				es.Arrival = sql_row[4];
+				es.Publisher = sql_row[5];
+				es.StartSite = sql_row[6];
+				es.EndSite = sql_row[7];
+				es.StartTime = sql_row[8];
+				es.PeersNumber = StringToInt(sql_row[9]);
+				es.State = StringToInt(sql_row[10]);
+				Event.push_back(es);
+				sql_row = mysql_fetch_row(result);
+			}
+			return Event;
+		}
+	}
+
+	if (StartSite == "NULL" && EndSite != "NULL")
+	{
+		vector<EventStruct> Event;
+		MYSQL_RES *result;
+		MYSQL_ROW sql_row;
+		string sqlstr;
+		sqlstr =
+			"select * from Event where EndSite like '" + EndSite + "'; ";
+		if (0 == mysql_query(&mydata, sqlstr.c_str()))
+		{
+			result = mysql_store_result(&mydata);
+			sql_row = mysql_fetch_row(result);
+			while (sql_row != NULL)
+			{
+				EventStruct es;
+				es.EventID = StringToInt(sql_row[0]);
+				es.UserId = StringToInt(sql_row[1]);
+				es.EventType = sql_row[2];
+				es.PlaySite = sql_row[3];
+				es.Arrival = sql_row[4];
+				es.Publisher = sql_row[5];
+				es.StartSite = sql_row[6];
+				es.EndSite = sql_row[7];
+				es.StartTime = sql_row[8];
+				es.PeersNumber = StringToInt(sql_row[9]);
+				es.State = StringToInt(sql_row[10]);
+				Event.push_back(es);
+				sql_row = mysql_fetch_row(result);
+			}
+			return Event;
+		}
+	}
+}
 
 vector<EventStruct> Operate::GetEventByState(int State)
 {
@@ -842,7 +981,7 @@ bool Operate::setEventState(int Eventid,int State)
 	string sqlstr;
 	//向表中插入数据  
 	sqlstr =
-		"update Event set State='"+IntToString(State)+"' where EventID='"+IntToString(State)+"';";
+		"update Event set State='"+IntToString(State)+"' where EventID='"+IntToString(Eventid)+"';";
 	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
 		return true;
 	}
@@ -922,5 +1061,26 @@ EventStruct Operate::GetEventDetailById(int EventId)
 			sql_row = mysql_fetch_row(result);
 		}
 		return Event;
+	}
+}
+
+bool Operate::DeleteDataParticipants(int EventID, string UserName)
+{
+	string sqlstr;
+	//向表中插入数据  
+	sqlstr =
+		"DELETE FROM Participants WHERE EventID = '"+IntToString(EventID)+"' and UserName = '"+ UserName +"';";
+	//cout<<sqlstr<<endl;
+	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
+		sqlstr2 =
+			"update Event set PeersNumber = PeersNumber-1 where EventID='" + IntToString(EventID) + "';";
+		if (0 == mysql_query(&mydata, sqlstr2.c_str())
+		{
+			return true;
+		}
+		
+	}
+	else {
+		return false;
 	}
 }
