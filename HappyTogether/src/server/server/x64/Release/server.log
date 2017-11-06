@@ -1,22 +1,27 @@
-﻿  Operate.cpp
-  stdafx.cpp
-  main.cpp
-  Service.cpp
-  session_s.cpp
-  socket_packet.cpp
-  socket_stream.cpp
-  utils.cpp
-  Generating Code...
-h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(263): warning C4715: 'Operate::GetSecretSecurity': not all control paths return a value
-h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(1186): warning C4715: 'Operate::DeleteDataParticipants': not all control paths return a value
-h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(1165): warning C4715: 'Operate::GetEventDetailById': not all control paths return a value
-h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(916): warning C4715: 'Operate::GetMessageBySender': not all control paths return a value
-h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(942): warning C4715: 'Operate::GetMessageByReceiver': not all control paths return a value
-h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(1077): warning C4715: 'Operate::GetEventByState': not all control paths return a value
-h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(1044): warning C4715: 'Operate::GetEventByLike': not all control paths return a value
-h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(164): warning C4715: 'Operate::GetParticipantsByUsername': not all control paths return a value
-h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(330): warning C4715: 'Operate::LikeUserName': not all control paths return a value
-h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(889): warning C4715: 'Operate::GetEvent': not all control paths return a value
-h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(241): warning C4715: 'Operate::getEventByCondition': not all control paths return a value
-  server.vcxproj -> H:\C-team\HappyTogether\src\server\x64\Release\server.exe
-  server.vcxproj -> H:\C-team\HappyTogether\src\server\x64\Release\server.pdb (Full PDB)
+﻿生成启动时间为 2017/11/6 11:48:10。
+     1>项目“G:\qt\C-team\HappyTogether\src\server\server\server.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“x64\Release\server.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files\MySQL\MySQL Server 5.6\include" /Zi /nologo /W1 /WX- /O2 /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Release\\" /Fd"x64\Release\vc100.pdb" /Gd /TP /errorReport:prompt Service.cpp
+         Service.cpp
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"G:\qt\C-team\HappyTogether\src\server\x64\Release\server.exe" /NOLOGO /LIBPATH:"C:\Program Files\MySQL\MySQL Server 5.6\lib" libmysql.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Release\server.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"G:\qt\C-team\HappyTogether\src\server\x64\Release\server.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"G:\qt\C-team\HappyTogether\src\server\x64\Release\server.lib" /MACHINE:X64 x64\Release\Operate.obj
+         x64\Release\stdafx.obj
+         x64\Release\main.obj
+         x64\Release\Service.obj
+         x64\Release\session_s.obj
+         x64\Release\socket_packet.obj
+         x64\Release\socket_stream.obj
+         x64\Release\utils.obj
+         server.vcxproj -> G:\qt\C-team\HappyTogether\src\server\x64\Release\server.exe
+       Manifest:
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"G:\qt\C-team\HappyTogether\src\server\x64\Release\server.exe;#1" /manifest x64\Release\server.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         正在删除文件“x64\Release\server.unsuccessfulbuild”。
+         正在对“x64\Release\server.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“G:\qt\C-team\HappyTogether\src\server\server\server.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:01.55

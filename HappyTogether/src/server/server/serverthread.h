@@ -595,6 +595,157 @@ void service_seteventstate(session_s * ses,request_t *req)
 		ses->send_reply(&reply);
 }
 
+
+void service_geteventbycondition(session_s * ses,request_t *req)
+{
+	if (req->type != TYPE_GETEVENTBYCONDITIONS )
+			return ;
+		char *data = req->data;
+		char *key,*value;
+		string str_publisher,str_participant;
+		int state;
+
+		while ( (data=get_key_values(data,&key,&value)) !=NULL )
+		{
+			if (strcmp(key,"publisher")==0)
+				str_publisher=Cs2Int(value);
+			else if (strcmp(key,"participant")==0)
+				str_participant = value;
+			else if (strcmp(key,"state"))
+				state = Cs2Int(value);		
+			if (strlen(data)==0)
+					break;
+		}
+	
+	vector<EventStruct> es=ses->op->getEventByCondition(str_publisher, str_participant, state);
+	vector<EventStruct>::iterator iter = es.begin();
+	char buffer[2048];
+	int bufferlen =2048;
+	memset(buffer,0,bufferlen);
+	for (;iter != es.end() ;++iter)
+	 {
+	      EventStruct ee = *iter;  // *iter就是vector的每个元素
+		  setEventParams(buffer,bufferlen,ee);
+		  params_strcat(buffer,"END","END",bufferlen);
+	 }
+	params_strcat(buffer,"NULL","NULL",bufferlen);
+	reply_t reply;
+	reply.type=TYPE_GETEVENTBYCONDITIONS;
+	reply.flag =1;
+	reply.data=buffer;
+	reply.datalen =strlen(buffer)+1;
+	ses->send_reply(&reply);
+}
+
+void service_setsecurity(session_s * ses,request_t *req)
+{
+	if (req->type != TYPE_SETSECURITY )
+			return ;
+		char *data = req->data;
+		char *key,*value;
+		string str_name,str_security,str_answer;
+		SecretSecurityStruct sec;
+	
+		while ( (data=get_key_values(data,&key,&value)) !=NULL )
+		{
+			if (strcmp(key,"security")==0)
+				sec.Security = value;
+			else if (strcmp(key,"username")==0)
+				sec.UserName = value;
+			else if (strcmp(key,"answer"))
+				sec.Answer = value;
+			if (strlen(data)==0)
+					break;
+		}
+		//sec.UserName = ses->getusername();
+		reply_t reply;
+		reply.type=TYPE_SETSECURITY;
+		reply.flag =1;
+		if (ses->op!=NULL && ses->op->InsertIntoSecretSecurity(sec))
+		{
+			reply.data="success";
+			reply.datalen =strlen("success")+1;
+		}
+		else
+		{
+			reply.data="failed";
+			reply.datalen=strlen("failed")+1;
+		}
+		ses->send_reply(&reply);
+}
+
+void service_getsecurity(session_s * ses,request_t *req)
+{
+	if (req->type != TYPE_GETSECURITY )
+			return ;
+		char *data = req->data;
+		char *key,*value;
+			string str_name,str_security,str_answer;
+
+	while ( (data=get_key_values(data,&key,&value)) !=NULL )
+		{
+			if (strcmp(key,"security")==0)
+				str_security = value;
+			else if (strcmp(key,"username")==0)
+				str_name = value;
+			else if (strcmp(key,"answer"))
+				str_answer = value;
+			if (strlen(data)==0)
+					break;
+		}
+	
+		SecretSecurityStruct sec = ses->op->GetSecretSecurity(str_name);
+
+		char buffer[2048];
+		int bufferlen = 2048;
+		params_strcat(buffer,"security",(char*)sec.Security.data(),bufferlen);
+		reply_t reply;
+		reply.type=TYPE_GETSECURITY;
+		reply.flag =1;
+		reply.data = buffer;
+		reply.datalen = strlen(buffer)+1;
+		ses->send_reply(&reply);
+}
+
+void service_checksecurity(session_s * ses,request_t *req)
+{
+	if (req->type != TYPE_CHECKSECURITY )
+			return ;
+		char *data = req->data;
+		char *key,*value;
+		SecretSecurityStruct sec;
+		while ( (data=get_key_values(data,&key,&value)) !=NULL )
+		{
+			if (strcmp(key,"security")==0)
+				sec.Security = value;
+			else if (strcmp(key,"username")==0)
+				sec.UserName = value;
+			else if (strcmp(key,"answer"))
+				sec.Answer = value;
+			if (strlen(data)==0)
+					break;
+		}
+		
+		SecretSecurityStruct sec2 = ses->op->GetSecretSecurity(sec.UserName);
+		reply_t reply;
+		reply.type=TYPE_CHECKSECURITY;
+		reply.flag =1;
+		if (sec.UserName == sec2.UserName &&
+			sec.Security == sec2.Security &&
+			sec.Answer == sec2.Answer)
+		{
+			reply.data="success";
+			reply.datalen =strlen("success")+1;
+		}
+		else
+		{
+			reply.data="failed";
+			reply.datalen=strlen("failed")+1;
+		}
+		ses->send_reply(&reply);
+}
+
+
 DWORD WINAPI myServerThread(LPVOID lpParam)
 {
 	ServerThreadParam *lp =(ServerThreadParam*)lpParam;
@@ -673,6 +824,16 @@ DWORD WINAPI myServerThread(LPVOID lpParam)
 		case(TYPE_SETEVENTSTATE):
 			{
 				service_seteventstate(s,req);
+				break;
+			}
+		case(TYPE_GETEVENTBYCONDITIONS):
+			{
+				service_geteventbycondition(s,req);
+				break;
+			}
+		case(TYPE_SETSECURITY):
+			{
+				service_setsecurity(s,req);
 				break;
 			}
 		default:

@@ -213,3 +213,49 @@ bool UserClient::SetEventState(int EventID,int state)
     params_strcat(buffer,"state",Int2Cs(state),bufferlen);
     return this->sc->setEventState(buffer);
 }
+
+
+vector<EventStruct> UserClient::getEventByConditions(string publisher,string participant,int state)
+{
+    vector<EventStruct> es;
+    this->reConnect();
+    if (buffer==NULL) return es;
+    memset(buffer,0,this->bufferlen);
+    params_strcat(buffer,"publisher",(char*)publisher.data(),bufferlen);
+    params_strcat(buffer,"participant",(char*)participant.data(),bufferlen);
+    params_strcat(buffer,"state",Int2Cs(state),bufferlen);
+    es = this->sc->getEventByConditions(buffer);
+    return es;
+}
+
+ bool UserClient::SetSecurity(string username,string security,string answer)
+ {
+     this->reConnect();
+     if (buffer==NULL) return false;
+     memset(buffer,0,this->bufferlen);
+     params_strcat(buffer,"security",(char*)security.data(),bufferlen);
+     params_strcat(buffer,"username",(char*)username.data(),bufferlen);
+     params_strcat(buffer,"answer",(char*)answer.data(),bufferlen);
+     return this->sc->setSecurity(buffer);
+ }
+
+ string UserClient::GetSecurity(string username)
+ {
+     string s="";
+     this->reConnect();
+     if (buffer==NULL) return s;
+     memset(buffer,0,this->bufferlen);
+     params_strcat(buffer,"username",(char*)username.data(),bufferlen);
+     return this->sc->getSecurity(buffer);
+ }
+
+ bool UserClient::CheckSecurity(string username,string security,string answer)
+{
+   this->reConnect();
+     if (buffer==NULL) return false;
+    memset(buffer,0,this->bufferlen);
+    params_strcat(buffer,"security",(char*)security.data(),bufferlen);
+    params_strcat(buffer,"username",(char*)username.data(),bufferlen);
+    params_strcat(buffer,"answer",(char*)answer.data(),bufferlen);
+    return this->sc->checkSecurity(buffer);
+}

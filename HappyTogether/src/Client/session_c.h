@@ -33,6 +33,10 @@ public:
 	bool updatauserinfo(char* params);
         bool exitEvent(char *params);
         bool setEventState(char *parmas);
+        vector<EventStruct> getEventByConditions(char* params);
+        bool setSecurity(char* params);
+        string getSecurity(char *params);
+        bool checkSecurity(char *params);
 private:
 	int send_request(request_t *req);
 	int state;

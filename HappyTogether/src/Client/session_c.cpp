@@ -437,3 +437,116 @@ bool session_c::setEventState(char *params)
     }
     return false;
 }
+
+vector<EventStruct> session_c::getEventByConditions(char* params)
+{
+    vector<EventStruct> es;
+    request_t req;
+    req.type = TYPE_GETEVENTBYCONDITIONS;
+    req.flag =0;
+    req.data = params;
+    req.datalen = strlen(params)+1;
+    if (!SendAndCheck(&req))
+        return es;
+
+    reply_t *reply = this->get_reply();
+    char *data = reply->data;
+    char *key,*value;
+    EventStruct ee ;
+    int i=0;
+    while ( (data=get_key_values(data,&key,&value)) !=NULL )
+    {
+        if (strcmp(key,"NULL") == 0 && strcmp(value,"NULL")==0)
+                break;
+        if (strcmp(key,"END") == 0 && strcmp(value,"END")==0)
+        {
+                es.push_back(ee);
+                continue;
+        }
+        if (strcmp("Arrival",key)==0)
+                ee.Arrival = value;
+        else if (strcmp("EndSite",key)==0)
+                ee.EndSite = value;
+        else if (strcmp("EventID",key)==0)
+                ee.EventID = Cs2Int(value);
+        else if (strcmp("EventType",key)==0)
+                ee.EventType = value;
+        else if (strcmp("PeersNumber",key)==0)
+                ee.PeersNumber = Cs2Int(value);
+        else if (strcmp("PlaySite",key)==0)
+                ee.PlaySite = value;
+        else if (strcmp("Publisher",key)==0)
+                ee.Publisher = value;
+        else if (strcmp("StartSite",key)==0)
+                ee.StartSite = value;
+        else if (strcmp("StartTime",key)==0)
+                ee.StartTime = value;
+        else if (strcmp("State",key)==0)
+                ee.State = Cs2Int(value);
+        else if (strcmp("UserId",key)==0)
+                ee.UserId = Cs2Int(value);
+
+        if (strlen(data)==0)
+                        break;
+    }
+    return es;
+}
+
+ bool session_c::setSecurity(char* params)
+ {
+     request_t req;
+     req.type = TYPE_SETSECURITY;
+     req.flag =0;
+     req.data = params;
+     req.datalen = strlen(params)+1;
+     if (!SendAndCheck(&req))
+             return false;
+     reply_t *reply = this->get_reply();
+     if (strcmp(reply->data,"success")==0)
+     {
+             return true;
+     }
+     return false;
+ }
+
+string session_c::getSecurity(char *params)
+{
+    string ret="";
+    request_t req;
+    req.type = TYPE_GETSECURITY;
+    req.flag =0;
+    req.data = params;
+    req.datalen = strlen(params)+1;
+    if (!SendAndCheck(&req))
+            return ret;
+
+    reply_t *reply = this->get_reply();
+    char *data = reply->data;
+    char *key,*value;
+
+    while ( (data=get_key_values(data,&key,&value)) !=NULL )
+    {
+            if (strcmp(key,"security") == 0 )
+                   ret = value;
+            if (strlen(data)==0)
+                            break;
+    }
+    return ret;
+}
+
+  bool session_c::checkSecurity(char *params)
+  {
+      request_t req;
+      req.type = TYPE_CHECKSECURITY;
+      req.flag =0;
+      req.data = params;
+      req.datalen = strlen(params)+1;
+      if (!SendAndCheck(&req))
+              return false;
+      reply_t *reply = this->get_reply();
+      if (strcmp(reply->data,"success")==0)
+      {
+              return true;
+      }
+      return false;
+  }
