@@ -127,7 +127,7 @@ bool Operate::InsertIntoSecretSecurity(SecretSecurityStruct Security)
 	string sqlstr;
 	//向表中插入数据  
 	sqlstr =
-		"INSERT INTO SecretSecurity VALUES(null,'" + Security.UserName + "','" + Security.Security + "');";
+		"INSERT INTO SecretSecurity VALUES(null,'" + Security.UserName + "','" + Security.Security + "','"+ Security.Answer+"');";
 	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
 		return true;
 	}
@@ -136,30 +136,130 @@ bool Operate::InsertIntoSecretSecurity(SecretSecurityStruct Security)
 	}
 }
 
-string Operate::GetSecretSecurity(string UserName)
+vector<ParticipantsStrcut> Operate::GetParticipantsByUsername(string Username)
+{
+	if (Username != "NULL")
+	{
+		vector<ParticipantsStrcut> Parti;
+		MYSQL_RES *result;
+		MYSQL_ROW sql_row;
+		string sqlstr;
+		sqlstr =
+			"select * from Participants where UserName =='" + Username + "'; ";
+		if (0 == mysql_query(&mydata, sqlstr.c_str()))
+		{
+			result = mysql_store_result(&mydata);
+			sql_row = mysql_fetch_row(result);
+			while (sql_row != NULL)
+			{
+				ParticipantsStrcut ps;
+				ps.EventID = StringToInt(sql_row[0]);
+				ps.UserName = sql_row[1];
+				Parti.push_back(ps);
+				sql_row = mysql_fetch_row(result);
+			}
+			return Parti;
+		}
+	}
+}
+
+vector<EventStruct> Operate::getEventByCondition(string publisher, string participant, int state)
+{
+	if (publisher != "NULL" && participant == "NULL")
+	{
+		vector<EventStruct> Event;
+		MYSQL_RES *result;
+		MYSQL_ROW sql_row;
+		string sqlstr;
+		sqlstr =
+			"select * from Event where publisher ='" + publisher + "' and state = '" + IntToString(state) + "';";
+		if (0 == mysql_query(&mydata, sqlstr.c_str()))
+		{
+			result = mysql_store_result(&mydata);
+			sql_row = mysql_fetch_row(result);
+			while (sql_row != NULL)
+			{
+				EventStruct es;
+				es.EventID = StringToInt(sql_row[0]);
+				es.UserId = StringToInt(sql_row[1]);
+				es.EventType = sql_row[2];
+				es.PlaySite = sql_row[3];
+				es.Arrival = sql_row[4];
+				es.Publisher = sql_row[5];
+				es.StartSite = sql_row[6];
+				es.EndSite = sql_row[7];
+				es.StartTime = sql_row[8];
+				es.PeersNumber = StringToInt(sql_row[9]);
+				es.State = StringToInt(sql_row[10]);
+				Event.push_back(es);
+				sql_row = mysql_fetch_row(result);
+			}
+			return Event;
+		}
+	}
+
+	if (publisher == "NULL" && participant != "NULL")
+	{
+		vector<ParticipantsStrcut> Partis = GetParticipantsByUsername(participant);
+		vector<EventStruct> Event;
+		while (!Partis.empty())
+		{
+			ParticipantsStrcut ps = Partis.front();
+			
+			MYSQL_RES *result;
+			MYSQL_ROW sql_row;
+			string sqlstr;
+			sqlstr =
+				"select * from Event where EventID   ='" + IntToString(ps.EventID) + "' and State ='" +IntToString(state) + "';";
+			if (0 == mysql_query(&mydata, sqlstr.c_str()))
+			{
+				result = mysql_store_result(&mydata);
+				sql_row = mysql_fetch_row(result);
+				if (sql_row != NULL)
+				{
+					EventStruct es;
+					es.EventID = StringToInt(sql_row[0]);
+					es.UserId = StringToInt(sql_row[1]);
+					es.EventType = sql_row[2];
+					es.PlaySite = sql_row[3];
+					es.Arrival = sql_row[4];
+					es.Publisher = sql_row[5];
+					es.StartSite = sql_row[6];
+					es.EndSite = sql_row[7];
+					es.StartTime = sql_row[8];
+					es.PeersNumber = StringToInt(sql_row[9]);
+					es.State = StringToInt(sql_row[10]);
+					Event.push_back(es);
+				}
+				
+			}
+			vector<ParticipantsStrcut>::iterator k = Partis.begin();
+			Partis.erase(k);
+		}
+		return Event;
+	}
+}
+
+
+SecretSecurityStruct Operate::GetSecretSecurity(string UserName)
 {
 	MYSQL_RES *result;
 	MYSQL_ROW sql_row;
 	string sqlstr;
 	sqlstr =
-		"select Security from SecretSecurity where UserName ='" + UserName + "';";
+		"select * from SecretSecurity where UserName ='" + UserName + "';";
 	if (0 == mysql_query(&mydata, sqlstr.c_str()))
 	{
 		result = mysql_store_result(&mydata);
 		sql_row = mysql_fetch_row(result);
-		if (sql_row != NULL)
-		{
-			return sql_row[0];
-		}
-		else
-		{
-			return 0;
-		}
-
+		SecretSecurityStruct Secret;
+		Secret.SecretSecurityID = StringToInt( sql_row[0]);
+		Secret.UserName = sql_row[1];
+		Secret.Security = sql_row[2];
+		Secret.Answer = sql_row[3];
+		return Secret;
 	}
-	else {
-		return "NULL";
-	}
+	
 }
 
 string Operate::GetPasswordFromUserTable(string username)

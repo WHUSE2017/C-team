@@ -39,7 +39,14 @@ struct StationMessageStruct {
 	string Time;
 };
 
+struct ParticipantsStrcut {
+	int EventID;
+	string UserName;
+};
+
 struct SecretSecurityStruct {
+	int SecretSecurityID;
 	string UserName;
 	string Security;
+	string Answer;
 };

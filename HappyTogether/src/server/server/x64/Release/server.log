@@ -1,0 +1,22 @@
+﻿  Operate.cpp
+  stdafx.cpp
+  main.cpp
+  Service.cpp
+  session_s.cpp
+  socket_packet.cpp
+  socket_stream.cpp
+  utils.cpp
+  Generating Code...
+h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(263): warning C4715: 'Operate::GetSecretSecurity': not all control paths return a value
+h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(1186): warning C4715: 'Operate::DeleteDataParticipants': not all control paths return a value
+h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(1165): warning C4715: 'Operate::GetEventDetailById': not all control paths return a value
+h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(916): warning C4715: 'Operate::GetMessageBySender': not all control paths return a value
+h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(942): warning C4715: 'Operate::GetMessageByReceiver': not all control paths return a value
+h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(1077): warning C4715: 'Operate::GetEventByState': not all control paths return a value
+h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(1044): warning C4715: 'Operate::GetEventByLike': not all control paths return a value
+h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(164): warning C4715: 'Operate::GetParticipantsByUsername': not all control paths return a value
+h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(330): warning C4715: 'Operate::LikeUserName': not all control paths return a value
+h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(889): warning C4715: 'Operate::GetEvent': not all control paths return a value
+h:\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(241): warning C4715: 'Operate::getEventByCondition': not all control paths return a value
+  server.vcxproj -> H:\C-team\HappyTogether\src\server\x64\Release\server.exe
+  server.vcxproj -> H:\C-team\HappyTogether\src\server\x64\Release\server.pdb (Full PDB)

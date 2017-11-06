@@ -19,11 +19,14 @@ public:
 	bool InsertIntoSecretSecurity(SecretSecurityStruct Security);
 	bool joinEvent(int EventID, string username);
 	bool setEventState(int Eventid, int State);//设置活动状态
-	string GetSecretSecurity(string UserName);
+	SecretSecurityStruct GetSecretSecurity(string UserName);
 
 	bool DeleteDataParticipants(int EventID, string UserName);//删除Participants中特定数据
 
 	vector<userStruct> LikeUserName(string username);//模糊查找用户名
+
+	vector<ParticipantsStrcut> GetParticipantsByUsername(string Username);
+	vector<EventStruct> getEventByCondition(string publisher, string participant, int state);
 
 	string GetPasswordFromUserTable(string username);
 	userStruct GetUserDetails(string username);
