@@ -23,7 +23,7 @@ public:
 
 	bool DeleteDataParticipants(int EventID, string UserName);//删除Participants中特定数据
 
-	userStruct LikeUserName(string username);//模糊查找用户名
+	vector<userStruct> LikeUserName(string username);//模糊查找用户名
 
 	string GetPasswordFromUserTable(string username);
 	userStruct GetUserDetails(string username);

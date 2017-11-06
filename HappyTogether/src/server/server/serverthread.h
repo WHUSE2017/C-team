@@ -202,7 +202,7 @@ void service_addevent(session_s * ses,request_t *req)
 		if (strlen(data)==0)
 				break;
 	}
-	ev.PeersNumber = 0;
+	ev.PeersNumber =1;
 	reply_t reply;
 	reply.type=TYPE_ADDEVENT;
 	reply.flag =1;
@@ -525,6 +525,75 @@ void service_updateuserinfo(session_s * ses,request_t *req)
 		ses->send_reply(&reply);
 }
 
+void service_exitevent(session_s * ses,request_t *req)
+{
+	if (req->type != TYPE_EXITEVENT )
+			return ;
+		char *data = req->data;
+		char *key,*value;
+		string str_name;
+		int EventID=0;
+		while ( (data=get_key_values(data,&key,&value)) !=NULL )
+		{
+			if (strcmp(key,"EventID")==0)
+				EventID=Cs2Int(value);
+			else if (strcmp(key,"username")==0)
+				str_name = value;
+			if (strlen(data)==0)
+					break;
+		}
+		//pr_userStruct(user);
+		reply_t reply;
+		reply.type=TYPE_EXITEVENT;
+		reply.flag =1;
+		if (ses->op!=NULL && ses->op->DeleteDataParticipants(EventID,str_name))
+		{
+			reply.data="success";
+			reply.datalen =strlen("success")+1;
+		}
+		else
+		{
+			reply.data="failed";
+			reply.datalen=strlen("failed")+1;
+		}
+		ses->send_reply(&reply);
+}
+
+void service_seteventstate(session_s * ses,request_t *req)
+{
+	if (req->type != TYPE_SETEVENTSTATE )
+			return ;
+		char *data = req->data;
+		char *key,*value;
+		int EventID=0,state;
+		while ( (data=get_key_values(data,&key,&value)) !=NULL )
+		{
+			if (strcmp(key,"EventID")==0)
+				EventID=Cs2Int(value);
+			else if (strcmp(key,"state")==0)
+				state = Cs2Int(value);
+			if (strlen(data)==0)
+					break;
+		}
+		EventStruct es = ses->op->GetEventDetailById(EventID);
+		string str_name =ses->getusername();
+
+		//pr_userStruct(user);
+		reply_t reply;
+		reply.type=TYPE_SETEVENTSTATE;
+		reply.flag =1;
+		if (es.Publisher == str_name  && ses->op->setEventState(EventID,state))
+		{
+			reply.data="success";
+			reply.datalen =strlen("success")+1;
+		}
+		else
+		{
+			reply.data="failed";
+			reply.datalen=strlen("failed")+1;
+		}
+		ses->send_reply(&reply);
+}
 
 DWORD WINAPI myServerThread(LPVOID lpParam)
 {
@@ -594,6 +663,16 @@ DWORD WINAPI myServerThread(LPVOID lpParam)
 		case(TYPE_UPDATEUSERINFO):
 			{
 				service_updateuserinfo(s,req);
+				break;
+			}
+		case(TYPE_EXITEVENT):
+			{
+				service_exitevent(s,req);
+				break;
+			}
+		case(TYPE_SETEVENTSTATE):
+			{
+				service_seteventstate(s,req);
 				break;
 			}
 		default:

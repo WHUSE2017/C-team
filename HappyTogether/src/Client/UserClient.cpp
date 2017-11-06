@@ -193,3 +193,23 @@ bool UserClient::UpdateUserInfo(struct userStruct userInfo)
 	params_strcat(buffer,"PlayTime",Int2Cs(userInfo.PlayTime),bufferlen);
 	return this->sc->updatauserinfo(buffer);
 }
+
+bool UserClient::ExitEvent(int EventID,string username)
+{
+    this->reConnect();
+    if (buffer==NULL) return false;
+    memset(buffer,0,this->bufferlen);
+    params_strcat(buffer,"EventID",Int2Cs(EventID),bufferlen);
+    params_strcat(buffer,"username",(char*)username.data(),bufferlen);
+    return this->sc->exitEvent(buffer);
+}
+
+bool UserClient::SetEventState(int EventID,int state)
+{
+    this->reConnect();
+    if (buffer==NULL) return false;
+    memset(buffer,0,this->bufferlen);
+    params_strcat(buffer,"EventID",Int2Cs(EventID),bufferlen);
+    params_strcat(buffer,"state",Int2Cs(state),bufferlen);
+    return this->sc->setEventState(buffer);
+}

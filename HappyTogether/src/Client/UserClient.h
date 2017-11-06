@@ -23,6 +23,8 @@ public:
 	EventStruct getEventById(int EventID);
 	void Logout();
 	bool UpdateUserInfo(struct userStruct userInfo);
+        bool ExitEvent(int EventID,string username);
+        bool SetEventState(int EventID,int state);
 private:
 	int state;
 	session_c* sc;

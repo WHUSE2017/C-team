@@ -220,7 +220,7 @@ vector<userStruct> Operate::LikeUserName(string username)//模糊查找用户名
 				us.LocateArea = sql_row[10];
 				us.SelfTag = sql_row[11];
 				us.PlayTime = StringToInt(sql_row[12]);
-				Event.push_back(us);
+				User.push_back(us);
 				sql_row = mysql_fetch_row(result);
 			}
 			return User;
@@ -1066,7 +1066,7 @@ EventStruct Operate::GetEventDetailById(int EventId)
 
 bool Operate::DeleteDataParticipants(int EventID, string UserName)
 {
-	string sqlstr;
+	string sqlstr,sqlstr2;
 	//向表中插入数据  
 	sqlstr =
 		"DELETE FROM Participants WHERE EventID = '"+IntToString(EventID)+"' and UserName = '"+ UserName +"';";
@@ -1074,7 +1074,7 @@ bool Operate::DeleteDataParticipants(int EventID, string UserName)
 	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
 		sqlstr2 =
 			"update Event set PeersNumber = PeersNumber-1 where EventID='" + IntToString(EventID) + "';";
-		if (0 == mysql_query(&mydata, sqlstr2.c_str())
+		if (0 == mysql_query(&mydata, sqlstr2.c_str()))
 		{
 			return true;
 		}

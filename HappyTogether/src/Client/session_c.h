@@ -31,6 +31,8 @@ public:
 	vector<string> getParticipants(char* params);
 	EventStruct getEventByID(char* params);
 	bool updatauserinfo(char* params);
+        bool exitEvent(char *params);
+        bool setEventState(char *parmas);
 private:
 	int send_request(request_t *req);
 	int state;

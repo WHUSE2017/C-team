@@ -402,3 +402,38 @@ EventStruct session_c::getEventByID(char* params)
 	es=ee;
 	return es;
 }
+
+ bool session_c::exitEvent(char *params)
+ {
+     request_t req;
+     req.type = TYPE_EXITEVENT;
+     req.flag =0;
+     req.data = params;
+     req.datalen = strlen(params)+1;
+     if (!SendAndCheck(&req))
+             return false;
+     reply_t *reply = this->get_reply();
+     if (strcmp(reply->data,"success")==0)
+     {
+             return true;
+     }
+     return false;
+
+ }
+
+bool session_c::setEventState(char *params)
+{
+    request_t req;
+    req.type = TYPE_SETEVENTSTATE;
+    req.flag =0;
+    req.data = params;
+    req.datalen = strlen(params)+1;
+    if (!SendAndCheck(&req))
+            return false;
+    reply_t *reply = this->get_reply();
+    if (strcmp(reply->data,"success")==0)
+    {
+            return true;
+    }
+    return false;
+}
