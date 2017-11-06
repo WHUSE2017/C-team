@@ -21,6 +21,8 @@ public:
 
 private:
     Ui::RetrievePwdDialog *ui;
+    QLineEdit *userName = new QLineEdit(this);
+    QPushButton *getBtn = new QPushButton(this);
     QLabel *security = new QLabel(this);
     QLabel *securityQuestion = new QLabel(this);    //密保问题
     QLineEdit *securityAnswer = new QLineEdit(this);
@@ -29,6 +31,7 @@ private:
 
 private slots:
     void QueryBtnClicked();
+    void GetBtnClicked();
 };
 
 #endif // RETRIEVEPWDDIALOG_H

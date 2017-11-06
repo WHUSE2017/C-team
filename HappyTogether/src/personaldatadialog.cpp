@@ -33,9 +33,9 @@ PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
         userPwd->setEchoMode(QLineEdit::Password);
         personalDataLayout->addWidget(userPwd,1,1,1,2);
 
-        pwdLabel2->setText("修改密码(可选):");
+        pwdLabel2->setText("修改密码:");
         personalDataLayout->addWidget(pwdLabel2,2,0,1,1);
-        userPwd2->setPlaceholderText("请输入新密码");
+        userPwd2->setPlaceholderText("(可选)请输入新密码");
         userPwd2->setEchoMode(QLineEdit::Password);
         personalDataLayout->addWidget(userPwd2,2,1,1,2);
 
@@ -73,13 +73,19 @@ PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
         personalDataLayout->addWidget(locateAreaLabel,9,0,1,1);
         locateArea->setText(StdStringToQString(uinfo.LocateArea));
         personalDataLayout->addWidget(locateArea,9,1,1,2);
-        imageLabel->setText("头像：");
-        personalDataLayout->addWidget(imageLabel,10,0,1,1);
-        imageBtn->setText("上传");
-        personalDataLayout->addWidget(imageBtn,10,1,1,2);
+//        imageLabel->setText("头像：");
+//        personalDataLayout->addWidget(imageLabel,10,0,1,1);
+//        imageBtn->setText("上传");
+//        personalDataLayout->addWidget(imageBtn,10,1,1,2);
+        security->setText("密保问题");
+        personalDataLayout->addWidget(security,10,0,1,1);
+        string str = client.GetSecurity(QStringToStdString(userName->text()));
+
+        securityQuestion->setText(StdStringToQString(str));
+        personalDataLayout->addWidget(securityQuestion,10,1,1,2);
 
 
-        playTimeLabel->setText("成功游玩次数:");
+        playTimeLabel->setText("游玩次数:");
         playTime->setText(QString::number(uinfo.PlayTime,10));
         playTime->setAlignment(Qt::AlignCenter);
         personalDataLayout->addWidget(playTimeLabel,11,0,1,1);
@@ -124,7 +130,7 @@ PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
     }
     connect(confirmBtn, &QPushButton::clicked, this, &PersonalDataDialog::ConfirmBtnClicked);
     connect(changeBtn, &QPushButton::clicked, this, &PersonalDataDialog::ChangeBtnClicked);
-    connect(imageBtn, &QPushButton::clicked, this, &PersonalDataDialog::OpenImage);
+//    connect(imageBtn, &QPushButton::clicked, this, &PersonalDataDialog::OpenImage);
 }
 
 /***
@@ -254,7 +260,7 @@ void PersonalDataDialog::ChangeBtnClicked()
     userInfo.UserName = QStringToStdString(userName->text());
     userInfo.Email = QStringToStdString((email->text()));
     userInfo.Gender = QStringToStdString(sexType->currentText());
-    userInfo.Image = QStringToStdString(imageBtn->text());
+    userInfo.Image = QStringToStdString("");
     userInfo.LocateArea = QStringToStdString(locateArea->text());
     userInfo.University = QStringToStdString((university->text()));
     if(userPwd2->text() != NULL)
@@ -282,7 +288,7 @@ void PersonalDataDialog::OpenImage()
             delete img;
             return;
         }
-        imageBtn->setText(filename.section('/',-1));
+//        imageBtn->setText(filename.section('/',-1));
             //mainLayout->addWidget(img,0,0,1,1);
    }
 }

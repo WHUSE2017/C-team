@@ -75,10 +75,10 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
     registerLayout->addWidget(securityQuestion,10,1,1,2);
     securityAnswer->setPlaceholderText("密保问题可以找回密码");
     registerLayout->addWidget(securityAnswer,11,1,1,2);
-    imageLabel->setText("头像：");
-    registerLayout->addWidget(imageLabel,12,0,1,1);
-    imageBtn->setText("上传");
-    registerLayout->addWidget(imageBtn,12,1,1,2);
+//    imageLabel->setText("头像：");
+//    registerLayout->addWidget(imageLabel,12,0,1,1);
+//    imageBtn->setText("上传");
+//    registerLayout->addWidget(imageBtn,12,1,1,2);
 /*
     selfTagLabel->setText("Tag：");
     registerLayout->addWidget(selfTagLabel,11,0,1,1);
@@ -103,18 +103,18 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
     tag->setLayout(tagLayout);
 */
     signatureLabel->setText("个性签名:");
-    registerLayout->addWidget(signatureLabel,13,0,1,1);
+    registerLayout->addWidget(signatureLabel,12,0,1,1);
     signature->setPlaceholderText("请输入你的个性签名");
-    registerLayout->addWidget(signature,13,1,2,2);
+    registerLayout->addWidget(signature,12,1,2,2);
 
     backBtn->setText("返回");
-    registerLayout->addWidget(backBtn,15,0,1,1);
+    registerLayout->addWidget(backBtn,14,0,1,1);
     confirmBtn->setText("确认");
-    registerLayout->addWidget(confirmBtn,15,2,1,1);
+    registerLayout->addWidget(confirmBtn,14,2,1,1);
     this->setLayout(registerLayout);
     connect(confirmBtn, &QPushButton::clicked, this, &RegisterDialog::ConfirmBtnClicked);
     connect(backBtn, &QPushButton::clicked, this, &RegisterDialog::BackBtnClicked);
-    connect(imageBtn, &QPushButton::clicked, this, &RegisterDialog::OpenImage);
+//    connect(imageBtn, &QPushButton::clicked, this, &RegisterDialog::OpenImage);
 }
 
 RegisterDialog::~RegisterDialog()
@@ -134,7 +134,7 @@ void RegisterDialog::ConfirmBtnClicked()
         user.Email = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
         s = sexType->currentText().toStdString();
         user.Gender= base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
-        s = imageBtn->text().toStdString();
+        s = "";
         user.Image= base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
         s = locateArea->text().toStdString();
         user.LocateArea = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
@@ -156,6 +156,11 @@ void RegisterDialog::ConfirmBtnClicked()
         user.PlayTime = 0;
 
         if (client.Register(user)) {
+            bool  flag = client.SetSecurity(QStringToStdString(userName->text()), QStringToStdString(securityQuestion->currentText()),QStringToStdString(securityAnswer->text()));
+//            if(flag) {
+
+//                QMessageBox::information(this, tr("Welcome"), tr("插入密保问题成功！"), QMessageBox::tr("确定"));
+//            }
             QMessageBox::information(this, tr("Welcome"), tr("恭喜注册成功！"), QMessageBox::tr("确定"));
             this->hide();
             LoginDialog *loginDlg = new LoginDialog;
@@ -165,7 +170,6 @@ void RegisterDialog::ConfirmBtnClicked()
             QMessageBox::information(this, tr("提示"), tr("此用户名已注册！请使用另外的用户名。"), QMessageBox::tr("确定"));
 
         }
-        return ;
     }
     return ;
 }
@@ -261,7 +265,10 @@ bool RegisterDialog::JudgeEmpty()
         QMessageBox::warning(this, tr("提示"), tr("请输入有效的地区！"), QMessageBox::tr("确定"));
         return false;
     }
-
+    if(securityAnswer->text() == NULL) {
+        QMessageBox::warning(this, tr("提示"), tr("请设置密保问题，输入密保问题答案！"), QMessageBox::tr("确定"));
+        return false;
+    }
     return true;
 }
 
@@ -272,22 +279,22 @@ void RegisterDialog::BackBtnClicked()
     loginDlg->show();
 }
 
-void RegisterDialog::OpenImage()
-{
-    QString filename;
-    filename=QFileDialog::getOpenFileName(this, tr("选择图像"), "", tr("Images (*.png *.bmp *.jpg *.tif *.GIF )"));
-    if(filename.isEmpty())
-    {
-        return;
-    }
-    else {
-        QImage* img=new QImage;
-        if(! ( img->load(filename) ) ){ //加载图像  {
-            QMessageBox::information(this,tr("打开图像失败"),tr("打开图像失败!"));
-            delete img;
-            return;
-        }
-        imageBtn->setText(filename.section('/',-1));
-            //mainLayout->addWidget(img,0,0,1,1);
-   }
-}
+//void RegisterDialog::OpenImage()
+//{
+//    QString filename;
+//    filename=QFileDialog::getOpenFileName(this, tr("选择图像"), "", tr("Images (*.png *.bmp *.jpg *.tif *.GIF )"));
+//    if(filename.isEmpty())
+//    {
+//        return;
+//    }
+//    else {
+//        QImage* img=new QImage;
+//        if(! ( img->load(filename) ) ){ //加载图像  {
+//            QMessageBox::information(this,tr("打开图像失败"),tr("打开图像失败!"));
+//            delete img;
+//            return;
+//        }
+//        imageBtn->setText(filename.section('/',-1));
+//            //mainLayout->addWidget(img,0,0,1,1);
+//   }
+//}

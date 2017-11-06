@@ -44,13 +44,15 @@ private:
     QLineEdit *studentId = new QLineEdit(this);
     QLabel *QQLabel = new QLabel(this);
     QLineEdit *QQ = new QLineEdit(this);
-    QLabel *imageLabel = new QLabel(this);
-    QPushButton *imageBtn = new QPushButton(this);
+//    QLabel *imageLabel = new QLabel(this);
+//    QPushButton *imageBtn = new QPushButton(this);
     QLabel *universityLabel = new QLabel(this);
     QLineEdit *university = new QLineEdit(this);
     QLabel *locateAreaLabel = new QLabel(this);
     QLineEdit *locateArea = new QLineEdit(this);
     QComboBox *sexType = new QComboBox(this);
+    QLabel *security = new QLabel(this);
+    QLabel *securityQuestion = new QLabel(this);    //密保问题
     QLabel *playTimeLabel = new QLabel(this);
     QLabel *playTime = new QLabel(this);
 

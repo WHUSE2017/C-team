@@ -211,6 +211,7 @@ vector<EventStruct> Operate::getEventByCondition(string publisher, string partic
 			string sqlstr;
 			sqlstr =
 				"select * from Event where EventID   ='" + IntToString(ps.EventID) + "' and State ='" +IntToString(state) + "';";
+			
 			if (0 == mysql_query(&mydata, sqlstr.c_str()))
 			{
 				result = mysql_store_result(&mydata);
@@ -359,14 +360,43 @@ userStruct Operate::GetUserDetails(string username)
 
 vector<EventStruct> Operate::GetEvent(string StartSite, string EndSite, string StartTime, string EventType)
 {
-	if (StartSite != "NULL" && EndSite != "NULL" && StartTime != "NULL" && EventType != "NULL")
+	int flag =0;
+	if (!(StartSite == "NULL" && EndSite == "NULL" && StartTime == "NULL" && EventType == "NULL"))
 	{
 		vector<EventStruct> Event;
 		MYSQL_RES *result;
 		MYSQL_ROW sql_row;
 		string sqlstr;
 		sqlstr =
-			"select * from Event where StartSite ='" + StartSite + "' and EndSite ='" + EndSite + "' and StartTime='" + StartTime + "'and EventType='" + EventType + "' " ;
+			"select * from Event where ";
+		if (StartSite!="NULL")
+		{
+			sqlstr=sqlstr+"StartSite ='" + StartSite + "'";
+			flag ++;
+		}
+
+		if (EndSite!="NULL")
+		{
+			if (flag)sqlstr = sqlstr +" and ";
+			sqlstr=sqlstr+"EndSite ='" + EndSite + "'";
+			flag ++;
+		}
+
+		if (StartTime!="NULL")
+		{
+			if (flag)sqlstr = sqlstr +" and ";
+			sqlstr=sqlstr+"StartTime ='" + StartTime + "'";
+			flag ++;
+		}
+
+		if (EventType!="NULL")
+		{
+			if (flag)sqlstr = sqlstr +" and ";
+			sqlstr=sqlstr+"EventType ='" + EventType + "'";
+			flag ++;
+		}
+
+	cout<<sqlstr<<endl;
 		if (0 == mysql_query(&mydata, sqlstr.c_str()))
 		{
 			result = mysql_store_result(&mydata);
@@ -391,338 +421,7 @@ vector<EventStruct> Operate::GetEvent(string StartSite, string EndSite, string S
 			return Event;
 		}
 	}
-
-	if (StartSite != "NULL" && EndSite == "NULL" && StartTime == "NULL" && EventType == "NULL")
-	{
-		vector<EventStruct> Event;
-		MYSQL_RES *result;
-		MYSQL_ROW sql_row;
-		string sqlstr;
-		sqlstr =
-			"select * from Event where StartSite ='" + StartSite + "'";
-		if (0 == mysql_query(&mydata, sqlstr.c_str()))
-		{
-			result = mysql_store_result(&mydata);
-			sql_row = mysql_fetch_row(result);
-			while (sql_row != NULL)
-			{
-				EventStruct es;
-				es.EventID = StringToInt(sql_row[0]);
-				es.UserId = StringToInt(sql_row[1]);
-				es.EventType = sql_row[2];
-				es.PlaySite = sql_row[3];
-				es.Arrival = sql_row[4];
-				es.Publisher = sql_row[5];
-				es.StartSite = sql_row[6];
-				es.EndSite = sql_row[7];
-				es.StartTime = sql_row[8];
-				es.PeersNumber = StringToInt(sql_row[9]);
-				es.State = StringToInt(sql_row[10]);
-				Event.push_back(es);
-				sql_row = mysql_fetch_row(result);
-			}
-			return Event;
-		}
-	}
-
-	if (StartSite == "NULL" && EndSite != "NULL" && StartTime == "NULL" && EventType == "NULL")
-	{
-		vector<EventStruct> Event;
-		MYSQL_RES *result;
-		MYSQL_ROW sql_row;
-		string sqlstr;
-		sqlstr =
-			"select * from Event where EndSite ='" + EndSite + "'";
-		if (0 == mysql_query(&mydata, sqlstr.c_str()))
-		{
-			result = mysql_store_result(&mydata);
-			sql_row = mysql_fetch_row(result);
-			while (sql_row != NULL)
-			{
-				EventStruct es;
-				es.EventID = StringToInt(sql_row[0]);
-				es.UserId = StringToInt(sql_row[1]);
-				es.EventType = sql_row[2];
-				es.PlaySite = sql_row[3];
-				es.Arrival = sql_row[4];
-				es.Publisher = sql_row[5];
-				es.StartSite = sql_row[6];
-				es.EndSite = sql_row[7];
-				es.StartTime = sql_row[8];
-				es.PeersNumber = StringToInt(sql_row[9]);
-				es.State = StringToInt(sql_row[10]);
-				Event.push_back(es);
-				sql_row = mysql_fetch_row(result);
-			}
-			return Event;
-		}
-	}
-
-	if (StartSite == "NULL" && EndSite == "NULL" && StartTime != "NULL" && EventType == "NULL")
-	{
-		vector<EventStruct> Event;
-		MYSQL_RES *result;
-		MYSQL_ROW sql_row;
-		string sqlstr;
-		sqlstr =
-			"select * from Event where StartTime ='" + StartTime + "'";
-		if (0 == mysql_query(&mydata, sqlstr.c_str()))
-		{
-			result = mysql_store_result(&mydata);
-			sql_row = mysql_fetch_row(result);
-			while (sql_row != NULL)
-			{
-				EventStruct es;
-				es.EventID = StringToInt(sql_row[0]);
-				es.UserId = StringToInt(sql_row[1]);
-				es.EventType = sql_row[2];
-				es.PlaySite = sql_row[3];
-				es.Arrival = sql_row[4];
-				es.Publisher = sql_row[5];
-				es.StartSite = sql_row[6];
-				es.EndSite = sql_row[7];
-				es.StartTime = sql_row[8];
-				es.PeersNumber = StringToInt(sql_row[9]);
-				es.State = StringToInt(sql_row[10]);
-				Event.push_back(es);
-				sql_row = mysql_fetch_row(result);
-			}
-			return Event;
-		}
-	}
-
-	if (StartSite != "NULL" && EndSite != "NULL" && StartTime == "NULL" && EventType == "NULL")
-	{
-		vector<EventStruct> Event;
-		MYSQL_RES *result;
-		MYSQL_ROW sql_row;
-		string sqlstr;
-		sqlstr =
-			"select * from Event where StartSite ='" + StartSite + "' and EndSite='"+ EndSite +"' ";
-		if (0 == mysql_query(&mydata, sqlstr.c_str()))
-		{
-			result = mysql_store_result(&mydata);
-			sql_row = mysql_fetch_row(result);
-			while (sql_row != NULL)
-			{
-				EventStruct es;
-				es.EventID = StringToInt(sql_row[0]);
-				es.UserId = StringToInt(sql_row[1]);
-				es.EventType = sql_row[2];
-				es.PlaySite = sql_row[3];
-				es.Arrival = sql_row[4];
-				es.Publisher = sql_row[5];
-				es.StartSite = sql_row[6];
-				es.EndSite = sql_row[7];
-				es.StartTime = sql_row[8];
-				es.PeersNumber = StringToInt(sql_row[9]);
-				es.State = StringToInt(sql_row[10]);
-				Event.push_back(es);
-				sql_row = mysql_fetch_row(result);
-			}
-			return Event;
-		}
-	}
-
-	if (StartSite != "NULL" && EndSite == "NULL" && StartTime != "NULL" && EventType == "NULL")
-	{
-		vector<EventStruct> Event;
-		MYSQL_RES *result;
-		MYSQL_ROW sql_row;
-		string sqlstr;
-		sqlstr =
-			"select * from Event where StartSite ='" + StartSite + "' and StartTime='" + StartTime + "' ";
-		if (0 == mysql_query(&mydata, sqlstr.c_str()))
-		{
-			result = mysql_store_result(&mydata);
-			sql_row = mysql_fetch_row(result);
-			while (sql_row != NULL)
-			{
-				EventStruct es;
-				es.EventID = StringToInt(sql_row[0]);
-				es.UserId = StringToInt(sql_row[1]);
-				es.EventType = sql_row[2];
-				es.PlaySite = sql_row[3];
-				es.Arrival = sql_row[4];
-				es.Publisher = sql_row[5];
-				es.StartSite = sql_row[6];
-				es.EndSite = sql_row[7];
-				es.StartTime = sql_row[8];
-				es.PeersNumber = StringToInt(sql_row[9]);
-				es.State = StringToInt(sql_row[10]);
-				Event.push_back(es);
-				sql_row = mysql_fetch_row(result);
-			}
-			return Event;
-		}
-	}
-
-	if (StartSite != "NULL" && EndSite == "NULL" && StartTime == "NULL" && EventType != "NULL")
-	{
-		vector<EventStruct> Event;
-		MYSQL_RES *result;
-		MYSQL_ROW sql_row;
-		string sqlstr;
-		sqlstr =
-			"select * from Event where StartSite ='" + StartSite + "' and EventType='" + EventType + "' ";
-		if (0 == mysql_query(&mydata, sqlstr.c_str()))
-		{
-			result = mysql_store_result(&mydata);
-			sql_row = mysql_fetch_row(result);
-			while (sql_row != NULL)
-			{
-				EventStruct es;
-				es.EventID = StringToInt(sql_row[0]);
-				es.UserId = StringToInt(sql_row[1]);
-				es.EventType = sql_row[2];
-				es.PlaySite = sql_row[3];
-				es.Arrival = sql_row[4];
-				es.Publisher = sql_row[5];
-				es.StartSite = sql_row[6];
-				es.EndSite = sql_row[7];
-				es.StartTime = sql_row[8];
-				es.PeersNumber = StringToInt(sql_row[9]);
-				es.State = StringToInt(sql_row[10]);
-				Event.push_back(es);
-				sql_row = mysql_fetch_row(result);
-			}
-			return Event;
-		}
-	}
-
-	if (StartSite == "NULL" && EndSite != "NULL" && StartTime != "NULL" && EventType == "NULL")
-	{
-		vector<EventStruct> Event;
-		MYSQL_RES *result;
-		MYSQL_ROW sql_row;
-		string sqlstr;
-		sqlstr =
-			"select * from Event where EndSite ='" + EndSite + "' and StartTime='" + StartTime + "' ";
-		if (0 == mysql_query(&mydata, sqlstr.c_str()))
-		{
-			result = mysql_store_result(&mydata);
-			sql_row = mysql_fetch_row(result);
-			while (sql_row != NULL)
-			{
-				EventStruct es;
-				es.EventID = StringToInt(sql_row[0]);
-				es.UserId = StringToInt(sql_row[1]);
-				es.EventType = sql_row[2];
-				es.PlaySite = sql_row[3];
-				es.Arrival = sql_row[4];
-				es.Publisher = sql_row[5];
-				es.StartSite = sql_row[6];
-				es.EndSite = sql_row[7];
-				es.StartTime = sql_row[8];
-				es.PeersNumber = StringToInt(sql_row[9]);
-				es.State = StringToInt(sql_row[10]);
-				Event.push_back(es);
-				sql_row = mysql_fetch_row(result);
-			}
-			return Event;
-		}
-	}
-
-	if (StartSite == "NULL" && EndSite != "NULL" && StartTime == "NULL" && EventType != "NULL")
-	{
-		vector<EventStruct> Event;
-		MYSQL_RES *result;
-		MYSQL_ROW sql_row;
-		string sqlstr;
-		sqlstr =
-			"select * from Event where EndSite ='" + EndSite + "' and EventType='" + EventType + "' ";
-		if (0 == mysql_query(&mydata, sqlstr.c_str()))
-		{
-			result = mysql_store_result(&mydata);
-			sql_row = mysql_fetch_row(result);
-			while (sql_row != NULL)
-			{
-				EventStruct es;
-				es.EventID = StringToInt(sql_row[0]);
-				es.UserId = StringToInt(sql_row[1]);
-				es.EventType = sql_row[2];
-				es.PlaySite = sql_row[3];
-				es.Arrival = sql_row[4];
-				es.Publisher = sql_row[5];
-				es.StartSite = sql_row[6];
-				es.EndSite = sql_row[7];
-				es.StartTime = sql_row[8];
-				es.PeersNumber = StringToInt(sql_row[9]);
-				es.State = StringToInt(sql_row[10]);
-				Event.push_back(es);
-				sql_row = mysql_fetch_row(result);
-			}
-			return Event;
-		}
-	}
-
-	if (StartSite == "NULL" && EndSite == "NULL" && StartTime != "NULL" && EventType != "NULL")
-	{
-		vector<EventStruct> Event;
-		MYSQL_RES *result;
-		MYSQL_ROW sql_row;
-		string sqlstr;
-		sqlstr =
-			"select * from Event where StartTime ='" + StartTime + "' and EventType='" + EventType + "' ";
-		if (0 == mysql_query(&mydata, sqlstr.c_str()))
-		{
-			result = mysql_store_result(&mydata);
-			sql_row = mysql_fetch_row(result);
-			while (sql_row != NULL)
-			{
-				EventStruct es;
-				es.EventID = StringToInt(sql_row[0]);
-				es.UserId = StringToInt(sql_row[1]);
-				es.EventType = sql_row[2];
-				es.PlaySite = sql_row[3];
-				es.Arrival = sql_row[4];
-				es.Publisher = sql_row[5];
-				es.StartSite = sql_row[6];
-				es.EndSite = sql_row[7];
-				es.StartTime = sql_row[8];
-				es.PeersNumber = StringToInt(sql_row[9]);
-				es.State = StringToInt(sql_row[10]);
-				Event.push_back(es);
-				sql_row = mysql_fetch_row(result);
-			}
-			return Event;
-		}
-	}
-
-	if (StartSite == "NULL" && EndSite == "NULL" && StartTime == "NULL" && EventType != "NULL")
-	{
-		vector<EventStruct> Event;
-		MYSQL_RES *result;
-		MYSQL_ROW sql_row;
-		string sqlstr;
-		sqlstr =
-			"select * from Event where EventType ='" + EventType + "'";
-		if (0 == mysql_query(&mydata, sqlstr.c_str()))
-		{
-			result = mysql_store_result(&mydata);
-			sql_row = mysql_fetch_row(result);
-			while (sql_row != NULL)
-			{
-				EventStruct es;
-				es.EventID = StringToInt(sql_row[0]);
-				es.UserId = StringToInt(sql_row[1]);
-				es.EventType = sql_row[2];
-				es.PlaySite = sql_row[3];
-				es.Arrival = sql_row[4];
-				es.Publisher = sql_row[5];
-				es.StartSite = sql_row[6];
-				es.EndSite = sql_row[7];
-				es.StartTime = sql_row[8];
-				es.PeersNumber = StringToInt(sql_row[9]);
-				es.State = StringToInt(sql_row[10]);
-				Event.push_back(es);
-				sql_row = mysql_fetch_row(result);
-			}
-			return Event;
-		}
-	}
-
-	if (StartSite == "NULL" && EndSite == "NULL" && StartTime == "NULL" && EventType == "NULL")
+	else	if (StartSite == "NULL" && EndSite == "NULL" && StartTime == "NULL" && EventType == "NULL")
 	{
 		vector<EventStruct> Event;
 		MYSQL_RES *result;

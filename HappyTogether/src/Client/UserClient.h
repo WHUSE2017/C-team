@@ -28,7 +28,7 @@ public:
         vector<EventStruct> getEventByConditions(string publisher,string participant,int state);
         bool SetSecurity(string username,string sercurity,string answer);
         string GetSecurity(string username);
-        bool CheckSecurity(string username,string security,string answer);
+        string CheckSecurity(string username,string security,string answer);
 private:
 	int state;
 	session_c* sc;

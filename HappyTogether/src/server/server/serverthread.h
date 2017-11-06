@@ -333,6 +333,7 @@ void service_getevent(session_s * ses,request_t *req)
 	string StartTime="NULL";
 	string EventType="NULL";
 	int UserId=0;
+
 	while ( (data=get_key_values(data,&key,&value)) !=NULL )
 	{
 		if (strcmp(key,"StartSite") ==0)
@@ -346,7 +347,9 @@ void service_getevent(session_s * ses,request_t *req)
 		if (strlen(data)==0)
 				break;
 	}
+	
 	vector<EventStruct> es=ses->op->GetEvent(StartSite, EndSite, StartTime,EventType);
+
 	vector<EventStruct>::iterator iter = es.begin();
 	char buffer[2048];
 	int bufferlen =2048;
@@ -608,16 +611,17 @@ void service_geteventbycondition(session_s * ses,request_t *req)
 		while ( (data=get_key_values(data,&key,&value)) !=NULL )
 		{
 			if (strcmp(key,"publisher")==0)
-				str_publisher=Cs2Int(value);
+				str_publisher=value;
 			else if (strcmp(key,"participant")==0)
 				str_participant = value;
-			else if (strcmp(key,"state"))
+			else if (strcmp(key,"state")==0)
 				state = Cs2Int(value);		
 			if (strlen(data)==0)
 					break;
 		}
-	
+	cout<<str_publisher<<" "<<str_participant<<" "<<state<<endl;
 	vector<EventStruct> es=ses->op->getEventByCondition(str_publisher, str_participant, state);
+
 	vector<EventStruct>::iterator iter = es.begin();
 	char buffer[2048];
 	int bufferlen =2048;
@@ -652,7 +656,7 @@ void service_setsecurity(session_s * ses,request_t *req)
 				sec.Security = value;
 			else if (strcmp(key,"username")==0)
 				sec.UserName = value;
-			else if (strcmp(key,"answer"))
+			else if (strcmp(key,"answer")==0)
 				sec.Answer = value;
 			if (strlen(data)==0)
 					break;
@@ -698,6 +702,7 @@ void service_getsecurity(session_s * ses,request_t *req)
 
 		char buffer[2048];
 		int bufferlen = 2048;
+		memset(buffer,0,bufferlen);
 		params_strcat(buffer,"security",(char*)sec.Security.data(),bufferlen);
 		reply_t reply;
 		reply.type=TYPE_GETSECURITY;
@@ -720,7 +725,7 @@ void service_checksecurity(session_s * ses,request_t *req)
 				sec.Security = value;
 			else if (strcmp(key,"username")==0)
 				sec.UserName = value;
-			else if (strcmp(key,"answer"))
+			else if (strcmp(key,"answer")==0)
 				sec.Answer = value;
 			if (strlen(data)==0)
 					break;
@@ -730,18 +735,25 @@ void service_checksecurity(session_s * ses,request_t *req)
 		reply_t reply;
 		reply.type=TYPE_CHECKSECURITY;
 		reply.flag =1;
+		char buffer[2048];
+		int bufferlen = 2048;
+		cout<<sec.Security<< "    ::   "<<sec.Answer<<endl;
+	cout<<sec2.Security<< "     ::  "<<sec2.Answer<<endl;
+		memset(buffer,0,bufferlen);
 		if (sec.UserName == sec2.UserName &&
 			sec.Security == sec2.Security &&
 			sec.Answer == sec2.Answer)
 		{
-			reply.data="success";
-			reply.datalen =strlen("success")+1;
+			params_strcat(buffer,"state","success",bufferlen);
+			userStruct us = ses->op->GetUserDetails(sec.UserName);
+			params_strcat(buffer,"passwd",(char*)us.PassWord.data(),bufferlen);
 		}
 		else
 		{
-			reply.data="failed";
-			reply.datalen=strlen("failed")+1;
+			params_strcat(buffer,"state","failed",bufferlen);
 		}
+		reply.data = buffer;
+		reply.datalen = strlen(buffer)+1;
 		ses->send_reply(&reply);
 }
 
@@ -757,83 +769,109 @@ DWORD WINAPI myServerThread(LPVOID lpParam)
 			break;
 		request_t * req = s->get_request();
 
-		p_debug("->new request\n  type=%d, flag=%d, len=%d, data=%s\n",
-					req->type,req->flag,req->datalen,req->data);
+		//p_debug("->new request\n  type=%d, flag=%d, len=%d, data=%s\n",
+			//		req->type,req->flag,req->datalen,req->data);
 		switch(req->type)
 		{
 		case (TYPE_LOGIN):
 			{
+				p_debug("request: login\n");
 				service_login(s,req);
 				break;
 			}
 		case(TYPE_REGISTER):
 			{
+				p_debug("request: register\n");
 				service_register(s,req);
 				break;
 			}
 		case(TYPE_GETUSERINFO):
 			{
+				p_debug("request: get userinfo\n");
 				service_getuserinfo(s,req);
 				break;
 			}
 		case(TYPE_ADDEVENT):
 			{
+				p_debug("request: add event\n");
 				service_addevent(s,req);
 				break;
 			}
 		case(TYPE_GETMESSAGE):
 			{	
+				p_debug("request: get message\n");
 				service_getmessages(s,req);
 				break;
 			}
 		case(TYPE_ADDMESSAGE):
 			{
+				p_debug("request: send message\n");
 				service_addmessage(s,req);
 				break;
 			}
 		case(TYPE_GETEVENT):
 			{
+				p_debug("request: get event\n");
 				service_getevent(s,req);
 				break;
 			}
 		case(TYPE_JOINEVENT):
 		{
+			p_debug("request: join event\n");
 			service_joinevent(s,req);
 			break;
 		}
 		case(TYPE_GETPARTICIPANTS):
 		{
+			p_debug("request: get participant\n");
 			service_getparticipants(s,req);
 			break;
 		}
 		case(TYPE_GETEVENTDETAILBYID):
 			{
+				p_debug("request: querry  a event by id\n");
 				service_geteventdetail(s,req);
 				break;
 			}
 		case(TYPE_UPDATEUSERINFO):
 			{
+				p_debug("request: update userinfo\n");
 				service_updateuserinfo(s,req);
 				break;
 			}
 		case(TYPE_EXITEVENT):
 			{
+				p_debug("request: exit event\n");
 				service_exitevent(s,req);
 				break;
 			}
 		case(TYPE_SETEVENTSTATE):
 			{
+				p_debug("request: set security\n");
 				service_seteventstate(s,req);
 				break;
 			}
 		case(TYPE_GETEVENTBYCONDITIONS):
 			{
+				p_debug("request: querry events by conditions\n");
 				service_geteventbycondition(s,req);
 				break;
 			}
 		case(TYPE_SETSECURITY):
 			{
+				p_debug("request: set security\n");
 				service_setsecurity(s,req);
+				break;
+			}
+		case(TYPE_GETSECURITY):
+			{
+				service_getsecurity(s,req);
+				break;
+			}
+		case(TYPE_CHECKSECURITY):
+			{
+				p_debug("check security!\n");
+				service_checksecurity(s,req);
 				break;
 			}
 		default:

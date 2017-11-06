@@ -29,6 +29,12 @@ SendMessageDialog::SendMessageDialog(QWidget *parent) :
 
 void SendMessageDialog::CheckBtnClicked()
 {
+    if(receiver->text() == NULL) {
+        QMessageBox::warning(this, tr(""),
+                tr("请输入收消息的用户名称！"),
+                QMessageBox::tr("确定"));
+        return ;
+    }
     userStruct user = client.getUserInfo((char*) QStringToStdString(receiver->text()).data());
     if(user.UserName == (char*) QStringToStdString(receiver->text()).data()) {
         QMessageBox::warning(this, tr(""),
@@ -40,10 +46,23 @@ void SendMessageDialog::CheckBtnClicked()
                 tr("用户不存在，请输入有效的用户名！"),
                 QMessageBox::tr("确定"));
     }
+    return ;
 }
 
 void SendMessageDialog::SendBtnClicked()
 {
+    if(receiver->text() == NULL) {
+        QMessageBox::warning(this, tr(""),
+                tr("请输入收消息的用户名称！"),
+                QMessageBox::tr("确定"));
+        return ;
+    }
+    if(receiver->text() == userNameGlobal) {
+        QMessageBox::warning(this, tr(""),
+                tr("不能给自己发消息！"),
+                QMessageBox::tr("确定"));
+        return ;
+    }
     /*发消息
     1.不能发给自己
     2.接收者必须存在

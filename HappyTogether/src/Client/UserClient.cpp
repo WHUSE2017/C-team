@@ -249,7 +249,7 @@ vector<EventStruct> UserClient::getEventByConditions(string publisher,string par
      return this->sc->getSecurity(buffer);
  }
 
- bool UserClient::CheckSecurity(string username,string security,string answer)
+ string UserClient::CheckSecurity(string username,string security,string answer)
 {
    this->reConnect();
      if (buffer==NULL) return false;

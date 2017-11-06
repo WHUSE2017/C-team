@@ -48,8 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // 创建活动菜单
     activityMenu = ui->menuBar->addMenu(tr("活动(&A)"));
-    publishAction = activityMenu->addAction("已发布的活动");
-    joinAction = activityMenu->addAction("已参加的活动");
+    runAction = activityMenu->addAction("正在进行");
     recordAction = activityMenu->addAction("活动记录");
 
     // 创建邀请菜单
@@ -64,16 +63,17 @@ MainWindow::MainWindow(QWidget *parent) :
     // 创建帮助菜单
     helpMenu = ui->menuBar->addMenu(tr("帮助(&H)"));
     documentAction = helpMenu->addAction(tr("&文档"));
+    updateLogAction = helpMenu->addAction(tr("更新日志"));
     aboutAction = helpMenu->addAction(tr("&关于"));
 
     // 第一行布局：用户名和注销按钮
-    QPixmap image; //定义一张图片
-    image.load("images/avatar.png");//加载
-    avatar->clear();//清空
-    avatar->setPixmap(image);//加载到Label标签
-    avatar->show();//显示
-    avatar->setMaximumHeight(80);
-    avatar->setMaximumWidth(80);
+//    QPixmap image; //定义一张图片
+//    image.load("images/avatar.png");//加载
+//    avatar->clear();//清空
+//    avatar->setPixmap(image);//加载到Label标签
+//    avatar->show();//显示
+//    avatar->setMaximumHeight(80);
+//    avatar->setMaximumWidth(80);
     mainLayout->addWidget(avatar,0,3,1,1);
 //    userName->setText(userNameGlobal);
     userName->setAlignment(Qt::AlignCenter);
@@ -81,7 +81,7 @@ MainWindow::MainWindow(QWidget *parent) :
     p->ReadINI("conf.ini");
     userName->setText(StdStringToQString(p->GetValue("User","userName")));
     userName->setMinimumHeight(100);
-    mainLayout->addWidget(userName,0,4,1,1);
+    mainLayout->addWidget(userName,0,3,1,2);
 
     startLabel->setText("始发地:");
     mainLayout->addWidget(startLabel,1,0,1,1);
@@ -107,6 +107,10 @@ MainWindow::MainWindow(QWidget *parent) :
     type->addItem("打牌");
     type->addItem("露营");
     mainLayout->addWidget(type,2,5,1,3);
+    QLabel *hj = new QLabel(this);
+    hj->setText("温馨提示:搜索时可以勾选相应的条件.");
+    hj->setStyleSheet("color:rgb(100,100,100);");
+    mainLayout->addWidget(hj,3,0,1,2);
 
     searchBtn->setText("搜索");
     mainLayout->addWidget(searchBtn,3,7,1,1);
@@ -130,26 +134,28 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(aboutAction,SIGNAL(triggered()),this,SLOT(AboutActionClicked()));
     connect(blackAction,SIGNAL(triggered()),this,SLOT(BlackActionClicked()));
     connect(whiteAction,SIGNAL(triggered()),this,SLOT(WhiteActionClicked()));
+    connect(updateLogAction,SIGNAL(triggered()),this,SLOT(UpdateLogActionClicked()));
     connect(defaultAction,SIGNAL(triggered()),this,SLOT(DefaultActionClicked()));
     connect(publishBtn,&QPushButton::clicked,this,&MainWindow::PublishBtnClicked);
     connect(userName, SIGNAL(clicked()), this, SLOT(UserNameClicked()));
 
-    connect(publishAction,SIGNAL(triggered()),this,SLOT(PublishActionClicked()));
-    connect(joinAction,SIGNAL(triggered()),this,SLOT(JoinActionClicked()));
+    connect(runAction,SIGNAL(triggered()),this,SLOT(RunActionClicked()));
     connect(recordAction,SIGNAL(triggered()),this,SLOT(RecordActionClicked()));
 }
 
-void MainWindow::PublishActionClicked()
+void MainWindow::UpdateLogActionClicked()
+{
+    QMessageBox::information(this, tr("更新日志"),
+                tr("1. 增加记住密码功能\n2. 皮肤优化\n3.修复参团人数BUG\n4. 增加发送信息检测用户"),
+                QMessageBox::tr("确定"));
+}
+
+void MainWindow::RunActionClicked()
 {
     ActivityDialog *dlg = new ActivityDialog;
     dlg->show();
 }
 
-void MainWindow::JoinActionClicked()
-{
-    ActivityDialog *dlg = new ActivityDialog;
-    dlg->show();
-}
 
 void MainWindow::RecordActionClicked()
 {
@@ -346,12 +352,34 @@ bool MainWindow::JudgeEmpty()
                     QMessageBox::tr("确定"));
         return false;
     }
-//    if(dateTime->text().toStdString() < QDateTime::currentDateTime().toString().toStdString()) {
-//        QMessageBox::information(this, tr(""),
-//                    tr("出发日期无效，请修改！"),
-//                    QMessageBox::tr("确定"));
-//        return false;
-//    }
+    string str1 = dateTime->text().toStdString();
+    string s1 = "";
+    for(int k = 0; k < 10; k++) {
+        if(k == 4 || k == 7) continue;
+        s1 += str1[k];
+    }
+
+    QDateTime current_date_time = QDateTime::currentDateTime();
+    QString s = current_date_time.toString("yyyy-MM-dd");
+    string str2 = s.toStdString();
+    string s2 = "";
+    for(int k = 0; k < 10; k++) {
+        if(k == 4 || k == 7) continue;
+        s2 += str2[k];
+    }
+    char* end;
+    long long i = static_cast<long long>(strtol(s1.c_str(),&end,10));
+    long long j = static_cast<long long>(strtol(s2.c_str(),&end,10));
+
+//    QMessageBox::information(this, tr(""),
+//                QString("%1%2").arg(i).arg(j),
+//                QMessageBox::tr("确定"));
+    if(i < j) {
+        QMessageBox::information(this, tr(""),
+                    tr("出发日期无效，请修改！"),
+                    QMessageBox::tr("确定"));
+        return false;
+    }
     return true;
 }
 
@@ -418,7 +446,6 @@ void MainWindow::SearchBtnClicked()
         messageWidget->clearContents();
 //    }
     resultNum = es.size();
-    //for(int i = 0; i < 12; i++)
     for (int i=0;iter2 != es.end() ;++iter2,i++)
     {
         EventStruct ee = *iter2;

@@ -47,8 +47,8 @@ private:
     QLabel *security = new QLabel(this);
     QComboBox *securityQuestion = new QComboBox(this);    //密保问题
     QLineEdit *securityAnswer = new QLineEdit(this);
-    QLabel *imageLabel = new QLabel(this);
-    QPushButton *imageBtn = new QPushButton(this);  //头像上传
+//    QLabel *imageLabel = new QLabel(this);
+//    QPushButton *imageBtn = new QPushButton(this);  //头像上传
 //    QLabel *selfTagLabel = new QLabel(this);
 //    QWidget *tag = new QWidget(this);       //自我标签
     QLabel *signatureLabel = new QLabel(this); //个性签名
@@ -61,7 +61,7 @@ private:
 private slots:
     void ConfirmBtnClicked();
     void BackBtnClicked();
-    void OpenImage();
+//    void OpenImage();
     bool JudgeEmpty();
     bool isNotDigitStr(QString src);
     bool isDigitStr(QString src);

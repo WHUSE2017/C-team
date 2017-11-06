@@ -19,14 +19,14 @@ DetailDialog::DetailDialog(QWidget *parent) :
     this->setWindowFlags(Qt::FramelessWindowHint);
 
     // 第一行布局：用户名和注销按钮
-    QPixmap image; //定义一张图片
-    image.load("images/avatar.png");//加载
-    avatar->clear();//清空
-    avatar->setPixmap(image);//加载到Label标签
-    avatar->show();//显示
-    avatar->setMaximumHeight(80);
-    avatar->setMaximumWidth(80);
-    avatar->setAlignment(Qt::AlignCenter);
+//    QPixmap image; //定义一张图片
+//    image.load("images/avatar.png");//加载
+//    avatar->clear();//清空
+//    avatar->setPixmap(image);//加载到Label标签
+//    avatar->show();//显示
+//    avatar->setMaximumHeight(80);
+//    avatar->setMaximumWidth(80);
+//    avatar->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(avatar,0,0,3,2);
 
     EventStruct ee_temp = client.getEventById(eventIDGlobal);
@@ -94,7 +94,7 @@ void DetailDialog::search()
 {
     messageWidget->setColumnCount(6);
 
-    messageWidget->setHorizontalHeaderLabels(QStringList() << tr("用户名") << tr("性别") << tr("学校")<< tr("游玩次数") << tr("电话") << tr("tag"));    // 设置列名
+    messageWidget->setHorizontalHeaderLabels(QStringList() << tr("用户名") << tr("性别") << tr("学校")<< tr("游玩次数") << tr("电话") << tr("个性签名"));    // 设置列名
     messageWidget->setColumnWidth(0, 150);
     messageWidget->setColumnWidth(2, 180);
     messageWidget->setColumnWidth(4, 250);
@@ -116,16 +116,16 @@ void DetailDialog::search()
         QTableWidgetItem *item4 = messageWidget->item(i,4); // 出发时间
         QTableWidgetItem *item5 = messageWidget->item(i,5); // 备注
 
-        QWidget *remark = new QWidget(this);
-        QGridLayout *layout = new QGridLayout(this);
+//        QWidget *remark = new QWidget(this);
+//        QGridLayout *layout = new QGridLayout(this);
         // 创建QPushButton控件
-        QPushButton *joinBtn = new QPushButton(this);
-        joinBtn->setText("活泼");
-        layout->addWidget(joinBtn,0,0,1,1);
-        QPushButton *detailBtn = new QPushButton(this);
-        detailBtn->setText("爱笑");
-        layout->addWidget(detailBtn,0,1,1,1);
-        remark->setLayout(layout);
+//        QPushButton *joinBtn = new QPushButton(this);
+//        joinBtn->setText("出行成功");
+//        layout->addWidget(joinBtn,0,0,1,1);
+//        QPushButton *detailBtn = new QPushButton(this);
+//        detailBtn->setText("退出");
+//        layout->addWidget(detailBtn,0,1,1,1);
+//        remark->setLayout(layout);
 
         if(item0) {
             item0->setFlags((item0->flags()&(~Qt::ItemIsEditable)));
@@ -164,7 +164,9 @@ void DetailDialog::search()
             messageWidget->setItem(i, 4, item4);
 
             item5 = new QTableWidgetItem;
-            messageWidget->setCellWidget(i,5,remark);
+            item5->setText(StdStringToQString(uinfo.SelfTag));
+            item5->setTextAlignment(Qt::AlignCenter);
+            messageWidget->setItem(i,5,item5);
         }
     }
     messageWidget->show();

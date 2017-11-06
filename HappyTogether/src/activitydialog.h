@@ -9,6 +9,7 @@
 #include <QTextEdit>
 #include <QComboBox>
 #include <QTableWidget>
+#include <string.h>
 
 namespace Ui {
 class ActivityDialog;
@@ -30,7 +31,9 @@ private:
 
 
 private slots:
+    void JoinBtnClicked(int eventID);
     void ExitBtnClicked(int eventID);
+    void DetailBtnClicked(int eventID);
 };
 
 #endif // ACTIVITYDIALOG_H

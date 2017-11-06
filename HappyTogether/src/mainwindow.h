@@ -48,11 +48,11 @@ private:
     QAction *sendMessageAction;//发送消息
     //QAction *inviteAction;//邀请用户
     QMenu *activityMenu; //活动菜单
-    QAction *publishAction;
-    QAction *joinAction;
+    QAction *runAction;
     QAction *recordAction;
     QMenu *helpMenu;    //帮助菜单
     QAction *documentAction;//软件操作帮助文档
+    QAction *updateLogAction;   //更新日志
     QAction *aboutAction;   //关于软件
     QMenu *skinMenu;    //换肤菜单
     QAction *blackAction;//黑色炫酷
@@ -88,8 +88,8 @@ private slots:
     void BlackActionClicked();
     void WhiteActionClicked();
     void DefaultActionClicked();
-    void PublishActionClicked();
-    void JoinActionClicked();
+    void RunActionClicked();
+    void UpdateLogActionClicked();
     void RecordActionClicked();
 
     void SearchBtnClicked();

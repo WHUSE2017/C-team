@@ -534,8 +534,9 @@ string session_c::getSecurity(char *params)
     return ret;
 }
 
-  bool session_c::checkSecurity(char *params)
+  string session_c::checkSecurity(char *params)
   {
+      string ret="";
       request_t req;
       req.type = TYPE_CHECKSECURITY;
       req.flag =0;
@@ -544,9 +545,15 @@ string session_c::getSecurity(char *params)
       if (!SendAndCheck(&req))
               return false;
       reply_t *reply = this->get_reply();
-      if (strcmp(reply->data,"success")==0)
+      char *data = reply->data;
+      char *key,*value;
+
+      while ( (data=get_key_values(data,&key,&value)) !=NULL )
       {
-              return true;
+              if (strcmp(key,"passwd") == 0 )
+                     ret = value;
+              if (strlen(data)==0)
+                              break;
       }
-      return false;
+      return ret;
   }
