@@ -77,9 +77,9 @@ PersonalDataDialog::PersonalDataDialog(QWidget *parent) :
 //        personalDataLayout->addWidget(imageLabel,10,0,1,1);
 //        imageBtn->setText("上传");
 //        personalDataLayout->addWidget(imageBtn,10,1,1,2);
-        security->setText("密保问题");
+        security->setText("密保问题：");
         personalDataLayout->addWidget(security,10,0,1,1);
-        string str = client.GetSecurity(QStringToStdString(userName->text()));
+        string str = client.GetSecurity(uinfo.UserName);
 
         securityQuestion->setText(StdStringToQString(str));
         personalDataLayout->addWidget(securityQuestion,10,1,1,2);

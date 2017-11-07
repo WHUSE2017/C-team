@@ -79,18 +79,21 @@ MainWindow::MainWindow(QWidget *parent) :
     userName->setAlignment(Qt::AlignCenter);
     CMyINI *p = new CMyINI();
     p->ReadINI("conf.ini");
-    userName->setText(StdStringToQString(p->GetValue("User","userName")));
+    QString tt = StdStringToQString(p->GetValue("User","userName"));
+    userName->setText("欢迎你  "+tt);
     userName->setMinimumHeight(100);
-    mainLayout->addWidget(userName,0,3,1,2);
+    mainLayout->addWidget(userName,0,2,1,3);
 
     startLabel->setText("始发地:");
     mainLayout->addWidget(startLabel,1,0,1,1);
     mainLayout->addWidget(start,1,1,1,3);
     timeLabel->setText("出发日期:");
+    dateTime->setDisplayFormat("yyyy-MM-dd");
     dateTime->setCalendarPopup(true);
-    //QDateTime current_date_time = QDateTime::currentDateTime();
-    //QString current_date = current_date_time.toString("yyyy-MM-dd");
-    dateTime->setDateTime(QDateTime::currentDateTime());
+//    QDateTime current_date_time = QDateTime::currentDateTime().;
+//    QString current_date = current_date_time.toString("yyyy-MM-dd");
+    dateTime->setDate(QDate::currentDate());
+//    dateTime->setDisplayFormat(current_date);
     mainLayout->addWidget(timeLabel,1,4,1,1);
     mainLayout->addWidget(dateTime,1,5,1,3);
 
@@ -146,7 +149,8 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::UpdateLogActionClicked()
 {
     QMessageBox::information(this, tr("更新日志"),
-                tr("1. 增加记住密码功能\n2. 皮肤优化\n3.修复参团人数BUG\n4. 增加发送信息检测用户"),
+                tr("1. 增加记住密码功能\n2. 皮肤优化\n3.修复参团人数BUG\n4. 增加发送信息检测用户\n5.修复搜索不到结果出现表格边框问题\n"
+                   "6.增加密码找回\n7.能显示正在进行的活动\n8.发布日期增加了判断"),
                 QMessageBox::tr("确定"));
 }
 
@@ -329,7 +333,7 @@ void MainWindow::AboutActionClicked()
     QMessageBox::information(this, tr("关于软件"),
                 tr("该PC端APP，是一个同行者的信息搜索平台，旨在为喜欢游玩，但是身边同学朋友时间冲突，想找人结伴的年轻人提供"
                    "一个检索平台，让他们尽量能够快速便捷的寻找合适同行者。该APP有登录、注册、主页面（发布行程、搜索）、群组详"
-                   "情、个人资料修改等功能。\n版本1.0"),
+                   "情、个人资料修改等功能。\n             版本·Bate版"),
                 QMessageBox::tr("确定"));
 }
 
@@ -435,7 +439,8 @@ void MainWindow::SearchBtnClicked()
     vector<EventStruct>::iterator iter2 = es.begin();
     if(es.size() == 0) {
         messageWidget->clearContents();
-        messageWidget->show();
+        messageWidget->setRowCount(0);
+//        messageWidget->show();
         QMessageBox::information(this, tr(""),
                 tr("未搜索到结果！"),
                 QMessageBox::tr("确定"));

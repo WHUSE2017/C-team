@@ -5,7 +5,7 @@
 ReceiveMessageDialog::ReceiveMessageDialog(QWidget *parent)
     :QToolBox(parent)
 {
-    this->resize(400,500);
+    this->resize(500,500);
     this->setWindowTitle("消息/通知");
     QFont fontStyle = GetFont();
     this->setStyleSheet(GetStyle());
@@ -22,7 +22,7 @@ ReceiveMessageDialog::ReceiveMessageDialog(QWidget *parent)
          // cout<<mes.SenderName<<" "<<mes.ReceiverName<<" "<<mes.Message<<" "<<mes.Time<<endl;
         content = new QLabel(this);
         messageLayout = new QVBoxLayout(this);
-        content->setMaximumWidth(350);
+        content->setMaximumWidth(450);
         content->setWordWrap(true);
         groupBox = new QGroupBox(this);
         content->setText(StdStringToQString(mes.Message));

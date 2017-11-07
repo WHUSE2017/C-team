@@ -82,7 +82,7 @@ void SendMessageDialog::SendBtnClicked()
                     QMessageBox::tr("确定"));
     else
         QMessageBox::warning(this, tr(""),
-                    tr("发送失败"),
+                    tr("发送失败,请检测收消息的用户是否存在！"),
                     QMessageBox::tr("确定"));
 }
 

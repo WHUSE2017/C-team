@@ -645,26 +645,6 @@ QLabel#skinLabel[colorProperty="highlight"] {
         color: rgb(0, 160, 230);
 }
 
-QLabel#informationLabel {
-        qproperty-pixmap: url(:/White/information);
-}
-
-QLabel#errorLabel {
-        qproperty-pixmap: url(:/White/error);
-}
-
-QLabel#successLabel {
-        qproperty-pixmap: url(:/White/success);
-}
-
-QLabel#questionLabel {
-        qproperty-pixmap: url(:/White/question);
-}
-
-QLabel#warningLabel {
-        qproperty-pixmap: url(:/White/warning);
-}
-
 QLabel#groupLabel {
         color: rgb(56, 99, 154);
         border: 1px solid rgb(111, 156, 207);
