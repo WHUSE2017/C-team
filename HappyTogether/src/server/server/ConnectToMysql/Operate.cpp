@@ -145,7 +145,8 @@ vector<ParticipantsStrcut> Operate::GetParticipantsByUsername(string Username)
 		MYSQL_ROW sql_row;
 		string sqlstr;
 		sqlstr =
-			"select * from Participants where UserName =='" + Username + "'; ";
+			"select * from Participants where UserName ='" + Username + "'; ";
+		
 		if (0 == mysql_query(&mydata, sqlstr.c_str()))
 		{
 			result = mysql_store_result(&mydata);
@@ -200,6 +201,7 @@ vector<EventStruct> Operate::getEventByCondition(string publisher, string partic
 
 	if (publisher == "NULL" && participant != "NULL")
 	{
+		cout<<"querry participant"<<endl;
 		vector<ParticipantsStrcut> Partis = GetParticipantsByUsername(participant);
 		vector<EventStruct> Event;
 		while (!Partis.empty())
@@ -210,8 +212,8 @@ vector<EventStruct> Operate::getEventByCondition(string publisher, string partic
 			MYSQL_ROW sql_row;
 			string sqlstr;
 			sqlstr =
-				"select * from Event where EventID   ='" + IntToString(ps.EventID) + "' and State ='" +IntToString(state) + "';";
-			
+				"select * from Event where EventID   =" + IntToString(ps.EventID) + " and State =" +IntToString(state) + ";";
+				cout<<sqlstr<<endl;
 			if (0 == mysql_query(&mydata, sqlstr.c_str()))
 			{
 				result = mysql_store_result(&mydata);
@@ -620,7 +622,7 @@ vector<StationMessageStruct> Operate::GetMessageByReceiver(string ReceiverName)
 	MYSQL_ROW sql_row;
 	string sqlstr;
 	sqlstr =
-		"select * from StationMessage where ReceiverName ='" + ReceiverName + "'";
+		"select * from StationMessage where ReceiverName ='" + ReceiverName + "' "+ "order by Time desc;";
 	if (0 == mysql_query(&mydata, sqlstr.c_str()))
 	{
 		result = mysql_store_result(&mydata);

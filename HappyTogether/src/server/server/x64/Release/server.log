@@ -1,9 +1,23 @@
-﻿生成启动时间为 2017/11/7 10:15:57。
+﻿生成启动时间为 2017/11/7 10:52:00。
      1>项目“G:\qt\C-team\HappyTogether\src\server\server\server.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
-         正在对“x64\Release\server.unsuccessfulbuild”执行 Touch 任务。
+         正在创建“x64\Release\server.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
-         所有输出均为最新。
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files\MySQL\MySQL Server 5.6\include" /Zi /nologo /W1 /WX- /O2 /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Release\\" /Fd"x64\Release\vc100.pdb" /Gd /TP /errorReport:prompt ConnectToMysql\Operate.cpp Service.cpp
+         Operate.cpp
+         Service.cpp
+         Generating Code...
+     1>g:\qt\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(266): warning C4715: “Operate::GetSecretSecurity”: 不是所有的控件路径都返回值
+     1>g:\qt\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(866): warning C4715: “Operate::GetEventDetailById”: 不是所有的控件路径都返回值
+     1>g:\qt\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(887): warning C4715: “Operate::DeleteDataParticipants”: 不是所有的控件路径都返回值
+     1>g:\qt\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(165): warning C4715: “Operate::GetParticipantsByUsername”: 不是所有的控件路径都返回值
+     1>g:\qt\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(244): warning C4715: “Operate::getEventByCondition”: 不是所有的控件路径都返回值
+     1>g:\qt\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(333): warning C4715: “Operate::LikeUserName”: 不是所有的控件路径都返回值
+     1>g:\qt\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(590): warning C4715: “Operate::GetEvent”: 不是所有的控件路径都返回值
+     1>g:\qt\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(617): warning C4715: “Operate::GetMessageBySender”: 不是所有的控件路径都返回值
+     1>g:\qt\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(643): warning C4715: “Operate::GetMessageByReceiver”: 不是所有的控件路径都返回值
+     1>g:\qt\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(745): warning C4715: “Operate::GetEventByLike”: 不是所有的控件路径都返回值
+     1>g:\qt\c-team\happytogether\src\server\server\connecttomysql\operate.cpp(778): warning C4715: “Operate::GetEventByState”: 不是所有的控件路径都返回值
        Link:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"G:\qt\C-team\HappyTogether\src\server\x64\Release\server.exe" /NOLOGO /LIBPATH:"C:\Program Files\MySQL\MySQL Server 5.6\lib" libmysql.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Release\server.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"G:\qt\C-team\HappyTogether\src\server\x64\Release\server.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"G:\qt\C-team\HappyTogether\src\server\x64\Release\server.lib" /MACHINE:X64 x64\Release\Operate.obj
          x64\Release\stdafx.obj
@@ -23,4 +37,4 @@
 
 生成成功。
 
-已用时间 00:00:00.40
+已用时间 00:00:02.73

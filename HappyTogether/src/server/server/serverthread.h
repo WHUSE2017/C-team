@@ -633,6 +633,7 @@ void service_geteventbycondition(session_s * ses,request_t *req)
 		  params_strcat(buffer,"END","END",bufferlen);
 	 }
 	params_strcat(buffer,"NULL","NULL",bufferlen);
+
 	reply_t reply;
 	reply.type=TYPE_GETEVENTBYCONDITIONS;
 	reply.flag =1;
