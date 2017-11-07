@@ -137,9 +137,9 @@ void service_getuserinfo(session_s * ses,request_t *req)
 	string bExist=ses->op->GetPasswordFromUserTable(str_name);
 	
 	reply_t reply;
-	int bufferlen =2048;
-	char buffer[2048];
-	memset(buffer,0,2048);
+	int bufferlen =8192*2;
+	char buffer[8192*2];
+	memset(buffer,0,8192*2);
 	reply.type=TYPE_GETUSERINFO;
 	reply.flag =-1;
 	struct userStruct userInfo;
@@ -242,8 +242,8 @@ void service_getmessages(session_s * ses,request_t *req)
 		messages=ses->op->GetMessageByReceiver(str_name);
 	}
 	vector<StationMessageStruct>::iterator iter = messages.begin();
-	char buffer[2048];
-	int bufferlen =2048;
+	char buffer[8192*2];
+	int bufferlen =8192*2;
 	memset(buffer,0,bufferlen);
 	for (;iter != messages.end() ;++iter)
 	 {
@@ -351,8 +351,8 @@ void service_getevent(session_s * ses,request_t *req)
 	vector<EventStruct> es=ses->op->GetEvent(StartSite, EndSite, StartTime,EventType);
 
 	vector<EventStruct>::iterator iter = es.begin();
-	char buffer[2048];
-	int bufferlen =2048;
+	char buffer[8192*2];
+	int bufferlen =8192*2;
 	memset(buffer,0,bufferlen);
 	for (;iter != es.end() ;++iter)
 	 {
@@ -425,8 +425,8 @@ void service_getparticipants(session_s * ses,request_t *req)
 	}
 	vector<string> ps=ses->op->GetParticipants(EventID);
 	vector<string>::iterator iter = ps.begin();
-	char buffer[2048];
-	int bufferlen =2048;
+	char buffer[8192*2];
+	int bufferlen =8192*2;
 	memset(buffer,0,bufferlen);
 	for (;iter != ps.end() ;++iter)
 	 {
@@ -461,8 +461,8 @@ void service_geteventdetail(session_s * ses,request_t *req)
 	}
 	EventStruct ee=ses->op->GetEventDetailById(EventID);
 
-	char buffer[2048];
-	int bufferlen =2048;
+	char buffer[8192*2];
+	int bufferlen =8192*2;
 	memset(buffer,0,bufferlen);
 	setEventParams(buffer,bufferlen,ee);
 
@@ -623,8 +623,8 @@ void service_geteventbycondition(session_s * ses,request_t *req)
 	vector<EventStruct> es=ses->op->getEventByCondition(str_publisher, str_participant, state);
 
 	vector<EventStruct>::iterator iter = es.begin();
-	char buffer[2048];
-	int bufferlen =2048;
+	char buffer[8192*2];
+	int bufferlen =8192*2;
 	memset(buffer,0,bufferlen);
 	for (;iter != es.end() ;++iter)
 	 {
@@ -700,8 +700,8 @@ void service_getsecurity(session_s * ses,request_t *req)
 	
 		SecretSecurityStruct sec = ses->op->GetSecretSecurity(str_name);
 
-		char buffer[2048];
-		int bufferlen = 2048;
+		char buffer[8192*2];
+		int bufferlen = 8192*2;
 		memset(buffer,0,bufferlen);
 		params_strcat(buffer,"security",(char*)sec.Security.data(),bufferlen);
 		reply_t reply;
@@ -735,8 +735,8 @@ void service_checksecurity(session_s * ses,request_t *req)
 		reply_t reply;
 		reply.type=TYPE_CHECKSECURITY;
 		reply.flag =1;
-		char buffer[2048];
-		int bufferlen = 2048;
+		char buffer[8192*2];
+		int bufferlen = 8192*2;
 		cout<<sec.Security<< "    ::   "<<sec.Answer<<endl;
 	cout<<sec2.Security<< "     ::  "<<sec2.Answer<<endl;
 		memset(buffer,0,bufferlen);
